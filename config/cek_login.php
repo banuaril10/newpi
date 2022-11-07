@@ -51,7 +51,7 @@ $cmd = ['CREATE TABLE poserp.m_pi (
     category numeric DEFAULT 1 NOT NULL,
 	insertfrommobile character varying(15),
 	insertfromweb character varying(15)
-);','CREATE INDEX m_pi_m_pi_key_idx ON poserp.m_pi  (m_pi_key);','CREATE INDEX m_pi_name_idx ON poserp.m_pi  (name);'];
+);','CREATE INDEX IF NOT EXISTS m_pi_m_pi_key_idx ON poserp.m_pi  (m_pi_key);','CREATE INDEX IF NOT EXISTS m_pi_name_idx ON poserp.m_pi  (name);'];
 
 $cmd_alter = ['ALTER TABLE m_pi ADD COLUMN IF NOT EXISTS insertfrommobile varchar(15);','ALTER TABLE m_pi ADD COLUMN IF NOT EXISTS insertfromweb varchar(15);'];
 
@@ -79,9 +79,9 @@ $cmd2 = ['CREATE TABLE poserp.m_piline (
     status1 numeric DEFAULT 0,
     qtysalesout numeric DEFAULT 0,
 	barcode varchar(30)
-);','CREATE INDEX m_piline_insertdate_idx ON poserp.m_piline  (insertdate);',
-'CREATE INDEX m_piline_m_pi_key_idx ON poserp.m_piline  (m_pi_key);',
-'CREATE INDEX m_piline_sku_idx ON poserp.m_piline (sku);'
+);','CREATE INDEX IF NOT EXISTS m_piline_insertdate_idx ON poserp.m_piline  (insertdate);',
+'CREATE INDEX IF NOT EXISTS m_piline_m_pi_key_idx ON poserp.m_piline  (m_pi_key);',
+'CREATE INDEX IF NOT EXISTS m_piline_sku_idx ON poserp.m_piline (sku);'
 ];
 
 
@@ -121,7 +121,7 @@ $inv_mproduct = ['CREATE TABLE poserp.inv_mproduct (
     qty numeric,
     qtyerp numeric,
     m_locator_id character varying(32)
-);','CREATE INDEX inv_idx ON poserp.inv_mproduct (sku);','CREATE INDEX inv_rackname ON poserp.inv_mproduct  (rack_name);'];
+);','CREATE INDEX IF NOT EXISTS inv_idx ON poserp.inv_mproduct (sku);','CREATE INDEX IF NOT EXISTS inv_rackname ON poserp.inv_mproduct  (rack_name);'];
 
 $inv_mproductcat = ['CREATE TABLE inv_mproductcategory (
     inv_mproductcategory_key character varying(32) DEFAULT (uuid()) NOT NULL,
@@ -141,7 +141,8 @@ $inv_mproductcat = ['CREATE TABLE inv_mproductcategory (
 );'];
 
 
-$index = ['CREATE INDEX pos_mproduct_sku ON poserp.pos_mproduct (sku);','CREATE INDEX pos_mproduct_barcode ON poserp.pos_mproduct (barcode);','CREATE INDEX pos_mproduct_sc ON poserp.pos_mproduct (shortcut);','CREATE INDEX m_piline_barcode_idx ON poserp.m_piline (barcode);'];
+$index = ['CREATE INDEX IF NOT EXISTS pos_mproduct_sku ON poserp.pos_mproduct (sku);','CREATE INDEX IF NOT EXISTS pos_mproduct_barcode ON poserp.pos_mproduct (barcode);','CREATE INDEX IF NOT EXISTS pos_mproduct_sc ON poserp.pos_mproduct (shortcut);',
+'CREATE INDEX IF NOT EXISTS m_piline_barcode_idx ON poserp.m_piline (barcode);'];
 
 foreach ($index as $r){
 
