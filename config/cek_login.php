@@ -103,7 +103,7 @@ $inv_temp = ['CREATE TABLE inv_temp (
 ];
 
 $inv_mproduct = ['CREATE TABLE inv_mproduct (
-    inv_mproduct_key character varying(32) DEFAULT (uuid()) NOT NULL,
+    inv_mproduct_key character varying(36) DEFAULT (uuid()) NOT NULL,
     isactived character varying(2),
     insertdate datetime,
     insertby character varying(50),
@@ -124,7 +124,7 @@ $inv_mproduct = ['CREATE TABLE inv_mproduct (
 );','CREATE INDEX IF NOT EXISTS inv_idx ON inv_mproduct (sku);','CREATE INDEX IF NOT EXISTS inv_rackname ON inv_mproduct  (rack_name);'];
 
 $inv_mproductcat = ['CREATE TABLE inv_mproductcategory (
-    inv_mproductcategory_key character varying(32) DEFAULT (uuid()) NOT NULL,
+    inv_mproductcategory_key character varying(36) DEFAULT (uuid()) NOT NULL,
     ad_mclient_key character varying(45),
     ad_morg_key character varying(45),
     isactived character(1),

@@ -1828,6 +1828,9 @@ if($_GET['modul'] == 'inventory'){
 							
 							
 							foreach ($connec->query($sql_line) as $rline) {
+								
+								$connec->query("update pos_mproduct set isactived = 1 where sku = '".$rline['sku']."'");
+								
 								$items[] = array(
 									'm_piline_key'	=>$rline['m_piline_key'], 
 									'm_pi_key' 		=>$rline['m_pi_key'], 
@@ -2049,7 +2052,7 @@ if($_GET['modul'] == 'inventory'){
 		
 	}
 		
-
+	// echo $values;
 	echo $json_string;	
 				
 
