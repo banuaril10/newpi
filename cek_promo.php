@@ -29,6 +29,9 @@
 			
 			
 			<div class="card-body">
+			
+			<button type="button" onclick="syncPromo();" class="btn btn-primary">Sync Promo</button>
+			
 			<div class="tables">	
 			<p id="notif" style="color: red; font-weight: bold"></p>
 			<!--<button onclick="turnOn();" class="switch">On</button>
@@ -103,6 +106,33 @@
  
           });
         });
+		
+		
+function syncPromo(){
+	$("#overlay").fadeIn(300);
+
+		$.ajax({
+		url: "api/action.php?modul=inventory&act=sync_promo",
+		type: "POST",
+		beforeSend: function(){
+			$('#notif').html("Proses sync Promo..");
+			
+		},
+		success: function(dataResult){
+			console.log(dataResult);
+			var dataResult = JSON.parse(dataResult);
+			location.reload();
+			$('#notif').html("<font style='color: green'>"+dataResult.msg+"</font>");
+			$("#overlay").fadeOut(300);
+			
+		}
+		});
+		
+	
+	
+	
+	
+}
 // function onScanSuccess(decodedText, decodedResult) {
     // console.log(`Code scanned = ${decodedText}`, decodedResult);
 	// getItems(decodedText);

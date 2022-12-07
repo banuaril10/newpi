@@ -45,7 +45,7 @@
 					];
 					
 					
-					$result4 = $connec->query("SELECT 1 FROM information_schema.tables WHERE table_schema = 'poserp' AND table_name = 'm_piversion'" );
+					$result4 = $connec->query("SELECT 1 FROM information_schema.tables WHERE table_name = 'm_piversion'" );
 					if($result4->rowCount() == 1) {
 						// $cek1 = $connec->query("select * from m_piversion");
 						
@@ -69,7 +69,7 @@
 					}
 					
 					
-					$cmd4 = ['CREATE TABLE poserp.m_pi_users (
+					$cmd4 = ['CREATE TABLE m_pi_users (
 							ad_muser_key character varying(50),
 							isactived numeric DEFAULT 1,
 							userid character varying(45),
@@ -80,7 +80,7 @@
 						);'
 					];
 					
-					$result3 = $connec->query("SELECT 1 FROM information_schema.tables WHERE table_schema = 'poserp' AND table_name = 'm_pi_users'" );
+					$result3 = $connec->query("SELECT 1 FROM information_schema.tables WHERE table_name = 'm_pi_users'" );
 					if($result3->rowCount() == 1) {
 						$cek = $connec->query("select * from m_pi_users");
 						$cek_cek = $connec->query("select * from m_pi_users where ad_muser_key = '112233445566'");
@@ -96,7 +96,7 @@
 							
 							foreach ($results as $r) {
 								
-				$connec->query("INSERT INTO poserp.m_pi_users
+				$connec->query("INSERT INTO m_pi_users
 (ad_muser_key, isactived, userid, username, userpwd, ad_org_id, name)
 VALUES('11223344556677', 1, 'akunglobalit', 'Akun Global IT', '8252b14572f9575795082c43d3448c9051992e834c22872c878420e0676684ed', '".$r['storeid']."', 'Ka. Toko');");
 							}
@@ -114,7 +114,7 @@ VALUES('11223344556677', 1, 'akunglobalit', 'Akun Global IT', '8252b14572f957579
 							
 							foreach ($results1 as $r1) {
 								
-				$connec->query("INSERT INTO poserp.m_pi_users
+				$connec->query("INSERT INTO m_pi_users
 				(ad_muser_key, isactived, userid, username, userpwd, ad_org_id, name)
 				VALUES('adminpromo', 1, 'adminpromo', 'Admin Promo', '8252b14572f9575795082c43d3448c9051992e834c22872c878420e0676684ed', '".$r1['storeid']."', 'Promo');");
 							}
@@ -131,7 +131,7 @@ VALUES('11223344556677', 1, 'akunglobalit', 'Akun Global IT', '8252b14572f957579
 						}
 						
 						if($count1 == 0){
-							$connec->query("INSERT INTO poserp.m_pi_users
+							$connec->query("INSERT INTO m_pi_users
 (ad_muser_key, isactived, userid, username, userpwd, ad_org_id, name)
 VALUES('112233445566', 1, 'akuncekharga', 'Cek Harga Idol', '8252b14572f9575795082c43d3448c9051992e834c22872c878420e0676684ed', '112233445566', 'IT');");
 						}
@@ -219,7 +219,16 @@ function cekVersion(){
 				$(':input[type="submit"]').prop('disabled', false);
 			}else{
 				
-				$('#notif1').html("<font style='color: red'>Versi belum update, silahkan update dulu ke ver "+dataResults.version+"</font> <a target=_blank href='https://idolmart.co.id/live/pi/doc_pi.php'>Link update</a>");
+				if(dataResults.version === null){
+					var msg = "<font style='color: red'>Periksa koneksi internet</font>";
+					
+				}else{
+					
+					var msg = "<font style='color: red'>Versi belum update, silahkan update dulu ke ver "+dataResults.version+"</font>";
+					
+				}
+				
+				$('#notif1').html(msg+" <a target=_blank href='https://idolmart.co.id/live/pi/doc_pi.php'>Link update</a>");
 				$(':input[type="submit"]').prop('disabled', true);
 			}
 			// else {

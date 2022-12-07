@@ -81,6 +81,30 @@ function get_data_gudang($org){
 }
 
 
+function get_data_promo($org){
+	
+	$curl = curl_init();
+
+	curl_setopt_array($curl, array(
+	CURLOPT_URL => "https://pi.idolmartidolaku.com/api/action.php?modul=inventory&act=sync_promo&org_id=".$org,
+	CURLOPT_RETURNTRANSFER => true,
+	CURLOPT_ENCODING => '',
+	CURLOPT_MAXREDIRS => 10,
+	CURLOPT_TIMEOUT => 0,
+	CURLOPT_FOLLOWLOCATION => true,
+	CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+	CURLOPT_CUSTOMREQUEST => 'GET',
+	));
+	
+	$response = curl_exec($curl);
+	
+	curl_close($curl);
+	return $response;
+	
+	
+}
+
+
 function get_data_cat($ss, $pc, $org_key, $kode_toko){
 	
 	$postData = array(
@@ -2029,6 +2053,100 @@ if($_GET['modul'] == 'inventory'){
 	echo $json_string;	
 				
 
+	}else if($_GET['act'] == 'sync_promo'){
+		
+		
+		$sqll = "select storeid as ad_morg_key from m_profile";
+		$results = $connec->query($sqll);
+		foreach ($results as $r) {
+			$org_keys = $r["ad_morg_key"];	
+		}
+		
+		$jsons = get_data_promo($org_keys);
+
+
+
+
+		$arr = json_decode($jsons, true);
+		$jum = count($arr);
+		$s = array();
+		if($jum > 0){
+		$truncate = $connec->query("TRUNCATE TABLE pos_discount");
+		if($truncate){
+			
+		
+			// echo $jum;
+			$no = 0;
+			
+			foreach($arr as $item) { //foreach element in $arr
+				$amk = $item['ad_morg_key']; //etc
+				$isactived = $item['isactived']; //etc
+				$insertdate = $item['insertdate']; //etc
+				$insertby = $item['insertby']; //etc
+				$discountname = str_replace("'", "\'", $item['discountname']); //etc
+				$discounttype = $item['discounttype']; //etc
+				$sku = $item['sku']; //etc
+				$discount = $item['discount']; //etc
+				$fromdate = $item['fromdate']; //etc
+				$todate = $item['todate']; //etc
+				$typepromo = $item['typepromo']; //etc
+				$maxqty = $item['maxqty']; //etc
+				$price = $item['price']; //etc
+				$afterdiscount = $item['afterdiscount']; //etc
+					
+					 
+				$s[] = "('".guid()."', '".$amk."','".$insertdate."', '".$insertby."', '".$discountname."', '".$discounttype."','".$sku."', '".$price."', '".$afterdiscount."', '".$maxqty."', '".$fromdate."', '".$todate."', '".$typepromo."')";	 
+					 
+				
+									
+			}
+			
+			$jum_s = count($s);
+			
+			if($jum_s > 0){
+				$values = implode(", ",$s);
+
+				// echo $values;
+
+				$suc = $connec->query("insert into pos_discount (pos_discount_key, ad_org_id, insertdate, insertby, headername, prioritas, sku, price, afterdiscount, maxqty, fromdate, todate, berlaku) 
+						VALUES ".$values.";");
+				
+				
+				if($suc){
+					
+					$json = array('result'=>'1', 'msg'=>'Berhasil sync');
+					$json_string = json_encode($json);	
+					
+				}else{
+					
+					$json = array('result'=>'1', 'msg'=>'Gagal sync, coba lagi nanti');
+					$json_string = json_encode($json);	
+				}
+				
+			}else{
+				$json = array('result'=>'1', 'msg'=>'Gagal sync, data rack blm ditemukan');
+				$json_string = json_encode($json);	
+				
+			}
+			
+			
+			
+			
+				
+			
+		}	
+			
+	}else{
+		
+				$json = array('result'=>'1', 'msg'=>'Gagal sync, data rack blm ditemukan');
+				$json_string = json_encode($json);	
+		
+	}
+		
+
+	echo $json_string;	
+				
+
 	}else if($_GET['act'] == 'sync_cat'){
 		$truncate = $connec->query("TRUNCATE TABLE inv_mproductcategory");
 		if($truncate){
@@ -2044,7 +2162,7 @@ if($_GET['modul'] == 'inventory'){
 			$no = 0;
 			foreach($arr as $item) { //foreach element in $arr
 
-				$statement1 = $connec->query("INSERT INTO poserp.inv_mproductcategory
+				$statement1 = $connec->query("INSERT INTO inv_mproductcategory
 (ad_mclient_key, ad_morg_key, isactived, insertdate, insertby, postby, postdate, m_product_category_id, value, name, description, issummary)
 VALUES('".$item['ad_client_id']."', '".$item['ad_org_id']."', '1', '".date('Y-m-d H:i:s')."', '".$item['createdby']."', '".$item['updatedby']."', '".date('Y-m-d H:i:s')."', '".$item['m_product_category_id']."', '".$item['value']."', '".$item['name']."', '".$item['description']."', '".$item['issummary']."');");
 					
@@ -3315,19 +3433,18 @@ locator_name) VALUES (
 		
 	
 	}else if($_GET['act'] == 'api_datatable_promo'){
-		
+
 
 		 $columns = array( 
                                0 =>'postdate', 
-                               1 =>'headername',
-                               2=> 'discounttype',
-                               3=> 'sku',
-                               4=> 'nama',
-                               5=> 'price',
-                               6=> 'price_discount',
-                               7=> 'price_after_discount',
-                               8=> 'fromdate',
-                               9=> 'todate',
+                               1 =>'sku',
+                               2=> 'hargareguler',
+                               3=> 'potongan',
+                               4=> 'afterdiscount',
+                               5=> 'name',
+                               6=> 'headername',
+                               7=> 'fromdate',
+                               8=> 'todate',
                            );
  
       $querycount =  $connec->query("SELECT count(*) as jumlah FROM pos_discount");
@@ -3341,15 +3458,15 @@ locator_name) VALUES (
              
         $totalFiltered = $totalData; 
  
-        // $limit = $_POST['length'];
-        // $start = $_POST['start'];
-        // $order = $columns[$_POST['order']['0']['column']];
-        // $dir = $_POST['order']['0']['dir'];
+        $limit = $_POST['length'];
+        $start = $_POST['start'];
+        $order = $columns[$_POST['order']['0']['column']];
+        $dir = $_POST['order']['0']['dir'];
 		
-		$limit = "100";
-        $start = "0";
-        $order = "sku";
-        $dir = "desc";
+		// $limit = "100";
+        // $start = "0";
+        // $order = "sku";
+        // $dir = "desc";
              
         if(empty($_POST['search']['value']))
         {

@@ -7,7 +7,7 @@
 			<div class="d-flex justify-content-between">
 				<div class="logo">
 					<a style="font-size: 20px" href="content.php">Store App <?php echo $_SESSION['kode_toko']; ?></a>
-					<p style="font-size: 20px"><?php echo $_SESSION['username']; ?></p>
+					<p style="font-size: 20px"><?php echo $_SESSION['username']; ?> (<?php echo $_SESSION['role']; ?>)</p>
 				</div>
 				<div class="toggler">
 					<a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>

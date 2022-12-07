@@ -14,7 +14,7 @@ $number_of_rows = $result->fetchColumn();
 if($rows > 0){
 
 
-$cmd_cash = ['CREATE TABLE poserp.cash_in (
+$cmd_cash = ['CREATE TABLE cash_in (
     cashinid character varying(32) DEFAULT (uuid()) NOT NULL PRIMARY KEY,
     org_key character varying(45),
     userid character varying(45),
@@ -30,7 +30,7 @@ $cmd_cash = ['CREATE TABLE poserp.cash_in (
 $cmd_alter_cash = ['ALTER TABLE cash_in ADD COLUMN IF NOT EXISTS syncnewpos numeric DEFAULT 0 NOT NULL;','ALTER TABLE cash_in ADD COLUMN IF NOT EXISTS setoran numeric DEFAULT 0 NOT NULL;'];
 
 
-$cmd = ['CREATE TABLE poserp.m_pi (
+$cmd = ['CREATE TABLE m_pi (
     m_pi_key character varying(32) DEFAULT (uuid()) NOT NULL,
     ad_client_id character varying(45),
     ad_org_id character varying(45),
@@ -51,12 +51,12 @@ $cmd = ['CREATE TABLE poserp.m_pi (
     category numeric DEFAULT 1 NOT NULL,
 	insertfrommobile character varying(15),
 	insertfromweb character varying(15)
-);','CREATE INDEX IF NOT EXISTS m_pi_m_pi_key_idx ON poserp.m_pi  (m_pi_key);','CREATE INDEX IF NOT EXISTS m_pi_name_idx ON poserp.m_pi  (name);'];
+);','CREATE INDEX IF NOT EXISTS m_pi_m_pi_key_idx ON m_pi  (m_pi_key);','CREATE INDEX IF NOT EXISTS m_pi_name_idx ON m_pi  (name);'];
 
 $cmd_alter = ['ALTER TABLE m_pi ADD COLUMN IF NOT EXISTS insertfrommobile varchar(15);','ALTER TABLE m_pi ADD COLUMN IF NOT EXISTS insertfromweb varchar(15);'];
 
 
-$cmd2 = ['CREATE TABLE poserp.m_piline (
+$cmd2 = ['CREATE TABLE m_piline (
     m_piline_key character varying(32) DEFAULT (uuid()) NOT NULL,
     m_pi_key character varying(45),
     ad_client_id character varying(45),
@@ -79,21 +79,21 @@ $cmd2 = ['CREATE TABLE poserp.m_piline (
     status1 numeric DEFAULT 0,
     qtysalesout numeric DEFAULT 0,
 	barcode varchar(30)
-);','CREATE INDEX IF NOT EXISTS m_piline_insertdate_idx ON poserp.m_piline  (insertdate);',
-'CREATE INDEX IF NOT EXISTS m_piline_m_pi_key_idx ON poserp.m_piline  (m_pi_key);',
-'CREATE INDEX IF NOT EXISTS m_piline_sku_idx ON poserp.m_piline (sku);'
+);','CREATE INDEX IF NOT EXISTS m_piline_insertdate_idx ON m_piline  (insertdate);',
+'CREATE INDEX IF NOT EXISTS m_piline_m_pi_key_idx ON m_piline  (m_pi_key);',
+'CREATE INDEX IF NOT EXISTS m_piline_sku_idx ON m_piline (sku);'
 ];
 
 
 $cmd2_alter_piline = ['ALTER TABLE m_piline ADD COLUMN IF NOT EXISTS barcode varchar(30);'];
 
-$cmd3 = ['CREATE TABLE poserp.m_pi_sales (
+$cmd3 = ['CREATE TABLE m_pi_sales (
     tanggal datetime ,
     status_sales numeric DEFAULT 0
 );'
 ];
 
-$inv_temp = ['CREATE TABLE poserp.inv_temp (
+$inv_temp = ['CREATE TABLE inv_temp (
 	sku varchar(25),
 	qty numeric DEFAULT 0,
 	filename varchar(100),
@@ -102,7 +102,7 @@ $inv_temp = ['CREATE TABLE poserp.inv_temp (
 );'
 ];
 
-$inv_mproduct = ['CREATE TABLE poserp.inv_mproduct (
+$inv_mproduct = ['CREATE TABLE inv_mproduct (
     inv_mproduct_key character varying(32) DEFAULT (uuid()) NOT NULL,
     isactived character varying(2),
     insertdate datetime,
@@ -121,7 +121,7 @@ $inv_mproduct = ['CREATE TABLE poserp.inv_mproduct (
     qty numeric,
     qtyerp numeric,
     m_locator_id character varying(32)
-);','CREATE INDEX IF NOT EXISTS inv_idx ON poserp.inv_mproduct (sku);','CREATE INDEX IF NOT EXISTS inv_rackname ON poserp.inv_mproduct  (rack_name);'];
+);','CREATE INDEX IF NOT EXISTS inv_idx ON inv_mproduct (sku);','CREATE INDEX IF NOT EXISTS inv_rackname ON inv_mproduct  (rack_name);'];
 
 $inv_mproductcat = ['CREATE TABLE inv_mproductcategory (
     inv_mproductcategory_key character varying(32) DEFAULT (uuid()) NOT NULL,
@@ -141,8 +141,8 @@ $inv_mproductcat = ['CREATE TABLE inv_mproductcategory (
 );'];
 
 
-$index = ['CREATE INDEX IF NOT EXISTS pos_mproduct_sku ON poserp.pos_mproduct (sku);','CREATE INDEX IF NOT EXISTS pos_mproduct_barcode ON poserp.pos_mproduct (barcode);','CREATE INDEX IF NOT EXISTS pos_mproduct_sc ON poserp.pos_mproduct (shortcut);',
-'CREATE INDEX IF NOT EXISTS m_piline_barcode_idx ON poserp.m_piline (barcode);'];
+$index = ['CREATE INDEX IF NOT EXISTS pos_mproduct_sku ON pos_mproduct (sku);','CREATE INDEX IF NOT EXISTS pos_mproduct_barcode ON pos_mproduct (barcode);','CREATE INDEX IF NOT EXISTS pos_mproduct_sc ON pos_mproduct (shortcut);',
+'CREATE INDEX IF NOT EXISTS m_piline_barcode_idx ON m_piline (barcode);'];
 
 foreach ($index as $r){
 
@@ -153,7 +153,7 @@ $cmd_stock = ['CREATE TABLE m_pi_stock (tanggal TIMESTAMP,
     status_sync_stok character varying(2));'];
 	
 	
-	$result = $connec->query("SELECT 1 FROM information_schema.tables WHERE table_schema = 'poserp' AND table_name = 'm_pi_stock'" );
+	$result = $connec->query("SELECT 1 FROM information_schema.tables WHERE  table_name = 'm_pi_stock'" );
 	if($result->rowCount() == 1) {
 		
 	}
@@ -169,7 +169,7 @@ $cmd_stock = ['CREATE TABLE m_pi_stock (tanggal TIMESTAMP,
 	}
 
 //alter table 
-$result_ci = $connec->query("SELECT 1 FROM information_schema.tables WHERE table_schema = 'poserp' AND table_name = 'cash_in'" );
+$result_ci = $connec->query("SELECT 1 FROM information_schema.tables WHERE  table_name = 'cash_in'" );
 if($result_ci->rowCount() == 1) {
 	foreach ($cmd_alter_cash as $r){
 
@@ -190,7 +190,7 @@ else {
 
 
 
-$result = $connec->query("SELECT 1 FROM information_schema.tables WHERE table_schema = 'poserp' AND table_name = 'm_pi'" );
+$result = $connec->query("SELECT 1 FROM information_schema.tables WHERE  table_name = 'm_pi'" );
 if($result->rowCount() == 1) {
 	
 	foreach ($cmd_alter as $r){
@@ -214,7 +214,7 @@ else {
 
 
 
-$result1 = $connec->query("SELECT 1 FROM information_schema.tables WHERE table_schema = 'poserp' AND table_name = 'm_piline'" );
+$result1 = $connec->query("SELECT 1 FROM information_schema.tables WHERE  table_name = 'm_piline'" );
 if($result1->rowCount() == 1) {
 	foreach ($cmd2_alter_piline as $r1){
 
@@ -231,7 +231,7 @@ else {
 
 }
 
-$result2 = $connec->query("SELECT 1 FROM information_schema.tables WHERE table_schema = 'poserp' AND table_name = 'm_pi_sales'" );
+$result2 = $connec->query("SELECT 1 FROM information_schema.tables WHERE  table_name = 'm_pi_sales'" );
 if($result2->rowCount() == 1) {
 	
 }
@@ -245,7 +245,7 @@ else {
 
 }
 
-$result_inv = $connec->query("SELECT 1 FROM information_schema.tables WHERE table_schema = 'poserp' AND table_name = 'inv_temp'" );
+$result_inv = $connec->query("SELECT 1 FROM information_schema.tables WHERE  table_name = 'inv_temp'" );
 if($result_inv->rowCount() == 1) {
 	
 }
@@ -259,7 +259,7 @@ else {
 
 }
 
-$result_invm = $connec->query("SELECT 1 FROM information_schema.tables WHERE table_schema = 'poserp' AND table_name = 'inv_mproduct'" );
+$result_invm = $connec->query("SELECT 1 FROM information_schema.tables WHERE  table_name = 'inv_mproduct'" );
 if($result_invm->rowCount() == 1) {
 	
 }
@@ -273,7 +273,7 @@ else {
 
 }
 
-$result_invmcat = $connec->query("SELECT 1 FROM information_schema.tables WHERE table_schema = 'poserp' AND table_name = 'inv_mproductcategory'" );
+$result_invmcat = $connec->query("SELECT 1 FROM information_schema.tables WHERE  table_name = 'inv_mproductcategory'" );
 if($result_invmcat->rowCount() == 1) {
 	
 }
