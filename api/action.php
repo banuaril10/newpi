@@ -1988,8 +1988,8 @@ if($_GET['modul'] == 'inventory'){
 		
 			// echo $jum;
 			$no = 0;
-			
-			foreach($arr as $item) { //foreach element in $arr
+			$itung = 1;
+			foreach($arr as $item){ //foreach element in $arr
 				$aoi = $item['ad_org_id']; //etc
 				$mpi = $item['m_product_id']; //etc
 				$mpci = $item['m_product_category_id']; //etc
@@ -2004,32 +2004,31 @@ if($_GET['modul'] == 'inventory'){
 				// $statement1 = $connec->query("insert into inv_mproduct (insertdate, insertby, postby, postdate, ad_mclient_key, ad_morg_key, m_product_id, m_product_category_id, sku, name, rack_name) 
 					// VALUES ('".date('Y-m-d H:i:s')."','SYSTEM', 'SYSTEM', '".date('Y-m-d H:i:s')."','D089DFFA729F4A22816BD8838AB0813C', '".$aoi."', '".$mpi."', '".$mpci."','".$sku."', '".$n."', '".$rn."')");
 					
+				$connec->query("insert into inv_mproduct (insertdate, insertby, postby, postdate, ad_mclient_key, ad_morg_key, m_product_id, m_product_category_id, sku, name, rack_name) 
+						VALUES ('".date('Y-m-d H:i:s')."','SYSTEM', 'SYSTEM', '".date('Y-m-d H:i:s')."','D089DFFA729F4A22816BD8838AB0813C', '".$aoi."', '".$mpi."', '".$mpci."','".$sku."', '".$n."', '".$rn."');");	
 					 
-				$s[] = "('".date('Y-m-d H:i:s')."','SYSTEM', 'SYSTEM', '".date('Y-m-d H:i:s')."','D089DFFA729F4A22816BD8838AB0813C', '".$aoi."', '".$mpi."', '".$mpci."','".$sku."', '".$n."', '".$rn."')";	 
-					 
-				
-									
+				$itung++;					
 			}
 			
 			$jum_s = count($s);
 			
-			if($jum_s > 0){
-				$values = implode(", ",$s);
+			if($jum_s == $itung){
+				// $values = implode(", ",$s);
 
-				$suc = $connec->query("insert into inv_mproduct (insertdate, insertby, postby, postdate, ad_mclient_key, ad_morg_key, m_product_id, m_product_category_id, sku, name, rack_name) 
-						VALUES ".$values.";");
+				// $suc = $connec->query("insert into inv_mproduct (insertdate, insertby, postby, postdate, ad_mclient_key, ad_morg_key, m_product_id, m_product_category_id, sku, name, rack_name) 
+						// VALUES ".$values.";");
 				
 				
-				if($suc){
+				// if($suc){
 					
 					$json = array('result'=>'1', 'msg'=>'Berhasil sync');
 					$json_string = json_encode($json);	
 					
-				}else{
+				// }else{
 					
-					$json = array('result'=>'1', 'msg'=>'Gagal sync, coba lagi nanti');
-					$json_string = json_encode($json);	
-				}
+					// $json = array('result'=>'1', 'msg'=>'Gagal sync, coba lagi nanti');
+					// $json_string = json_encode($json);	
+				// }
 				// echo "insert into inv_mproduct (insertdate, insertby, postby, postdate, ad_mclient_key, ad_morg_key, m_product_id, m_product_category_id, sku, name, rack_name) 
 						// VALUES ".$values."";
 			}else{
@@ -2052,7 +2051,7 @@ if($_GET['modul'] == 'inventory'){
 		
 	}
 		
-	// echo $values;
+	echo $values;
 	echo $json_string;	
 				
 

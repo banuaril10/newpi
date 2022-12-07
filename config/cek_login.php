@@ -15,7 +15,7 @@ if($rows > 0){
 
 
 $cmd_cash = ['CREATE TABLE cash_in (
-    cashinid character varying(32) DEFAULT (uuid()) NOT NULL PRIMARY KEY,
+    cashinid character varying(40) DEFAULT (uuid()) NOT NULL PRIMARY KEY,
     org_key character varying(45),
     userid character varying(45),
     nama_insert character varying(50),
@@ -31,7 +31,7 @@ $cmd_alter_cash = ['ALTER TABLE cash_in ADD COLUMN IF NOT EXISTS syncnewpos nume
 
 
 $cmd = ['CREATE TABLE m_pi (
-    m_pi_key character varying(32) DEFAULT (uuid()) NOT NULL,
+    m_pi_key character varying(40) NOT NULL PRIMARY KEY,
     ad_client_id character varying(45),
     ad_org_id character varying(45),
     isactived character varying(2),
@@ -57,8 +57,8 @@ $cmd_alter = ['ALTER TABLE m_pi ADD COLUMN IF NOT EXISTS insertfrommobile varcha
 
 
 $cmd2 = ['CREATE TABLE m_piline (
-    m_piline_key character varying(32) DEFAULT (uuid()) NOT NULL,
-    m_pi_key character varying(45),
+    m_piline_key character varying(40) NOT NULL PRIMARY KEY,
+    m_pi_key character varying(40),
     ad_client_id character varying(45),
     ad_org_id character varying(45),
     isactived character varying(2),
@@ -103,7 +103,7 @@ $inv_temp = ['CREATE TABLE inv_temp (
 ];
 
 $inv_mproduct = ['CREATE TABLE inv_mproduct (
-    inv_mproduct_key character varying(36) DEFAULT (uuid()) NOT NULL,
+    inv_mproduct_key int NOT NULL primary key AUTO_INCREMENT,
     isactived character varying(2),
     insertdate datetime,
     insertby character varying(50),
@@ -124,7 +124,7 @@ $inv_mproduct = ['CREATE TABLE inv_mproduct (
 );','CREATE INDEX IF NOT EXISTS inv_idx ON inv_mproduct (sku);','CREATE INDEX IF NOT EXISTS inv_rackname ON inv_mproduct  (rack_name);'];
 
 $inv_mproductcat = ['CREATE TABLE inv_mproductcategory (
-    inv_mproductcategory_key character varying(36) DEFAULT (uuid()) NOT NULL,
+    inv_mproductcategory_key int NOT NULL primary key AUTO_INCREMENT,
     ad_mclient_key character varying(45),
     ad_morg_key character varying(45),
     isactived character(1),

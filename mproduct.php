@@ -31,7 +31,7 @@
 				<button type="button" class="btn btn-primary" id="sync" onclick="syncMaster();">Sync</button>
 				<p id="notif1" style="color: red; font-weight: bold"></p>				
 				
-					<table class="table table-bordered" id="example">
+					<table class="table table-bordered" id="example" style="width: 100%">
 						<thead>
 							<tr>
 								<th>No</th>
