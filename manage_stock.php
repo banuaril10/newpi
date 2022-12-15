@@ -173,6 +173,9 @@ function manage_stock(org_id){
 			$('#notif').html("Proses sync items..");
 		},
 		success: function(dataResult){
+			console.log(dataResult);
+			
+			
 			var dataResult = JSON.parse(dataResult);
 
 			$('#notif').html("<font style='color: green'>"+dataResult.msg+"</font>");

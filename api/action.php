@@ -2661,7 +2661,7 @@ locator_name) VALUES (
 		
 		$hasil = get_data_stock_all($org_key);
 		$j_hasil = json_decode($hasil, true);
-		
+		//var_dump($j_hasil);
 		// $jum = count($hasil);
 		
 		// if($jum > 0){
@@ -2690,19 +2690,18 @@ locator_name) VALUES (
 				
 				
 				
+				$sql = "update pos_mproduct set stockqty='".$totqty."' where sku='".$r['sku']."'";
 				
-				
-				$upcount = $connec->query("update pos_mproduct set stockqty='".$totqty."' where sku='".$r['sku']."'");
+				$upcount = $connec->query($sql);
 				
 			}else{
 				$sql = "insert into pos_mproduct (
+pos_mproduct_key,
 ad_mclient_key,
 ad_morg_key,
 isactived,
 insertdate,
 insertby,
-postby,
-postdate,
 m_product_id,
 m_product_category_id,
 c_uom_id,
@@ -2712,13 +2711,12 @@ price,
 stockqty,
 m_locator_id,
 locator_name) VALUES (
+				'".guid()."',
 				'".$r['ad_client_id']."',
 				'".$r['ad_mor_key']."',
 				'".$r['isactive']."',
 				'".$r['insertdate']."',
 				'".$r['insertby']."',
-				'".$r['postby']."',
-				'".$r['postdate']."',
 				'".$r['m_product_id']."',
 				'".$r['m_product_category_id']."',
 				'".$r['c_uom_id']."',
@@ -2729,6 +2727,8 @@ locator_name) VALUES (
 				'".$r['m_locator_id']."',
 				'".$r['locator_name']."'
 )";
+
+// echo $sql;
 				$upcount = $connec->query($sql);
 				
 				// echo $sql;
@@ -2754,7 +2754,7 @@ locator_name) VALUES (
 		
 		$json_string = json_encode($data);	
 		echo $json_string;
-		// echo $sql;
+		
 		
 	}else if($_GET['act'] == 'input_shortcut'){
 				$sku =	$_POST['sku'];
@@ -4385,8 +4385,8 @@ ELSE 'Belum Sesuai' END AS status from pos_mproduct");
 				$date = date("Y-m-d H:i:s");
 				
 		if(isset($_SESSION['username']) && !empty($_SESSION['username'])) {
-			$sql = "INSERT INTO cash_in (org_key, userid, nama_insert, cash, insertdate, status)
-				VALUES('".$org_key."', '".$useridcuy."', '".$nama_insert."', '".$cash."', '".$date."','0')";	
+			$sql = "INSERT INTO cash_in (cashinid, org_key, userid, nama_insert, cash, insertdate, status)
+				VALUES('".guid()."', '".$org_key."', '".$useridcuy."', '".$nama_insert."', '".$cash."', '".$date."','0')";	
 						
 						
 						

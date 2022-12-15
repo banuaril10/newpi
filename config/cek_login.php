@@ -15,7 +15,7 @@ if($rows > 0){
 
 
 $cmd_cash = ['CREATE TABLE cash_in (
-    cashinid character varying(40) DEFAULT (uuid()) NOT NULL PRIMARY KEY,
+    cashinid character varying(40) NOT NULL PRIMARY KEY,
     org_key character varying(45),
     userid character varying(45),
     nama_insert character varying(50),
