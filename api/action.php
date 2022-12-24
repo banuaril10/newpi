@@ -2692,7 +2692,6 @@ locator_name) VALUES (
 				
 			}else{
 				$sql = "insert into pos_mproduct (
-pos_mproduct_key,
 ad_mclient_key,
 ad_morg_key,
 isactived,
@@ -2707,7 +2706,6 @@ price,
 stockqty,
 m_locator_id,
 locator_name) VALUES (
-				'".guid()."',
 				'".$r['ad_client_id']."',
 				'".$r['ad_mor_key']."',
 				'".$r['isactive']."',

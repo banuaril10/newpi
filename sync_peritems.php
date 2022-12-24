@@ -110,8 +110,9 @@ input.addEventListener("keypress", function(event) {
 			$('#notif').html("Proses mencari items..");
 		},
 		success: function(dataResult){
-			var dataResult = JSON.parse(dataResult);
 			console.log(dataResult);
+			var dataResult = JSON.parse(dataResult);
+			
 			if(dataResult.result=='1'){
 				input.value = '';
 				$('#notif').html("<font style='color: green'>"+dataResult.msg+"</font>");
