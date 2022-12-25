@@ -1020,12 +1020,12 @@ if($_GET['modul'] == 'inventory'){
 			}else{
 				
 			
+				$lastid = guid();
 				
-				
-				$statement = $connec->query("insert into m_pi (
+				$statement = $connec->query("insert into m_pi (m_pi_key,
 			ad_client_id, ad_org_id, isactived, insertdate, insertby, m_locator_id, inventorytype, name, description, 
 			movementdate, approvedby, status, rack_name, postby, postdate, category
-			) VALUES ('','".$org_key."','1','".date('Y-m-d H:i:s')."','".$username."', '".$sl."', '".$it."','".$kode_toko."-".date('YmdHis')."','PI-".$namakat."', 
+			) VALUES ('".$lastid."', '','".$org_key."','1','".date('Y-m-d H:i:s')."','".$username."', '".$sl."', '".$it."','".$kode_toko."-".date('YmdHis')."','PI-".$namakat."', 
 			'".date('Y-m-d H:i:s')."','user spv','1','".$namakat."','".$username."','".date('Y-m-d H:i:s')."', '2')");
 			
 			
@@ -1173,10 +1173,12 @@ if($_GET['modul'] == 'inventory'){
 			
 
 		if(isset($_SESSION['username']) && !empty($_SESSION['username'])) {
-			$statement = $connec->query("insert into m_pi (
+			$lastid = guid();
+			
+			$statement = $connec->query("insert into m_pi (m_pi_key,
 			ad_client_id, ad_org_id, isactived, insertdate, insertby, m_locator_id, inventorytype, name, description, 
 			movementdate, approvedby, status, rack_name, postby, postdate, category
-			) VALUES ('','".$org_key."','1','".date('Y-m-d H:i:s')."','".$username."', '".$sl."', '".$it."','".$kode_toko."-".date('YmdHis')."','PI-ITEMS', 
+			) VALUES ('".$lastid."','','".$org_key."','1','".date('Y-m-d H:i:s')."','".$username."', '".$sl."', '".$it."','".$kode_toko."-".date('YmdHis')."','PI-ITEMS', 
 			'".date('Y-m-d H:i:s')."','user spv','1','ALL','".$username."','".date('Y-m-d H:i:s')."', '3')");
 			
 			
