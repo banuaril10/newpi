@@ -523,7 +523,7 @@ html+='\n';
 html+='\n';
 html+='\n';
 html+='\n';
-
+console.log(html);
 print_text(html);
 
 
