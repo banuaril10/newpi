@@ -130,6 +130,14 @@
 			
 		}
 		
+		if($row1['barcode'] != ""){
+			
+			$barc = '('.$row1['barcode'].')';
+		}else{
+			$barc = "";
+			
+		}
+		
 		?>
 		
 		
@@ -137,7 +145,7 @@
 				
 							<tr class="header" style="background: #e1e5fa">
 				
-								<td colspan="5"><font style="font-weight: bold"><?php echo $row1['sku']; ?></font> (<?php echo $row1['name']; ?>)</td>
+								<td colspan="5"><font style="font-weight: bold"><?php echo $row1['sku']; ?> <?php echo $barc; ?></font> (<?php echo $row1['name']; ?>)</td>
 							</tr>
 	
 							<tr class="header1" style="background: #e1e5fa">
