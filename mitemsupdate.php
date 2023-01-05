@@ -38,7 +38,7 @@
 	<div class="col-12">
 		<div class="card">
 			<div class="card-header">
-				<h4>HARGA REGULER <?php echo $_GET['rak']; ?></h4>
+				<h4>PERUBAHAN HARGA <?php echo $_GET['rak']; ?></h4>
 			</div>
 			<div class="card-body">
 			<div class="tables">			
@@ -101,14 +101,22 @@
 			</table>	
 			</form>	
 				
+				<?php $cek_brand = "select brand from m_profile";
+				
+				foreach ($connec->query($cek_brand) as $row) {
+					
+					$brand = $row['brand'];
+					
+				}
+				
+				?>
+
 
 				<p style="color: red; font-weight: bold">Satu kertas terdiri dari 32 tag</p>
 				Pilih Brand : <select id="brand">
-					<option value="IDOLMART">IDOLMART</option>
-					<option value="IDOLAKU">IDOLAKU</option>
-					<option value="UNIQU">UNIQU</option>
+					<option value="<?php echo $brand; ?>"><?php echo $brand; ?></option>
 				</select>
-				<button class="btn btn-danger" type="button" id="btn-cetak-tinta"><div class="item1"><b>CETAK HARGA REGULER</b></div></button>
+				<button class="btn btn-danger" type="button" id="btn-cetak-tinta"><div class="item1"><b>CETAK PERUBAHAN HARGA</b></div></button>
 					<button class="btn btn-success" type="button" id="btn-cetak-tinta-pdf"><div class="item1"><b>CETAK PLANOGRAM</b></div></button>
 				
 				
@@ -129,7 +137,10 @@
 						<?php 
 						
 						
-						$sql_list = "select date(now()) as tgl_sekarang, a.sku, a.name ,b.rack_name, a.price from pos_mproduct a left join inv_mproduct b on a.sku = b.sku ";
+						$sql_list = "select date(now()) as tgl_sekarang, a.sku, a.name ,b.rack_name, c.pricenew from pos_mproduct a 
+inner join perubahan_harga c on a.sku = c.sku left join 
+inv_mproduct b on a.sku = b.sku where tanggal = date(now()) 
+group by a.sku, a.name, b.rack_name, c.pricenew ";
 						
 						if($_GET['rak'] && !empty($_GET['rak'])){
 							
@@ -155,11 +166,11 @@
 						
 						
 							<tr>
-								<td><input type="checkbox" id="checkbox" name="checkbox[]" value="<?php echo $row['sku']; ?>|<?php echo $row['name']; ?>|<?php echo $row['price']; ?>|<?php echo $row['tgl_sekarang']; ?>|<?php echo $row['rack_name']; ?>|<?php echo $row['shortcut']; ?>|<?php echo $harga_last; ?>"></td>
+								<td><input type="checkbox" id="checkbox" name="checkbox[]" value="<?php echo $row['sku']; ?>|<?php echo $row['name']; ?>|<?php echo $row['pricenew']; ?>|<?php echo $row['tgl_sekarang']; ?>|<?php echo $row['rack_name']; ?>|<?php echo $row['shortcut']; ?>|<?php echo $harga_last; ?>"></td>
 								<td scope="row"><?php echo $no; ?></td>
 								<td><?php echo $row['sku']; ?></td>
 								<td><?php echo $row['name']; ?></td>
-								<td><?php echo $row['price']; ?></td>
+								<td><?php echo $row['pricenew']; ?></td>
 								<!--<td><?php echo $harga_last; ?></td>-->
 								
 								<td><?php echo $row['rack_name']; ?></td>

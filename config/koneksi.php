@@ -3,9 +3,9 @@ date_default_timezone_set('Asia/Jakarta');
 error_reporting(0);
 
 try {
-	$dbuser = 'root';
-    $dbpass = '';
-    $dbhost = 'localhost';
+	$dbuser = 'adminpos';
+    $dbpass = 'pwdposadmin';
+    $dbhost = '10.0.106.2';
     $dbname='poserp';
     $dbport='3306';
 

@@ -130,6 +130,9 @@
 						<span>Price Tag</span>
 					</a>
 					<ul class="submenu ">
+					<li class="submenu-item ">
+							<a href="mitemsupdate.php">Harga Update</a>
+						</li>
 						<li class="submenu-item ">
 							<a href="mitems.php">Harga Reguler</a>
 						</li>
