@@ -129,7 +129,10 @@
 						<?php 
 						
 						
-						$sql_list = "select date(now()) as tgl_sekarang, a.sku, a.name ,b.rack_name, a.price from pos_mproduct a left join inv_mproduct b on a.sku = b.sku ";
+						$sql_list = "select date(now()) as tgl_sekarang, a.sku, a.name ,b.rack_name, c.pricenew from pos_mproduct a 
+inner join perubahan_harga c on a.sku = c.sku left join 
+inv_mproduct b on a.sku = b.sku where tanggal = date(now()) 
+group by a.sku, a.name, b.rack_name, c.pricenew";
 						
 						if($_GET['rak'] && !empty($_GET['rak'])){
 							
