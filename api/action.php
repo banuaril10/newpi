@@ -3468,7 +3468,7 @@ locator_name) VALUES (
              
         if(empty($_POST['search']['value']))
         {
-         $query = $connec->query("select a.*, b.name, b.price from pos_discount a left join pos_mproduct b on a.sku = b.sku order by $order $dir
+         $query = $connec->query("select a.*, b.name, b.price from pos_discount a left join pos_mproduct b on a.sku = b.sku order by b.name asc
                                                       LIMIT $limit
                                                       OFFSET $start");
         }
@@ -3477,7 +3477,7 @@ locator_name) VALUES (
             $query = $connec->query("select a.*, b.name, b.price from pos_discount a left join pos_mproduct b on a.sku = b.sku WHERE a.sku LIKE  '%$search%'
                                                          or a.headername LIKE  '%$search%'
                                                          or b.name LIKE  '%$search%'
-                                                         order by $order $dir
+                                                         order by b.name asc
                                                          LIMIT $limit
                                                          OFFSET $start");
  
