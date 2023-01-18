@@ -72,7 +72,41 @@
 				</table>
 				
 			
-		
+		<?php 
+		if($_GET['rak'] && !empty($_GET['rak'])){
+
+				$rak = $_GET['rak'];
+				
+
+        }else{
+
+				$rak = "all";
+				
+			} 
+			
+			
+			if($_GET['stock'] && !empty($_GET['stock'])){
+			$stock = $_GET['stock'];
+			if($stock == "all"){
+				
+				$value = "Semua Stock";
+				
+			}else{
+				
+				
+				$value = "Stock > 0";
+			}
+				
+				
+
+			}else{
+
+				$stock = "all";
+				$value = "Semua Stock";
+			}
+			
+			
+			?>
 				
 			
 				
@@ -93,7 +127,19 @@
 						
 						<?php } ?>
 					
-				</select></td><td>
+				</select></td>
+				
+				<td><select id="rak" name="stock" class="form-control text-search">
+				
+							
+							<option value="<?php echo $stock; ?>"><?php echo $value; ?></option>
+							<option value="ada">Stock > 0</option>
+							<option value="all">Semua Stock</option>
+				</select></td>
+				
+				
+				
+				<td>
 					<button class="btn btn-success" type="submit" >Cari</button>
 					<a class="btn btn-primary" href="mitems.php">Reset Filter</a>
 				</td>
@@ -136,6 +182,28 @@
 							$sql_list .= "where b.rack_name = '".$_GET['rak']."'";
 							
 						}
+						
+						
+						if($_GET['stock'] && !empty($_GET['stock'])){
+						$stock = $_GET['stock'];
+						if($stock == "all"){
+							
+							$value = "Semua Stock";
+							
+						}else{
+							$sql_list .= " and a.stockqty > 0";
+							
+							$value = "Stock > 0";
+						}
+							
+							
+			
+						}else{
+							
+							$value = "Semua Stock";
+						}
+						
+						
 						
 						$sql_list .= " order by a.name";
 						
