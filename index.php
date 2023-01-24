@@ -295,13 +295,7 @@ $inv_mproductcat = ['CREATE TABLE inv_mproductcategory (
 );'];
 
 
-$index = ['CREATE INDEX IF NOT EXISTS pos_mproduct_sku ON pos_mproduct (sku);','CREATE INDEX IF NOT EXISTS pos_mproduct_barcode ON pos_mproduct (barcode);','CREATE INDEX IF NOT EXISTS pos_mproduct_sc ON pos_mproduct (shortcut);',
-'CREATE INDEX IF NOT EXISTS m_piline_barcode_idx ON m_piline (barcode);'];
 
-foreach ($index as $r){
-
-			$connec->exec($r);
-	}
 
 $cmd_stock = ['CREATE TABLE m_pi_stock (tanggal TIMESTAMP,
     status_sync_stok character varying(2));'];
@@ -440,6 +434,18 @@ else {
 
 
 }
+
+
+
+$index = ['CREATE INDEX IF NOT EXISTS pos_mproduct_sku ON pos_mproduct (sku);','CREATE INDEX IF NOT EXISTS pos_mproduct_barcode ON pos_mproduct (barcode);','CREATE INDEX IF NOT EXISTS pos_mproduct_sc ON pos_mproduct (shortcut);',
+'CREATE INDEX IF NOT EXISTS m_piline_barcode_idx ON m_piline (barcode);'];
+
+foreach ($index as $r){
+
+			$connec->exec($r);
+	}
+
+
 					?> 
 						
 						<br>
