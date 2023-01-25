@@ -1280,14 +1280,14 @@ if($_GET['modul'] == 'inventory'){
 			
 			
 			foreach ($result as $r) {
-				$pn = "";	
-				$getpro = "select name from pos_mproduct where sku = '".$r['sku']."'";
-				$gp = $connec->query($getpro);
+				// $pn = "";	
+				// $getpro = "select name from pos_mproduct where sku = '".$r['sku']."'";
+				// $gp = $connec->query($getpro);
 				
-				foreach ($gp as $rgp) {
+				// foreach ($gp as $rgp) {
 					
-					$pn = $rgp['name'];	
-				}
+					// $pn = $rgp['name'];	
+				// }
 				
 			$qtyon = $r['qtycount'];
 			
@@ -1297,7 +1297,7 @@ if($_GET['modul'] == 'inventory'){
 			$statement1 = $connec->query("update m_piline set qtycount = '".$lastqty."' where (sku = '".$sku."' or barcode = '".$sku."') and date(insertdate) = '".date('Y-m-d')."'");
 			
 			if($statement1){	
-				$json = array('result'=>'1', 'msg'=>$sku .' ('.$pn.'), QUANTITY = <font style="color: red">'.$lastqty.'</font>');	
+				$json = array('result'=>'1', 'msg'=>$sku .' , QUANTITYS = <font style="color: red">'.$lastqty.'</font>');	
 			}else{
 				$json = array('result'=>'0', 'msg'=>'Gagal ,coba lagi nanti');	
 				
@@ -1332,8 +1332,6 @@ if($_GET['modul'] == 'inventory'){
 				
 				$json = array('result'=>'0', 'msg'=>'ITEMS TIDAK ADA DI MASTER PRODUCT');	
 			}
-			
-			
 		}
 		$json_string = json_encode($json);
 		echo $json_string;
