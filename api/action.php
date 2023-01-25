@@ -1348,7 +1348,7 @@ if($_GET['modul'] == 'inventory'){
 		// $kat = $_POST['kat'];
 
 		
-		$sql = "select m_piline.qtycount, pos_mproduct.name from m_piline left join pos_mproduct on m_piline.sku = pos_mproduct.sku where m_piline.sku ='".$sku."' 
+		$sql = "select m_piline.qtycount from m_piline where m_piline.sku ='".$sku."' 
 		and m_piline.m_pi_key = '".$mpi."' and date(m_piline.insertdate) = '".date('Y-m-d')."'";
 		$result = $connec->query($sql);
 		$count = $result->rowCount();
@@ -1356,7 +1356,7 @@ if($_GET['modul'] == 'inventory'){
 		if($count > 0){
 			foreach ($result as $r) {
 			$qtyon = $r['qtycount'];
-			$pn = $r['name'];	
+			// $pn = $r['name'];	
 
 			$lastqty = $qtyon + 1;
 		
@@ -1375,7 +1375,7 @@ if($_GET['modul'] == 'inventory'){
 			$statement1 = $connec->query("update m_piline set qtycount = '".$lastqty."' where sku = '".$sku."' and date(m_piline.insertdate) = '".date('Y-m-d')."'"); //klo udah ada update
 			
 			if($statement1){	
-				$json = array('result'=>'1', 'msg'=>$sku .' ('.$pn.'), QUANTITY = <font style="color: red">'.$lastqty.'</font>');	
+				$json = array('result'=>'1', 'msg'=>$sku .', QUANTITY = <font style="color: red">'.$lastqty.'</font>');	
 			}else{
 				$json = array('result'=>'0', 'msg'=>'Gagal ,coba lagi nanti');	
 				
