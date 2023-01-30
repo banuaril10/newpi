@@ -48,7 +48,7 @@
 						
 						<input type="date" name="tanggal" id="tanggal" value="<?php echo date("Y-m-d"); ?>">
 						<button type="button" onclick="filter();" class="btn btn-danger">Filter</button>
-						<button type="button" class="btn btn-success" onclick="cetakStruk()">Cetak Struk Summary</button>
+						<button type="button" class="btn btn-success" onclick="cetakStrukPdf()">Cetak Struk Summary</button>
 						<button type="button" class="btn btn-warning" id="generate" onclick="cetakExcel()">Generate Excel</button>
 						<a id="test" onclick="showGenerate();" class="btn btn-warning" style="display: none" href="">Download</a>
 						<button type="button" class="btn btn-primary" id="syncnewpos" onclick="syncNewpos()">Send to Newpos</button>
@@ -63,7 +63,7 @@
 	
 						</select>
 						<button type="button" onclick="filter();" class="btn btn-danger">Filter</button>
-						<button type="button" class="btn btn-success" onclick="cetakStruk()">Cetak Struk Summary</button>
+						<button type="button" class="btn btn-success" onclick="cetakStrukPdf()">Cetak Struk Summary</button>
 						<button type="button" class="btn btn-primary" id="syncnewpos" onclick="syncNewpos()">Send to Newpos</button>
 						<button type="button" class="btn btn-danger" id="syncnewpos" onclick="syncNewposAll()">Send All to Newpos</button>
 						
@@ -885,7 +885,7 @@ function cetakStrukDetail(id){
 						$("#overlay").fadeOut(300);　
 						loadTable();
 						cekTotal();
-						cetakStrukDetail(idcashin);
+						cetakStrukDetailPdf(idcashin);
 					
 						$('.modal').modal('hide');
 						// $('#example').load(' #example');
@@ -917,6 +917,163 @@ function cetakStrukDetail(id){
 		
 	// }
 	// });
+	
+	
+	
+	function cetakStrukPdf(){
+		
+		// alert(mpi+'<br>'+rn+'<br>'+dn);		
+		var number = 0;	
+		
+		var userid = document.getElementById("userid").value;		
+		var tanggal = document.getElementById("tanggal").value;		
+		//alert(userid);	
+		// alert(html);
+		$.ajax({
+			url: "api/action.php?modul=inventory&act=cetak_pickup&userid="+userid+"&tanggal="+tanggal,
+			type: "GET",
+			success: function(dataResult){
+
+				// console.log(dataResult);
+				
+				var dataResult = JSON.parse(dataResult);
+				
+				
+				
+				var html = 'PICKUP CASH IN<br><br>';
+				
+			var panjangkasir = dataResult.kasir.length;
+			for(let b = 0; b < dataResult.kasir.length; b++) {
+				let datakasir = dataResult.kasir[b];
+				
+				
+				html += '<br>Tanggal      : '+datakasir.tanggal+' <br>';
+				html += 'Nama Kasir   : '+datakasir.username+' <br>';
+				html += 'Total Pickup : '+datakasir.totalcash+' <br>';
+				html += '<table>';
+				html += '<tr><td>No</td><td>Jam</td><td>Cash</td>';
+				
+				var panjang = datakasir.data.length;
+				var no = 1;	
+				for(let i = 0; i < datakasir.data.length; i++) {
+						let data = datakasir.data[i];
+						var jam = data.jam;
+						var cash = data.cash;
+						var approvedby = data.approvedby;
+						
+							
+							html += "<tr>";
+							html += '<td>'+no+'</td><td>'+jam+'</td><td>'+cash+'</td>';
+							html += "</tr>";
+								
+			
+							
+					no++;
+				
+				}
+				
+				html += "------------------------------<br>";
+				
+				number++;
+				
+				
+				if(number == panjangkasir){
+							
+								html+='<br>';
+								html+='<br>';
+								var mywindow = window.open('', 'my div', 'height=600,width=800');
+							/*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+								mywindow.document.write('<style>*{font-family: Verdana; margin:0; font-size: 10px; } table, th, td {border: 1px solid black;border-collapse: collapse;font-family: Verdana}@media print{@page {size: potrait; width: 58mm; font-family: Verdana; margin:0; font-size: 12px}}table { page-break-inside:auto }tr{ page-break-inside:avoid; page-break-after:auto }</style>');
+								mywindow.document.write(html);
+
+					
+								mywindow.print();
+							
+							
+								console.log(html);
+							}
+				
+			}
+			
+				
+			}
+		});
+
+				
+}
+	
+	function cetakStrukDetailPdf(id){
+		
+		// alert(mpi+'<br>'+rn+'<br>'+dn);		
+		var number = 0;	
+		var no = 1;	
+				
+		
+		// alert(html);
+		$.ajax({
+			url: "api/action.php?modul=inventory&act=cetak_pickupdetail&id="+id,
+			type: "GET",
+			success: function(dataResult){
+
+				// console.log(dataResult);
+				
+				var dataResult = JSON.parse(dataResult);
+				
+				var html = 'PICKUP CASH IN <br>(SETORAN KE-'+dataResult.setoran+')<br><br>';
+				html += 'Tanggal     : '+dataResult.tanggal+' <br>';
+				html += 'Nama Kasir  : '+dataResult.username+' <br>';
+				html += 'Approved By : '+dataResult.approvedby+' <br><br>';
+				
+				html += '<table>';
+				html += '<tr><td>No</td><td>Jam</td><td>Cash</td>';
+				
+				var panjang = dataResult.data.length;
+		
+				for(let i = 0; i < dataResult.data.length; i++) {
+						let data = dataResult.data[i];
+						var jam = data.jam;
+						var cash = data.cash;
+						
+							html += "<tr>";
+							html += '<td>'+no+'</td><td>'+jam+'</td><td>'+cash+'</td>';
+							html += "</tr>";
+
+								
+			
+							number++;
+							no++;
+							
+							
+							
+							if(number == panjang){
+								html+= '</table>';
+								html+='<br> Ttd Ka. Toko / Wkl Ka. Toko';
+								html+='<br>';
+								html+='<br>';
+								html+='<br>';
+								html+='<br>';
+								html+='___________________________';
+							
+								html+='<br>';
+								html+='<br>';
+								var mywindow = window.open('', 'my div', 'height=600,width=800');
+							/*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+								mywindow.document.write('<style>*{font-family: Verdana; margin:0; font-size: 10px; } table, th, td {border: 1px solid black;border-collapse: collapse;font-family: Verdana}@media print{@page {size: potrait; width: 58mm; font-family: Verdana; margin:0; font-size: 12px}}table { page-break-inside:auto }tr{ page-break-inside:avoid; page-break-after:auto }</style>');
+								mywindow.document.write(html);
+
+					
+								mywindow.print();
+								console.log(html);
+							}
+					
+				
+				}
+			}
+		});
+
+				
+}
+	
 	
 </script>
 </div>

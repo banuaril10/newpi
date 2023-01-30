@@ -1,11 +1,11 @@
 PICKUP CASH IN (SETORAN KE-1)
 
-Tanggal     : 2022-09-06 
-Nama Kasir  : Restiani 
-Approved By : Iman Santoso2 
+Tanggal     : 2023-01-30 
+Nama Kasir  : Akun Global IT 
+Approved By : Akun Global IT 
 
 No |       Jam |          Cash 
-1  |  11:08:49 |  Rp 1.000.000
+1  |  09:32:08 |      Rp 1.000
 
  Ttd Ka. Toko / Wkl Ka. Toko
 
