@@ -87,7 +87,7 @@
 					</table>
 					<br>
 					
-					<button onclick="cetakGeneric('<?php echo $_GET['m_pi']; ?>', '<?php echo $rack_name; ?>','<?php echo $dn; ?>');" class="btn btn-primary">Cetak Selisih</button>	
+					<button onclick="cetakPdfStruk('<?php echo $_GET['m_pi']; ?>', '<?php echo $rack_name; ?>','<?php echo $dn; ?>');" class="btn btn-primary">Cetak Selisih</button>	
 					<button onclick="cetakPdf('<?php echo $_GET['m_pi']; ?>', '<?php echo $rack_name; ?>','<?php echo $dn; ?>');" class="btn btn-warning">Cetak Selisih PDF</button>	
 					<button onclick="testPrint();" class="btn btn-success">Test Print</button>	
 					<br>
@@ -614,7 +614,7 @@ html += '<table><tr><td>No</td><td>SKU</td><td>Nama</td><td>'+textbyline('Count'
 
 								var mywindow = window.open('', 'my div', 'height=600,width=800');
 							/*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
-							mywindow.document.write('<style>table, th, td {border: 1px solid black;border-collapse: collapse;}@media print{@page {size: potrait; width: 216mm;height: 280mm;}}table { page-break-inside:auto }tr{ page-break-inside:avoid; page-break-after:auto }</style>');
+							mywindow.document.write('<style>*{font-size:20px} table, th, td {border: 1px solid black;border-collapse: collapse;}@media print{@page {size: potrait; width: 216mm;height: 280mm;}}table { page-break-inside:auto }tr{ page-break-inside:avoid; page-break-after:auto }</style>');
 							mywindow.document.write(html);
 
 					
@@ -635,6 +635,92 @@ html += '<table><tr><td>No</td><td>SKU</td><td>Nama</td><td>'+textbyline('Count'
 
 				
 }
+
+
+
+function cetakPdfStruk(mpi, rn, dn){
+		
+		// alert(mpi+'<br>'+rn+'<br>'+dn);		
+		var number = 0;	
+		var no = 1;	
+				
+		var sort = document.getElementById("sort").value;
+		// alert(html);
+		$.ajax({
+			url: "api/action.php?modul=inventory&act=cetak_generic",
+			type: "POST",
+			data : {mpi: mpi, sort: sort},
+			success: function(dataResult){
+			
+				
+				
+var html = 'No Document  : '+dn+' <br>';
+   html += 'Rack         : '+rn+' <br>';
+   
+   
+html += '<table><tr><td>No</td><td>SKU</td><td>Nama</td><td>'+textbyline('Count',6,'right')+'</td><td>'+textbyline('Varian',6,'right')+'</td></tr>';
+			
+				
+				var dataResult = JSON.parse(dataResult);
+				
+				var panjang = dataResult.length;
+				$('#notif').html("Proses print");
+				
+				for(let i = 0; i < dataResult.length; i++) {
+						let data = dataResult[i];
+
+						var sku = data.sku;
+						var name = data.name;
+						var qtyvariant = parseInt(data.qtyvariant);
+						var qtycount = data.qtycount;
+						var barcode = data.barcode;
+							
+							html += '<tr>';
+							html += '<td>'+no+'</td><td>'+sku+'</td>';
+							html +='<td>'+textbyline(name,1,'left')+'</td><td style="text-align: center"> '+textbyline(''+qtycount+'',19-sku.length,'right')+'</td><td style="text-align: center"> '+textbyline(''+qtyvariant+'',10,'right')+'</td>';
+							// html += "\n\r";
+							// html += barcode;
+	
+							html += '</tr>';
+						
+
+								
+			
+							number++;
+							no++;
+							
+							
+							
+							if(number == panjang){
+							
+								html+='<br>';
+								html+='<br>';
+
+								var mywindow = window.open('', 'my div', 'height=600,width=800');
+							/*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+							mywindow.document.write('<style>*{font-family: Verdana; margin:0; font-size: 8px; } table, th, td {border: 1px solid black;border-collapse: collapse;font-family: Verdana}@media print{@page {size: potrait; width: 58mm; font-family: Verdana; margin:0; font-size: 12px}}table { page-break-inside:auto }tr{ page-break-inside:avoid; page-break-after:auto }</style>');
+							mywindow.document.write(html);
+
+					
+							mywindow.print();
+								
+							}
+					
+				
+				}
+				
+				
+				
+				html += '</table>';
+				
+				
+			}
+		});
+
+				
+}
+
+
 
 </script>
 
