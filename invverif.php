@@ -658,7 +658,7 @@ var html = 'No Document  : '+dn+' <br>';
    html += 'Rack         : '+rn+' <br>';
    
    
-html += '<table><tr><td>No</td><td>SKU</td><td>Nama</td><td>'+textbyline('Count',6,'right')+'</td><td>'+textbyline('Varian',6,'right')+'</td></tr>';
+html += '<table style="width: 200px"><tr><td>No</td><td>SKU / Name</td><td>'+textbyline('Count',6,'right')+'</td><td>'+textbyline('Varian',6,'right')+'</td></tr>';
 			
 				
 				var dataResult = JSON.parse(dataResult);
@@ -676,8 +676,8 @@ html += '<table><tr><td>No</td><td>SKU</td><td>Nama</td><td>'+textbyline('Count'
 						var barcode = data.barcode;
 							
 							html += '<tr>';
-							html += '<td>'+no+'</td><td>'+sku+'</td>';
-							html +='<td>'+textbyline(name,1,'left')+'</td><td style="text-align: center"> '+textbyline(''+qtycount+'',19-sku.length,'right')+'</td><td style="text-align: center"> '+textbyline(''+qtyvariant+'',10,'right')+'</td>';
+							html += '<td>'+no+'</td><td>'+sku+'<br>'+textbyline(name,1,'left')+'</td>';
+							html +='<td style="text-align: center"> '+textbyline(''+qtycount+'',19-sku.length,'right')+'</td><td style="text-align: center"> '+textbyline(''+qtyvariant+'',10,'right')+'</td>';
 							// html += "\n\r";
 							// html += barcode;
 	
@@ -698,7 +698,7 @@ html += '<table><tr><td>No</td><td>SKU</td><td>Nama</td><td>'+textbyline('Count'
 
 								var mywindow = window.open('', 'my div', 'height=600,width=800');
 							/*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
-							mywindow.document.write('<style>*{font-family: Verdana; margin:0; font-size: 8px; } table, th, td {border: 1px solid black;border-collapse: collapse;font-family: Verdana}@media print{@page {size: potrait; width: 58mm; font-family: Verdana; margin:0; font-size: 12px}}table { page-break-inside:auto }tr{ page-break-inside:avoid; page-break-after:auto }</style>');
+							mywindow.document.write('<style>*{font-family: Verdana; margin:0; font-size: 8px; } table, th, td {border: 1px solid black;border-collapse: collapse;font-family: Verdana}@media print{@page {size: potrait; width: 58mm; font-family: Verdana; margin:0; font-size: 8px}}table { page-break-inside:auto }tr{ page-break-inside:avoid; page-break-after:auto }</style>');
 							mywindow.document.write(html);
 
 					
