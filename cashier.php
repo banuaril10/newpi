@@ -979,11 +979,10 @@ function cetakStrukDetail(id){
 				
 				if(number == panjangkasir){
 							
-								html+='<br>';
-								html+='<br>';
+		
 								var mywindow = window.open('', 'my div', 'height=600,width=800');
 							/*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
-								mywindow.document.write('<style>*{font-family: Verdana; margin:0; font-size: 10px; } table, th, td {border: 1px solid black;border-collapse: collapse;font-family: Verdana}@media print{@page {size: potrait; width: 58mm; font-family: Verdana; margin:0; font-size: 12px}}table { page-break-inside:auto }tr{ page-break-inside:avoid; page-break-after:auto }</style>');
+								mywindow.document.write('<style>*{font-family: Verdana; margin:10px; font-size: 10px; } table, th, td {border: 1px solid black;border-collapse: collapse;font-family: Verdana}@media print{@page {size: potrait; width: 58mm; font-family: Verdana; margin:0; font-size: 12px}}table { page-break-inside:auto }tr{ page-break-inside:avoid; page-break-after:auto }</style>');
 								mywindow.document.write(html);
 
 					
@@ -1058,7 +1057,7 @@ function cetakStrukDetail(id){
 								html+='<br>';
 								var mywindow = window.open('', 'my div', 'height=600,width=800');
 							/*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
-								mywindow.document.write('<style>*{font-family: Verdana; margin:0; font-size: 10px; } table, th, td {border: 1px solid black;border-collapse: collapse;font-family: Verdana}@media print{@page {size: potrait; width: 58mm; font-family: Verdana; margin:0; font-size: 12px}}table { page-break-inside:auto }tr{ page-break-inside:avoid; page-break-after:auto }</style>');
+								mywindow.document.write('<style>*{font-family: Verdana; margin:10px; font-size: 10px; } table, th, td {border: 1px solid black;border-collapse: collapse;font-family: Verdana}@media print{@page {size: potrait; width: 58mm; font-family: Verdana; margin:0; font-size: 12px}}table { page-break-inside:auto }tr{ page-break-inside:avoid; page-break-after:auto }</style>');
 								mywindow.document.write(html);
 
 					
