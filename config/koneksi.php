@@ -3,17 +3,17 @@ date_default_timezone_set('Asia/Jakarta');
 error_reporting(0);
 
 try {
-	// $dbuser = 'root';
-    // $dbpass = '';
-    // $dbhost = 'localhost';
-    // $dbname='poserp';
-    // $dbport='3306';
-	
-	$dbuser = 'adminpos';
-    $dbpass = 'pwdposadmin';
+	$dbuser = 'root';
+    $dbpass = '';
     $dbhost = 'localhost';
     $dbname='poserp';
     $dbport='3306';
+	
+	// $dbuser = 'adminpos';
+    // $dbpass = 'pwdposadmin';
+    // $dbhost = 'localhost';
+    // $dbname='poserp';
+    // $dbport='3306';
 	
 	// $dbuser = 'adminpos';
     // $dbpass = 'pwdposadmin';

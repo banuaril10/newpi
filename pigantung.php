@@ -26,7 +26,11 @@
 			<div class="tables">			
 				<div class="table-responsive bs-example widget-shadow">	
 					
-				
+				<?php if($_SESSION['userid'] == 'akunglobalit'){ ?>		
+				<form action="api/action.php?modul=inventory&act=reset" method="POST">
+					<button type="submit" class="btn btn-danger" name="reset">Active Product</button>
+				</form>
+			<?php } ?>	
 	
 				
 				

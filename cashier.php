@@ -940,18 +940,25 @@ function cetakStrukDetail(id){
 				
 				
 				
-				var html = 'PICKUP CASH IN<br><br>';
+				var html = '';
 				
+				html += '<table style="width: 170px">';
+				html += '<tr><td colspan="3">PICKUP CASH IN</td></tr>';
+				html += '</table>';
 			var panjangkasir = dataResult.kasir.length;
 			for(let b = 0; b < dataResult.kasir.length; b++) {
 				let datakasir = dataResult.kasir[b];
 				
+			
 				
-				html += '<br>Tanggal      : '+datakasir.tanggal+' <br>';
-				html += 'Nama Kasir   : '+datakasir.username+' <br>';
-				html += 'Total Pickup : '+datakasir.totalcash+' <br>';
-				html += '<table>';
-				html += '<tr><td>No</td><td>Jam</td><td>Cash</td>';
+				html += '<table style="width: 170px">';
+				html += '<tr><td><br>Tanggal</td><td> <br>: </td><td><br>'+datakasir.tanggal+'</td></tr>';
+				html += '<tr><td>Nama Kasir</td><td> : </td><td>'+datakasir.username+'</td></tr>';
+				html += '<tr><td>Total Pickup</td><td> : </td><td>'+datakasir.totalcash+'</td></tr>';
+				html += '</table>';
+				html += '<table style="width: 170px; border: 1px solid black;border-collapse: collapse;">';
+				
+				html += '<tr style="border: 1px solid black;border-collapse: collapse;"><td style="border: 1px solid black;border-collapse: collapse;">No</td><td style="border: 1px solid black;border-collapse: collapse;">Jam</td><td style="border: 1px solid black;border-collapse: collapse;">Cash</td></tr>';
 				
 				var panjang = datakasir.data.length;
 				var no = 1;	
@@ -962,8 +969,8 @@ function cetakStrukDetail(id){
 						var approvedby = data.approvedby;
 						
 							
-							html += "<tr>";
-							html += '<td>'+no+'</td><td>'+jam+'</td><td>'+cash+'</td>';
+							html += "<tr style='border: 1px solid black;border-collapse: collapse;'>";
+							html += '<td style="border: 1px solid black;border-collapse: collapse;">'+no+'</td><td style="border: 1px solid black;border-collapse: collapse;">'+jam+'</td><td style="border: 1px solid black;border-collapse: collapse;">'+cash+'</td>';
 							html += "</tr>";
 								
 			
@@ -972,7 +979,7 @@ function cetakStrukDetail(id){
 				
 				}
 				
-				html += "------------------------------<br>";
+				
 				
 				number++;
 				
@@ -982,7 +989,7 @@ function cetakStrukDetail(id){
 		
 								var mywindow = window.open('', 'my div', 'height=600,width=800');
 							/*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
-								mywindow.document.write('<style>*{font-family: Verdana; margin:10px; font-size: 10px; } table, th, td {border: 1px solid black;border-collapse: collapse;font-family: Verdana}@media print{@page {size: potrait; width: 58mm; font-family: Verdana; margin:0; font-size: 12px}}table { page-break-inside:auto }tr{ page-break-inside:avoid; page-break-after:auto }</style>');
+								mywindow.document.write('<style>*{font-family: Verdana; margin:0px; font-size: 7px; } table, th, td {border: 0px solid black;border-collapse: collapse;font-family: Verdana}@media print{@page {size: potrait; width: 58mm; font-family: Verdana; margin:0; font-size: 12px}}table { page-break-inside:auto }tr{ page-break-inside:avoid; page-break-after:auto }</style>');
 								mywindow.document.write(html);
 
 					
@@ -1018,13 +1025,18 @@ function cetakStrukDetail(id){
 				
 				var dataResult = JSON.parse(dataResult);
 				
-				var html = 'PICKUP CASH IN <br>(SETORAN KE-'+dataResult.setoran+')<br><br>';
-				html += 'Tanggal     : '+dataResult.tanggal+' <br>';
-				html += 'Nama Kasir  : '+dataResult.username+' <br>';
-				html += 'Approved By : '+dataResult.approvedby+' <br><br>';
+				var html = '';
 				
-				html += '<table>';
-				html += '<tr><td>No</td><td>Jam</td><td>Cash</td>';
+				html += '<table border="0" style="width: 170px; border: 0px !important">';
+				html += '<tr><td colspan="3">Pickup CashIn (Setoran Ke-'+dataResult.setoran+')</td></tr>';
+				html += '<tr><td>Tanggal</td><td> : </td><td>'+dataResult.tanggal+'</td></tr>';
+				html += '<tr><td>Nama Kasir</td><td> : </td><td>'+dataResult.username+'</td></tr>';
+				html += '<tr><td>Approved By</td><td> : </td><td>'+dataResult.approvedby+'</td></tr>';
+				html += '</table>';
+				html += '<table style="width: 170px;border: 1px solid black;border-collapse: collapse; ">';
+				
+				html += '<tr style="border: 1px solid black;border-collapse: collapse; "><td style="border: 1px solid black;border-collapse: collapse; ">No</td><td style="border: 1px solid black;border-collapse: collapse; ">Jam</td><td style="border: 1px solid black;border-collapse: collapse; ">Cash</td></tr>';
+				
 				
 				var panjang = dataResult.data.length;
 		
@@ -1033,8 +1045,8 @@ function cetakStrukDetail(id){
 						var jam = data.jam;
 						var cash = data.cash;
 						
-							html += "<tr>";
-							html += '<td>'+no+'</td><td>'+jam+'</td><td>'+cash+'</td>';
+							html += "<tr style='border: 1px solid black;border-collapse: collapse; '>";
+							html += '<td style="border: 1px solid black;border-collapse: collapse; ">'+no+'</td><td style="border: 1px solid black;border-collapse: collapse; ">'+jam+'</td><td style="border: 1px solid black;border-collapse: collapse; ">'+cash+'</td>';
 							html += "</tr>";
 
 								
@@ -1046,7 +1058,8 @@ function cetakStrukDetail(id){
 							
 							if(number == panjang){
 								html+= '</table>';
-								html+='<br> Ttd Ka. Toko / Wkl Ka. Toko';
+								
+								html+='<div style="margin:0px"><br> Ttd Ka. Toko / Wkl Ka. Toko';
 								html+='<br>';
 								html+='<br>';
 								html+='<br>';
@@ -1055,9 +1068,10 @@ function cetakStrukDetail(id){
 							
 								html+='<br>';
 								html+='<br>';
+								html+='</div>';
 								var mywindow = window.open('', 'my div', 'height=600,width=800');
 							/*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
-								mywindow.document.write('<style>*{font-family: Verdana; margin:10px; font-size: 10px; } table, th, td {border: 1px solid black;border-collapse: collapse;font-family: Verdana}@media print{@page {size: potrait; width: 58mm; font-family: Verdana; margin:0; font-size: 12px}}table { page-break-inside:auto }tr{ page-break-inside:avoid; page-break-after:auto }</style>');
+								mywindow.document.write('<style>*{font-family: Verdana; margin:0px; font-size: 7px; } table, th, td {border: 0px solid black;border-collapse: collapse;font-family: Verdana}@media print{@page {size: potrait; width: 58mm; font-family: Verdana; margin:0; font-size: 12px}}table { page-break-inside:auto }tr{ page-break-inside:avoid; page-break-after:auto }</style>');
 								mywindow.document.write(html);
 
 					
