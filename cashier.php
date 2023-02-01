@@ -385,10 +385,10 @@ function cetakStruk(){
 				let datakasir = dataResult.kasir[b];
 				
 				
-				html += '\nTanggal      : '+datakasir.tanggal+' \n';
-				html += 'Nama Kasir   : '+datakasir.username+' \n';
-				html += 'Total Pickup : '+datakasir.totalcash+' \n';
-				html += 'No | '+textbyline('Jam',9,'right')+' | '+textbyline('Cash',13,'right')+' \n';
+				html += '\nTanggal      : '+datakasir.tanggal+'\n';
+				html += 'Nama Kasir   : '+datakasir.username+'\n';
+				html += 'Total Pickup : '+datakasir.totalcash+'\n';
+				html += 'No | '+textbyline('Jam',9,'right')+' | '+textbyline('Cash',13,'right')+'\n';
 				
 				var panjang = datakasir.data.length;
 				var no = 1;	
@@ -655,10 +655,10 @@ function cetakStrukDetail(id){
 				var dataResult = JSON.parse(dataResult);
 				
 				var html = 'PICKUP CASH IN (SETORAN KE-'+dataResult.setoran+')\n\n';
-				html += 'Tanggal     : '+dataResult.tanggal+' \n';
-				html += 'Nama Kasir  : '+dataResult.username+' \n';
-				html += 'Approved By : '+dataResult.approvedby+' \n\n';
-				html += 'No | '+textbyline('Jam',9,'right')+' | '+textbyline('Cash',13,'right')+' \n';
+				html += 'Tanggal     : '+dataResult.tanggal+'\n';
+				html += 'Nama Kasir  : '+dataResult.username+'\n';
+				html += 'Approved By : '+dataResult.approvedby+'\n\n';
+				html += 'No | '+textbyline('Jam',9,'right')+' | '+textbyline('Cash',13,'right')+'\n';
 				
 				var panjang = dataResult.data.length;
 		
