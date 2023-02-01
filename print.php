@@ -1,6 +1,6 @@
 <?php
 
-$Data  = $initialized;
+$Data  = "";
 $Data .= "==========================\n";
 $Data .= "|    TEST TEST TESTt dw d d d d d d d d d d d d d d d|\n";
 $Data .= "==========================\n";
