@@ -1,1 +1,1 @@
-notepad /pt print_cashin.txt
+notepad /pt %text%print_cashin.txt
