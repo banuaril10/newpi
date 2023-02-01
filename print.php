@@ -6,7 +6,6 @@ $Data .= "|    TEST TEST TESTt dw d d d d d d d d d d d d d d d|\n";
 $Data .= "==========================\n";
 $Data .= "TESSTT\n";
 $Data .= "--------------------------\n";
-$Data .= $corte;
 
 
 // $html = $_POST['html'];
