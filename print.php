@@ -1,17 +1,8 @@
 <?php
 
-
-$condensed = Chr(27) . Chr(33) . Chr(4);
-$bold1 = Chr(27) . Chr(69);
-$bold0 = Chr(27) . Chr(70);
-$initialized = chr(27).chr(64);
-$condensed1 = chr(15);
-$condensed0 = chr(18);
-$corte = Chr(27) . Chr(109);
 $Data  = $initialized;
-$Data .= $condensed1;
 $Data .= "==========================\n";
-$Data .= "|     ".$bold1."TEST TEST TEST".$bold0."      |\n";
+$Data .= "|    TEST TEST TESTt dw d d d d d d d d d d d d d d d|\n";
 $Data .= "==========================\n";
 $Data .= "TESSTT\n";
 $Data .= "--------------------------\n";
