@@ -1,11 +1,11 @@
 PICKUP CASH IN (SETORAN KE-1)
 
-Tanggal     : 2023-01-30 
+Tanggal     : 2023-02-01 
 Nama Kasir  : Akun Global IT 
 Approved By : Akun Global IT 
 
 No |       Jam |          Cash 
-1  |  09:32:08 |      Rp 1.000
+1  |  14:21:33 |        Rp 100
 
  Ttd Ka. Toko / Wkl Ka. Toko
 
