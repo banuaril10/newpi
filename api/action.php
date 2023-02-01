@@ -4221,7 +4221,7 @@ ELSE 'Belum Sesuai' END AS status from pos_mproduct");
 				if($r['status'] == 1){
 					
 					if($_SESSION['name'] == 'Ka. Toko' || $_SESSION['name'] == 'Wk. Ka Toko'){
-						$st = "<font style='background-color: green; color: #fff; padding: 5px'>Completed</font> &nbsp <button type='button' class='btn btn-warning' onclick='cetakStrukDetailPdf(\"".$r['cashinid']."\")'>Reprint </button>";
+						$st = "<font style='background-color: green; color: #fff; padding: 5px'>Completed</font> &nbsp <button type='button' class='btn btn-warning' onclick='cetakStrukDetailPdf(\"".$r['cashinid']."\")'>Reprint PDF</button> &nbsp <button type='button' class='btn btn-primary' onclick='cetakStrukDetail(\"".$r['cashinid']."\")'>Reprint </button>";
 						
 					}else{
 						
