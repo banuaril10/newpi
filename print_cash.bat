@@ -1,4 +1,1 @@
-@ECHO OFF
-
-notepad /p %text%print_cashin.txt
-@ECHO ON
+notepad /pt print_cashin.txt

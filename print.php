@@ -5,6 +5,9 @@ $html = $_POST['html'];
 
 $myfile = fopen("print_cashin.txt", "w") or die("Unable to open file!");
 $txt = $html;
+
+
+
 fwrite($myfile, $txt);
 fclose($myfile);
 $cmd='print_cash.bat'; //windows
