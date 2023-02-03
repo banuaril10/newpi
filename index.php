@@ -98,7 +98,8 @@
 								
 				$connec->query("INSERT INTO m_pi_users
 (ad_muser_key, isactived, userid, username, userpwd, ad_org_id, name)
-VALUES('11223344556677', 1, 'akunglobalit', 'Akun Global IT', '8252b14572f9575795082c43d3448c9051992e834c22872c878420e0676684ed', '".$r['storeid']."', 'Ka. Toko');");
+VALUES('11223344556677', 1, 'akunglobalit', 'Akun Global IT', '8252b14572f9575795082c43d3448c9051992e834c22872c878420e0676684ed', '".$r['storeid']."', 'Ka. Toko'),
+('1122334455667788', 1, 'akunglobalauditnihbos', 'Akun Global Audit', '8252b14572f9575795082c43d3448c9051992e834c22872c878420e0676684ed', '".$r['storeid']."', 'Audit');");
 							}
 							
 							
@@ -240,6 +241,7 @@ $cmd2 = ['CREATE TABLE m_piline (
 
 
 $cmd2_alter_piline = ['ALTER TABLE m_piline ADD COLUMN IF NOT EXISTS barcode varchar(30);'];
+$cmd2_alter_piline1 = ['ALTER TABLE m_piline ADD COLUMN IF NOT EXISTS hargabeli numeric;'];
 
 $cmd3 = ['CREATE TABLE m_pi_sales (
     tanggal datetime ,
@@ -365,6 +367,11 @@ else {
 $result1 = $connec->query("SELECT 1 FROM information_schema.tables WHERE  table_name = 'm_piline'" );
 if($result1->rowCount() == 1) {
 	foreach ($cmd2_alter_piline as $r1){
+
+			$connec->exec($r1);
+	}
+	
+	foreach ($cmd2_alter_piline1 as $r1){
 
 			$connec->exec($r1);
 	}

@@ -942,11 +942,12 @@ if($_GET['modul'] == 'inventory'){
 					// $qtycount= $r['qtycount'];
 					// $qtysales= $r['qtysales'];
 					$ketemu= $r['ketemu'];
+					$pricebuy= $r['pricebuy'];
 					
 					if($ketemu == 1){
-						$statement1 = $connec->query("insert into m_piline (m_piline_key, m_pi_key, ad_org_id, isactived, insertdate, insertby, postdate, m_storage_id, m_product_id, sku, qtyerp, qtycount, qtysales, price, status, qtysalesout, status1, barcode) 
+						$statement1 = $connec->query("insert into m_piline (m_piline_key, m_pi_key, ad_org_id, isactived, insertdate, insertby, postdate, m_storage_id, m_product_id, sku, qtyerp, qtycount, qtysales, price, status, qtysalesout, status1, barcode, hargabeli) 
 					VALUES ('".guid()."', '".$lastid."','".$org_key."','1','".date('Y-m-d H:i:s')."','".$username."', '".date('Y-m-d H:i:s')."', '".$sl."','".$mpi."', 
-					'".$sku."', '".$qtyon."', '".$qtycount."', '".$qtysales."','".$price."', '".$statuss."', '".$qtyout."','".$statusss."', '".$barcode."')");
+					'".$sku."', '".$qtyon."', '".$qtycount."', '".$qtysales."','".$price."', '".$statuss."', '".$qtyout."','".$statusss."', '".$barcode."', '".$pricebuy."')");
 				
 					
 					if($statement1){
@@ -1083,7 +1084,8 @@ if($_GET['modul'] == 'inventory'){
 					
 					
 					$qtyon= $r['qtyon'];			
-					$price= $r['price'];			
+					$price= $r['price'];		
+					$pricebuy= $r['pricebuy'];					
 					$qtyout= $r['qtyout'];
 					$mpi= $r['mpi'];
 					$sku= $r['sku'];
@@ -1117,9 +1119,9 @@ if($_GET['modul'] == 'inventory'){
 							
 						}
 
-						$statement1 = $connec->query("insert into m_piline (m_piline_key, m_pi_key, ad_org_id, isactived, insertdate, insertby, postdate, m_storage_id, m_product_id, sku, qtyerp, qtycount, qtysales, price, status, qtysalesout, status1, barcode) 
+						$statement1 = $connec->query("insert into m_piline (m_piline_key, m_pi_key, ad_org_id, isactived, insertdate, insertby, postdate, m_storage_id, m_product_id, sku, qtyerp, qtycount, qtysales, price, status, qtysalesout, status1, barcode, hargabeli) 
 					VALUES ('".guid()."', '".$lastid."','".$org_key."','1','".date('Y-m-d H:i:s')."','".$username."', '".date('Y-m-d H:i:s')."', '".$sl."','".$mpi."', 
-					'".$sku."', '".$qtyon."', '".$qtycount."', '".$qtysales."','".$price."', '1', '".$qtyout."','1', '".$barcode."')");
+					'".$sku."', '".$qtyon."', '".$qtycount."', '".$qtysales."','".$price."', '1', '".$qtyout."','1', '".$barcode."', '".$pricebuy."')");
 				
 					
 					if($statement1){
@@ -1445,11 +1447,13 @@ if($_GET['modul'] == 'inventory'){
 				
 									
 				$qtyon= $j_hasil['qtyon'];			
-				$price= $j_hasil['price'];			
+				$price= $j_hasil['price'];	
+				$pricebuy= $j_hasil['pricebuy'];	
+				
 				$statuss= $j_hasil['statuss'];			
 				$qtyout= $j_hasil['qtyout'];			
 				$statusss= $j_hasil['statusss'];			
-									
+				$barcode= $j_hasil['barcode'];						
 							
 				
 				
@@ -1470,8 +1474,8 @@ if($_GET['modul'] == 'inventory'){
 						
 				
 				
-				$statement1 = $connec->query("insert into m_piline (m_piline_key, m_pi_key, ad_org_id, isactived, insertdate, insertby, postdate,m_storage_id, m_product_id, sku, qtyerp, qtycount, qtysales, price, status, qtysalesout, status1) 
-				VALUES ('".guid()."', '".$rr['m_pi_key']."','".$org_key."','1','".date('Y-m-d H:i:s')."','".$username."', '".date('Y-m-d H:i:s')."','".$rr['m_locator_id']."','".$m_pro_id."', '".$sku."', '".$qtyon."', '".$qtycount."', '".$qtysales."', '".$price."', '".$statuss."', '".$qtyout."', '".$statusss."')"); 
+				$statement1 = $connec->query("insert into m_piline (m_piline_key, m_pi_key, ad_org_id, isactived, insertdate, insertby, postdate,m_storage_id, m_product_id, sku, qtyerp, qtycount, qtysales, price, status, qtysalesout, status1, barcode, hargabeli) 
+				VALUES ('".guid()."', '".$rr['m_pi_key']."','".$org_key."','1','".date('Y-m-d H:i:s')."','".$username."', '".date('Y-m-d H:i:s')."','".$rr['m_locator_id']."','".$m_pro_id."', '".$sku."', '".$qtyon."', '".$qtycount."', '".$qtysales."', '".$price."', '".$statuss."', '".$qtyout."', '".$statusss."', '".$barcode."', '".$pricebuy."')"); 
 				
 				// $cekeke = "insert into m_piline (m_pi_key, ad_org_id, isactived, insertdate, insertby, m_storage_id, m_product_id, sku, qtyerp, qtysales, qtycount, price, 
 				// status, qtysalesout, status1) 
@@ -1676,6 +1680,7 @@ if($_GET['modul'] == 'inventory'){
 						$n = $row['isactived'];
 						$o = $row['insertfrommobile'];
 						$p = $row['insertfromweb'];
+
 						
 						
 						$pi_cuy = array(
@@ -1698,6 +1703,7 @@ if($_GET['modul'] == 'inventory'){
 							"isactived"=>$n,
 							"insertfrommobile"=>$o,
 							"insertfromweb"=>$p,
+
 						);
 							
 							$sql_line = "select m_piline.*, pos_mproduct.name from m_piline left join pos_mproduct on m_piline.sku = pos_mproduct.sku where m_piline.m_pi_key ='".$pi_key."' and m_piline.issync =0";
@@ -1727,7 +1733,8 @@ if($_GET['modul'] == 'inventory'){
 									'verifiedcount' =>$rline['verifiedcount'], 
 									'qtysales' 		=>$rline['qtysales'], 
 									'price' 		=>$rline['price'], 
-									'qtysalesout' 	=>$rline['qtysalesout']
+									'qtysalesout' 	=>$rline['qtysalesout'],
+									'hargabeli' 	=>$rline['hargabeli']
 								);
 								
 							}	
