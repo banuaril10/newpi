@@ -1080,6 +1080,10 @@ if($_GET['modul'] == 'inventory'){
 				// die();
 				// print_r($items_json);
 				
+				$num = count($j_hasil);
+				
+				if($num > 0){
+				
 				foreach($j_hasil as $r) {
 					
 					
@@ -1143,6 +1147,12 @@ if($_GET['modul'] == 'inventory'){
 						
 					
 					$total = $total + 1;
+					
+				}
+				
+				}else{
+					
+					$json = array('result'=>'0', 'msg'=>'Rack tidak ada, hub tim plano untuk cek apakah rack tsb ada');
 					
 				}
 				
