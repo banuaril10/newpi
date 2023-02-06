@@ -115,6 +115,9 @@
 						
 					
 						$sku = $getData[0];
+						
+						
+					if($sku != ""){	
 						$qty = $getData[1];
 						$sqll = "insert into inv_temp (sku, tanggal, qty, status, filename) VALUES ('".$sku."','".date('Y-m-d')."','".$qty."','0', '".$_FILES['import']['name']."');";
 						$import = $connec->query($sqll);
@@ -126,7 +129,7 @@
 		
 						}
 						// echo $sqll.'<br>';
-		
+					}
 							 
 					}
 					
