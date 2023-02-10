@@ -4607,7 +4607,108 @@ ELSE 'Belum Sesuai' END AS status from pos_mproduct");
 			header("Location: ../pigantung.php");
 			
 			
-	}									
+	}else if($_GET['act'] == 'in_store'){
+
+		$sqll = "select storename as name from m_profile ";
+		$results = $connec->query($sqll);
+		foreach ($results as $r) {
+			$name = $r["name"];	
+		}
+
+		$json_url = "https://pi.idolmartidolaku.com/api/mkt.php?modul=view&act=in_store&name=".$name;
+		$json = file_get_contents($json_url);
+	
+
+		$arr = json_decode($json, true);
+		$jum = count($arr);
+		
+		// var_dump($jsons);
+		
+		$s = array();
+		if($jum > 0){
+		$no = 1;
+		foreach ($arr as $row1) {
+			
+				$stats = '<font style="background-color: green;color:#fff;padding:10px">Aktif</font>';
+				if($row1['status'] == '0'){
+					$stats = '<font style="background-color: red;color:#fff;padding:10px">Nonaktif</font>';
+					
+				}
+			
+							echo 
+							"<tr>
+								<td>".$no."</td>
+								
+								<td>".$row1['nama_supplier']."</td>
+								<td>".$row1['no_skp']."</td>
+								<td>".$row1['toko']."</td>
+								<td>".$row1['jenis_sewa']."</td>
+								<td>".$row1['posisi_display']."</td>
+								<td>Rp ".rupiah($row1['rupiah'])."</td>
+								<td>".$row1['periode']." s.d. ".$row1['periode_akhir']."</td>
+								<td>".$row1['pembayaran']."</td>
+								<td>".$row1['input_date']."</td>
+								<td>".$stats."</td>
+
+							</tr>";
+							
+							
+			
+			$no++;
+			}
+		}
+		
+	}else if($_GET['act'] == 'out_store'){
+		
+		$sqll = "select storename as name from m_profile ";
+		$results = $connec->query($sqll);
+		foreach ($results as $r) {
+			$name = $r["name"];	
+		}
+
+		$json_url = "https://pi.idolmartidolaku.com/api/mkt.php?modul=view&act=out_store&name=".$name;
+		$json = file_get_contents($json_url);
+		
+		$arr = json_decode($json, true);
+		$jum = count($arr);
+		
+		// var_dump($jsons);
+		
+		$s = array();
+		if($jum > 0){
+		$no = 1;
+		foreach ($arr as $row1) {
+			
+				$stats = '<font style="background-color: green;color:#fff;padding:10px">Aktif</font>';
+				if($row1['status'] == '0'){
+					$stats = '<font style="background-color: red;color:#fff;padding:10px">Nonaktif</font>';
+					
+				}
+							echo 
+							"<tr>
+								<td>".$no."</td>
+								<td>".$row1['id']."</td>
+								<td>".$row1['nama_penyewa']."</td>
+								<td>".$row1['no_sks']."</td>
+								<td>".$row1['toko']."</td>
+								<td>".$row1['jenis_usaha']."</td>
+								<td>".$row1['posisi']."</td>
+								<td>Rp ".rupiah($row1['rupiah'])."</td>
+								<td>".$row1['periode']."</td>
+								<td>".$row1['periode_akhir']."</td>
+								<td>".$row1['pembayaran']."</td>
+								<td>".$row1['input_date']."</td>
+								<td>".$stats."</td>
+
+							</tr>";
+							
+							
+			
+			$no++;
+			}
+		}
+		
+	}																		
 
 
 	

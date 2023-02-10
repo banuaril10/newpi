@@ -143,7 +143,20 @@
 				</li>
 				
 				
-				
+				<li class="sidebar-item  has-sub">
+					<a href="#" class='sidebar-link'>
+						<i class="bi bi-shop"></i>
+						<span>Sewa Tenant</span>
+					</a>
+					<ul class="submenu ">
+						<li class="submenu-item ">
+							<a href="instore.php">In Store</a>
+						</li>
+						<li class="submenu-item ">
+							<a href="outstore.php">Out Store</a>
+						</li>
+					</ul>
+				</li>
 				
 			<?php } ?>	
 				
