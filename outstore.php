@@ -17,7 +17,7 @@
 	</a>
 </header>
 <?php include "components/hhh.php"; 
-$sqll = "select storename as name from m_profile where postby = 'SYSTEM'";
+$sqll = "select storename as name from m_profile ";
 		$results = $connec->query($sqll);
 		foreach ($results as $r) {
 			$name = $r["name"];	
