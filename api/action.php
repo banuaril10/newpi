@@ -9,6 +9,10 @@ if(isset($_SESSION['username']) && !empty($_SESSION['username'])) {
 }
 
 
+function clean($string) {
+   return preg_replace('/[^A-Za-z0-9 ]/','',$string); // Removes special chars.
+}
+
 include '../config/Mobile_Detect.php';
 $detect = new Mobile_Detect();
 
@@ -1746,7 +1750,7 @@ if($_GET['modul'] == 'inventory'){
 									'm_storage_id' 	=>$rline['m_storage_id'], 
 									'm_product_id' 	=>$rline['m_product_id'], 
 									'sku' 			=>$rline['sku'], 
-									'name' 			=>$rline['name'], 
+									'name' 			=>clean($rline['name']), 
 									'qtyerp' 		=>$rline['qtyerp'], 
 									'qtycount' 		=>$rline['qtycount'], 
 									'issync' 		=>$rline['issync'], 
