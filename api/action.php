@@ -4649,7 +4649,8 @@ ELSE 'Belum Sesuai' END AS status from pos_mproduct");
 								<td>".$row1['jenis_sewa']."</td>
 								<td>".$row1['posisi_display']."</td>
 								<td>Rp ".rupiah($row1['rupiah'])."</td>
-								<td>".$row1['periode']." s.d. ".$row1['periode_akhir']."</td>
+								<td>".$row1['periode']."</td>
+								<td>".$row1['periode_akhir']."</td>
 								<td>".$row1['pembayaran']."</td>
 								<td>".$row1['input_date']."</td>
 								<td>".$stats."</td>
@@ -4691,7 +4692,6 @@ ELSE 'Belum Sesuai' END AS status from pos_mproduct");
 							echo 
 							"<tr>
 								<td>".$no."</td>
-								<td>".$row1['id']."</td>
 								<td>".$row1['nama_penyewa']."</td>
 								<td>".$row1['no_sks']."</td>
 								<td>".$row1['toko']."</td>

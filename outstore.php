@@ -48,7 +48,8 @@ $sqll = "select storename as name from m_profile ";
 									<th>Jenis Usaha</th>
 									<th>Posisi</th>
 									<th>Rupiah</th>
-									<th>Periode</th>
+									<th>Periode Awal</th>
+									<th>Periode Akhir</th>
 									<th>Pembayaran</th>
 									<th>Input Date</th>
 									<th>Status</th>

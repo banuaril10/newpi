@@ -46,15 +46,18 @@ function get_data_stock_all($a, $b, $c, $d){
 			$hasil = get_data_stock_all($org_key, $date, $doc_no, $username);
 			$j_hasil = json_decode($hasil, true);
 			$j_hasildata = json_decode($j_hasil['data'], TRUE);
-			
+			// var_dump($j_hasil);
 			if($j_hasil['result'] == 1){
 				
 				$no = 0;	
 				foreach($j_hasildata as $r) {
+					
+					// echo $r['ad_client_id'];
+					
 					$haha = 0;
 					$stock_sales = 0;
 					$stoc_lok = 0;
-					$ceksales = $connec->query("select sku, sum(qty) as jj from pos_dsalesline where sku = '".$r['sku']."' and date(insertdate) = date(now()) group by sku");
+					$ceksales = $connec->query("select sku, sum(qty) as jj from pos_dsales where sku = '".$r['sku']."' and date(insertdate) = date(now()) group by sku");
 					foreach ($ceksales as $rs) {
 						
 							$stock_sales = $rs['jj'];
@@ -69,8 +72,9 @@ function get_data_stock_all($a, $b, $c, $d){
 					
 					$totqty = $r['stockqty'] - $stock_sales;
 					if($haha > 0){
-						$upcount = $connec->query("update pos_mproduct set stockqty='".$totqty."', description = '".$r['stockqty']."' where sku='".$r['sku']."'");
-						
+						$sql = "update pos_mproduct set stockqty='".$totqty."', description = '".$r['stockqty']."' where sku='".$r['sku']."'";
+						$upcount = $connec->query($sql);
+						// echo $sql;
 					}else{
 						
 						$sql = "insert into pos_mproduct (
@@ -79,8 +83,6 @@ ad_morg_key,
 isactived,
 insertdate,
 insertby,
-postby,
-postdate,
 m_product_id,
 m_product_category_id,
 c_uom_id,
@@ -95,8 +97,6 @@ locator_name) VALUES (
 				'".$r['isactive']."',
 				'".$r['insertdate']."',
 				'".$r['insertby']."',
-				'".$r['postby']."',
-				'".$r['postdate']."',
 				'".$r['m_product_id']."',
 				'".$r['m_product_category_id']."',
 				'".$r['c_uom_id']."',
@@ -107,9 +107,11 @@ locator_name) VALUES (
 				'".$r['m_locator_id']."',
 				'".$r['locator_name']."'
 )";
+
+// echo $sql;
 				$upcount = $connec->query($sql);
 				
-				// echo $sql;
+		
 				
 					}
 					
@@ -119,26 +121,15 @@ locator_name) VALUES (
 					}
 				}
 				
-				$data = array("result"=>1, "msg"=>$j_hasil['msg']);
-				
-			}else{
-				
-				$data = array("result"=>0, "msg"=>$j_hasil['msg']);
+				// $data = array("result"=>1, "msg"=>$j_hasil['msg']);
 				
 			}
 			
-			
-			// $jum11 = count($j_hasil);
-			
-			
-			
-		// 
-		
-		// $data = array("result"=>1, "msg"=>"Berhasil sync ".$no." data");
+		$data = array("result"=>1, "msg"=>"Berhasil sync ".$no." data");
 		
 		$json_string = json_encode($data);	
 		echo $json_string;
 		
-		// echo $sql;
+
 
 	
