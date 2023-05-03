@@ -82,7 +82,6 @@
     // $('#example1').DataTable();
 // } );
 
-load_product();
 document.getElementById("search").addEventListener("keyup", function() {
 var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("search");
