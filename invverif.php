@@ -90,6 +90,7 @@
 					<button onclick="cetakPdfStruk('<?php echo $_GET['m_pi']; ?>', '<?php echo $rack_name; ?>','<?php echo $dn; ?>');" class="btn btn-primary">Cetak Selisih TMU</button>	
 					<button onclick="cetakPdfThermal('<?php echo $_GET['m_pi']; ?>', '<?php echo $rack_name; ?>','<?php echo $dn; ?>');" class="btn btn-primary">Cetak Selisih Thermal</button>	
 					<button onclick="cetakPdf('<?php echo $_GET['m_pi']; ?>', '<?php echo $rack_name; ?>','<?php echo $dn; ?>');" class="btn btn-warning">Cetak Selisih PDF</button>	
+					<button onclick="cetakGeneric('<?php echo $_GET['m_pi']; ?>', '<?php echo $rack_name; ?>','<?php echo $dn; ?>');" class="btn btn-danger">Cetak Selisih Generic</button>	
 					<button onclick="testPrint();" class="btn btn-success">Test Print</button>	
 					<br>
 					<br>
