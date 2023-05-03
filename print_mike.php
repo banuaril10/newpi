@@ -30,7 +30,12 @@ try {
 
     /* Print a "Hello world" receipt" */
     $printer = new Printer($connector);
-    $printer -> text($html);
+    // $printer -> text("Test Print");
+    // $printer -> text("Test Print");
+    // $printer -> text("Test Print");
+    // $printer -> text("Test Print");
+    // $printer -> text("Test Print");
+	$printer -> text($html);
     $printer -> cut();
     
     /* Close printer */

@@ -1,19 +1,17 @@
-PICKUP CASH IN (SETORAN KE-1)
+No Document  : BOSOL-20230503154351 
+Rack         : ALL 
+ 
+No | Nama / SKU |  Count | Varian 
+1. 126264 Palu Haha SJT
+8010012492         1         -4
 
-Tanggal     : 2023-02-01 
-Nama Kasir  : Akun Global IT 
-Approved By : Akun Global IT 
-
-No |       Jam |          Cash 
-1  |  14:21:33 |        Rp 100
-
- Ttd Ka. Toko / Wkl Ka. Toko
-
-
-
-___________________________
+2. 19020C Kereta Cho Cho B KRT
+8010020945         1         -1
 
 
 
 
 
+
+
+
