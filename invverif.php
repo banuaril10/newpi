@@ -91,6 +91,7 @@
 					<button onclick="cetakPdfThermal('<?php echo $_GET['m_pi']; ?>', '<?php echo $rack_name; ?>','<?php echo $dn; ?>');" class="btn btn-primary">Cetak Selisih Thermal</button>	
 					<button onclick="cetakPdf('<?php echo $_GET['m_pi']; ?>', '<?php echo $rack_name; ?>','<?php echo $dn; ?>');" class="btn btn-warning">Cetak Selisih PDF</button>	
 					<button onclick="cetakGeneric('<?php echo $_GET['m_pi']; ?>', '<?php echo $rack_name; ?>','<?php echo $dn; ?>');" class="btn btn-danger">Cetak Selisih Generic</button>	
+					<button onclick="cetakGenericMike('<?php echo $_GET['m_pi']; ?>', '<?php echo $rack_name; ?>','<?php echo $dn; ?>');" class="btn btn-danger">Cetak Selisih Generic Mike</button>	
 					<button onclick="testPrint();" class="btn btn-success">Test Print</button>	
 					<br>
 					<br>
@@ -267,7 +268,21 @@ function print_text(html){
 	});
 }
 
+function print_text_mike(html){
+	// console.log(html);
+	$.ajax({
+		url: "print_mike.php",
+		type: "POST",
+		data : {html: html},
+		success: function(dataResult){
+			var dataResult = JSON.parse(dataResult);
 
+			$('#notif').html("Proses print");
+			
+			
+		}
+	});
+}
 
 document.getElementById("search").addEventListener("change", function() {
 var input, filter, table, tr, td, i, txtValue;
@@ -514,6 +529,78 @@ html += 'No | Nama / SKU | '+textbyline('Count',6,'right')+' | '+textbyline('Var
 				
 }
 
+
+function cetakGenericMike(mpi, rn, dn){
+		
+		// alert(mpi+'<br>'+rn+'<br>'+dn);		
+		var number = 0;	
+		var no = 1;	
+				
+		var sort = document.getElementById("sort").value;
+		// alert(html);
+		$.ajax({
+			url: "api/action.php?modul=inventory&act=cetak_generic",
+			type: "POST",
+			data : {mpi: mpi, sort: sort},
+			success: function(dataResult){
+			
+				
+				
+var html = 'No Document  : '+dn+' \n\r';
+   html += 'Rack         : '+rn+' \n\r \n\r';
+html += 'No | Nama / SKU | '+textbyline('Count',6,'right')+' | '+textbyline('Varian',6,'right')+' \n\r';
+			
+				
+				var dataResult = JSON.parse(dataResult);
+				
+				var panjang = dataResult.length;
+				$('#notif').html("Proses print");
+				
+				for(let i = 0; i < dataResult.length; i++) {
+						let data = dataResult[i];
+
+						var sku = data.sku;
+						var name = data.name;
+						var qtyvariant = data.qtyvariant;
+						var qtycount = data.qtycount;
+							
+							
+							html += no+'. '+name+'\n\r';
+							html +=textbyline(sku,1,'left')+' '+textbyline(''+qtycount+'',19-sku.length,'right')+' '+textbyline(''+qtyvariant+'',10,'right');
+							html += "\n\r\n\r";
+
+								
+			
+							number++;
+							no++;
+							
+							
+							
+							if(number == panjang){
+							
+								html+='\n\r';
+								html+='\n\r';
+								html+='\n\r';
+								html+='\n\r';
+								html+='\n\r';
+								html+='\n\r';
+								print_text_mike(html);
+								console.log(html);
+							}
+					
+				
+				}
+				
+				
+				
+				
+				
+				
+			}
+		});
+
+				
+}
 
 function testPrint(){
 // const process = require('child_process');
