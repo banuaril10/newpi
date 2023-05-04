@@ -24,7 +24,7 @@ try {
     // Enter the share name for your USB printer here
     // $connector = null;
     // $connector = new WindowsPrintConnector("serial");
-	$connector = new WindowsPrintConnector("pi");
+	$connector = new WindowsPrintConnector("EPSON TM-U220 Receipt");
 	 //$connector = new WindowsPrintConnector("Receipt Printer");
 	
 
