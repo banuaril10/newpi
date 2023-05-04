@@ -3,7 +3,7 @@
 // $html = $_POST['html'];
 
 
-require __DIR__ . '/escpos-php/vendor/autoload.php';
+require __DIR__ . '/escpos-php/vendors/autoload.php';
 use Mike42\Escpos\Printer;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 
