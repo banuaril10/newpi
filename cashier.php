@@ -324,7 +324,7 @@ $("#exampleModal").on('shown.bs.modal', function () {
 function print_text(html){
 	// console.log(html);
 	$.ajax({
-		url: "print_mike.php",
+		url: "print.php",
 		type: "POST",
 		data : {html: html},
 		success: function(dataResult){
