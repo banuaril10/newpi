@@ -30,5 +30,5 @@ $handle = fopen($file, 'w');
 fwrite($handle, $html);
 fclose($handle);
 // copy($file, "//localhost/COM4");  # Lakukan cetak
-copy($file, "EPSON TM-U220 Receipt");  # Lakukan cetak
+copy($file, "//localhost/EPSON TM-U220 Receipt");  # Lakukan cetak
 unlink($file);
