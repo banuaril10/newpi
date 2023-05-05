@@ -885,7 +885,7 @@ function cetakStrukDetail(id){
 						$("#overlay").fadeOut(300);　
 						loadTable();
 						cekTotal();
-						cetakStrukDetailPdf(idcashin);
+						cetakStrukDetail(idcashin);
 					
 						$('.modal').modal('hide');
 						// $('#example').load(' #example');

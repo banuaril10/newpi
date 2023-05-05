@@ -29,5 +29,6 @@ $handle = fopen($file, 'w');
 
 fwrite($handle, $html);
 fclose($handle);
-copy($file, "//localhost/pi test");  # Lakukan cetak
+// copy($file, "//localhost/COM4");  # Lakukan cetak
+copy($file, "EPSON TMU U-220 Receipt");  # Lakukan cetak
 unlink($file);
