@@ -148,7 +148,8 @@ function sync_stock_grab(){
 
 			$('#notif').html("<font style='color: green'>"+dataResult.msg+"</font>");
 			$("#overlay").fadeOut(300);
-			location.reload();
+			sync_grab();
+			// location.reload();
 		}
 		});
 		
