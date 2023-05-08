@@ -547,6 +547,31 @@ function get_data_sku(){
 					
 }
 
+function get_data_grab($kt){
+			
+			    
+	// $fields_string = http_build_query($postData);
+	$curl = curl_init();
+
+	curl_setopt_array($curl, array(
+	CURLOPT_URL => 'https://pi.idolmartidolaku.com/api/action.php?modul=inventory&act=sync_grab_toko&kode_toko='.$kt,
+	CURLOPT_RETURNTRANSFER => true,
+	CURLOPT_ENCODING => '',
+	CURLOPT_MAXREDIRS => 10,
+	CURLOPT_TIMEOUT => 0,
+	CURLOPT_FOLLOWLOCATION => true,
+	CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+	CURLOPT_CUSTOMREQUEST => 'GET',
+	));
+	
+	$response = curl_exec($curl);
+	
+	curl_close($curl);
+	return $response;
+					
+					
+}
+
 
 function get_data_stock_peritems($a,$b){
 			
@@ -2898,6 +2923,69 @@ locator_name) VALUES (
 		$json_string = json_encode($data);	
 		echo $json_string;
 		
+	}else if($_GET['act'] == 'sync_grab'){
+		
+			$getkodetoko = $connec->query("select storecode as value from m_profile");
+			foreach ($getkodetoko as $ra) {
+				$kt = $ra['value'];
+			}
+		
+		$hasil = get_data_grab($kt);
+		$j_hasil = json_decode($hasil, true);
+		
+		$no = 0;	
+		foreach($j_hasil as $r) {
+			
+				$cekitems = $connec->query("select count(sku) as jum from m_grab_sku where sku = '".$r['sku']."'");
+				foreach ($cekitems as $ra) {
+					$haha = $ra['jum'];
+				}
+				
+				if($haha > 0){
+					
+					$upcount = $connec->query("update m_grab_sku set stock='".$r['stock']."' where sku='".$r['sku']."'");
+				}else{
+					$upcount = $connec->query("insert into m_grab_sku (sku, stock) values ('".$r['sku']."', '".$r['stock']."')");
+					
+				}
+
+				
+	
+			if($upcount){
+				$no = $no + 1;
+				
+			}
+		}
+		
+		$data = array("result"=>1, "msg"=>"Berhasil sync ".$no." data");
+		
+		$json_string = json_encode($data);	
+		echo $json_string;
+		
+	}else if($_GET['act'] == 'sync_stock_grab'){
+			
+			$getkodetoko = $connec->query("select storecode as value from m_profile");
+			foreach ($getkodetoko as $ra) {
+				$kt = $ra['value'];
+			}
+			
+			$cekitems = $connec->query("select pos_mproduct.sku, name, coalesce(stockqty,0) as stock, m_grab_sku.stock as stock_grab from pos_mproduct inner join m_grab_sku on pos_mproduct.sku = m_grab_sku.sku order by name asc");						
+			foreach ($cekitems as $rline) {
+				$items[] = array(
+					'sku'		=>$rline['sku'], 
+					'stock' 	=>$rline['stock'],
+					'merchant_id' 	=>$kt,
+				);
+				
+			}	
+			$items_json = json_encode($items);
+			$hasil = push_stock_grab($items_json);
+		
+		
+			$json = array('result'=>'1', 'msg'=>'Berhasil sync stock grab');			
+			$json_string = json_encode($json);
+			echo $json_string;		
+		
 	}else if($_GET['act'] == 'load_product'){
 		$sku = $_POST['sku'];
 		$list_line = "select sku, name, coalesce(stockqty,0) as stock from pos_mproduct where sku = '".$sku."' order by name asc";
@@ -2937,6 +3025,28 @@ locator_name) VALUES (
 								<td>".$row1['stock']."</td>
 								<td>".$row1['price']."</td>
 								<td>".$harga_last."</td>
+
+							</tr>";
+							
+							
+			
+		 $no++;}
+		
+		
+	}else if($_GET['act'] == 'load_product_grab'){
+		$sku = $_POST['sku'];
+		$list_line = "select pos_mproduct.sku, name, coalesce(stockqty,0) as stock, m_grab_sku.stock as stock_grab from pos_mproduct inner join m_grab_sku on pos_mproduct.sku = m_grab_sku.sku order by name asc";
+		
+
+		$no = 1;
+		foreach ($connec->query($list_line) as $row1) {
+			
+							echo 
+							"<tr>
+								<td>".$no."</td>
+								<td>".$row1['sku']."<br> ".$row1['name']."</td>
+								<td>".$row1['stock']."</td>
+								<td>".$row1['stock_grab']."</td>
 
 							</tr>";
 							

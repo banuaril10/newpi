@@ -123,6 +123,9 @@
 						<li class="submenu-item ">
 							<a href="sync_sku.php">Sync SKU</a>
 						</li>
+						<li class="submenu-item ">
+							<a href="sync_grab.php">Sync Grab</a>
+						</li>
 						
 					</ul>
 				</li>

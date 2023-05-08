@@ -451,6 +451,21 @@ foreach ($index as $r){
 
 			$connec->exec($r);
 	}
+	
+	
+					$cmd_grab = ["CREATE TABLE m_grab_sku (sku character varying(25) primary key, stock character varying(10));"];
+					
+					
+					$result_grab = $connec->query("SELECT 1 FROM information_schema.tables WHERE  table_name = 'm_grab_sku'" );
+					if($result_grab->rowCount() == 1) {
+
+					}else {
+						foreach ($cmd_grab as $r){
+								$connec->exec($r);
+						}
+					}	
+	
+	
 
 
 					?> 
