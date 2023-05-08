@@ -431,7 +431,32 @@ function get_data_erp_borongan_direct_webpos($a,$c,$d,$e,$f){
 					
 }
 
+function push_stock_grab($a){
+	
+	$postData = array(
+		"data_line" => $a,
+    );				
+	$fields_string = http_build_query($postData);
 
+	$curl = curl_init();
+
+	curl_setopt_array($curl, array(
+	CURLOPT_URL => 'https://pi.idolmartidolaku.com/api/action.php?modul=inventory&act=push_stock_grab',
+	CURLOPT_RETURNTRANSFER => true,
+	CURLOPT_ENCODING => '',
+	CURLOPT_MAXREDIRS => 10,
+	CURLOPT_TIMEOUT => 0,
+	CURLOPT_FOLLOWLOCATION => true,
+	CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+	CURLOPT_CUSTOMREQUEST => 'POST',
+	CURLOPT_POSTFIELDS => $fields_string,
+	));
+	
+	$response = curl_exec($curl);
+	
+	curl_close($curl);
+	return $response;
+}
 
 function get_data_erp_borongan_kat($a,$b,$c,$d,$e,$f){
 			
