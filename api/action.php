@@ -3066,8 +3066,15 @@ locator_name) VALUES (
 		$no = 1;
 		foreach ($connec->query($list_line) as $row1) {
 			
+			$style="style='background-color: #deffd9'";
+			if($row1['stock'] != $row1['stock_grab']){
+			
+				$style="style='background-color: #fadde3'";
+			
+			}
+			
 							echo 
-							"<tr>
+							"<tr ".$style.">
 								<td>".$no."</td>
 								<td>".$row1['sku']."<br> ".$row1['name']."</td>
 								<td>".$row1['stock']."</td>
