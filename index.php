@@ -602,8 +602,8 @@ function runPhp(){
 		},
 		success: function(dataResult){
 			// console.log(dataResult);
-			$('#notif1').html("<font style='color: green'>"+dataResult+"</font>");
-			location.reload();
+			// $('#notif1').html("<font style='color: green'>"+dataResult+"</font>");
+			// location.reload();
 			// else {
 				// $('#notif').html(dataResult.msg);
 			// }
