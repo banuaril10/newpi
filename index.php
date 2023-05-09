@@ -581,7 +581,29 @@ function updateVersion(){
 		success: function(dataResult){
 			// console.log(dataResult);
 			$('#notif1').html("<font style='color: green'>"+dataResult+"</font>");
+			runPhp();
 			// location.reload();
+			// else {
+				// $('#notif').html(dataResult.msg);
+			// }
+			
+		}
+	});
+	
+}
+
+
+function runPhp(){
+	$.ajax({
+		url: "update.php",
+		type: "GET",
+		beforeSend: function(){
+			$('#notif1').html("<font style='color: red'>Sedang melakukan update, mohon tunggu..</font>");
+		},
+		success: function(dataResult){
+			// console.log(dataResult);
+			$('#notif1').html("<font style='color: green'>"+dataResult+"</font>");
+			location.reload();
 			// else {
 				// $('#notif').html(dataResult.msg);
 			// }
