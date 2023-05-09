@@ -579,8 +579,8 @@ function updateVersion(){
 			$('#notif1').html("<font style='color: red'>Sedang melakukan update, mohon tunggu..</font>");
 		},
 		success: function(dataResult){
-			// console.log(dataResult);
-			location.reload();
+			console.log(dataResult);
+			// location.reload();
 			// else {
 				// $('#notif').html(dataResult.msg);
 			// }
