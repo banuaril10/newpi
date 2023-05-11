@@ -100,6 +100,11 @@ function manage_stock(){
 			$('#notif').html("<font style='color: green'>"+dataResult.msg+"</font>");
 			$("#overlay").fadeOut(300);
 			
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			location.reload();
+			$('#notif').html("<font style='color: green'>"+dataResult.msg+"</font>");
+			$("#overlay").fadeOut(300);
 		}
 		});
 		
