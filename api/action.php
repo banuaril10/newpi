@@ -2761,7 +2761,11 @@ locator_name) VALUES (
 		
 		
 		// $sku = "8151000000129";
-		
+		$sqll = "select storeid as ad_morg_key from m_profile";
+		$results = $connec->query($sqll);
+		foreach ($results as $r) {
+			$org_key = $r["ad_morg_key"];	
+		}
 		
 		$hasil = get_data_stock_all($org_key);
 		$j_hasil = json_decode($hasil, true);
