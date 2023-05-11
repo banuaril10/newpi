@@ -174,16 +174,9 @@
 						
 						<?php 
 						
+						$table = 'pos_mproduct';
 						
-						$sql_list = "select date(now()) as tgl_sekarang, a.sku, a.name ,b.rack_name, a.price from pos_mproduct a left join inv_mproduct b on a.sku = b.sku ";
-						
-						if($_GET['rak'] && !empty($_GET['rak'])){
-							
-							$sql_list .= "where b.rack_name = '".$_GET['rak']."'";
-							
-						}
-						
-						
+												
 						if($_GET['stock'] && !empty($_GET['stock'])){
 						$stock = $_GET['stock'];
 						if($stock == "all"){
@@ -191,7 +184,7 @@
 							$value = "Semua Stock";
 							
 						}else{
-							$sql_list .= " and a.stockqty > 0";
+							$table = "(select * from pos_mproduct where stockqty > 0)";
 							
 							$value = "Stock > 0";
 						}
@@ -202,6 +195,18 @@
 							
 							$value = "Semua Stock";
 						}
+						
+						
+						
+						$sql_list = "select date(now()) as tgl_sekarang, a.sku, a.name ,b.rack_name, a.price from ".$table." a left join inv_mproduct b on a.sku = b.sku where a.sku != '' ";
+						
+						if($_GET['rak'] && !empty($_GET['rak'])){
+							
+							$sql_list .= " and b.rack_name = '".$_GET['rak']."'";
+							
+						}
+						
+
 						
 						
 						

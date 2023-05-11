@@ -522,6 +522,35 @@ function get_data_stock($a,$b){
 					
 }
 
+function get_data_stock_all($a){
+			
+	$postData = array(
+		"org_id" => $a,
+	
+    );				    
+	// $fields_string = http_build_query($postData);
+	$curl = curl_init();
+
+	curl_setopt_array($curl, array(
+	CURLOPT_URL => 'https://pi.idolmartidolaku.com/api/action.php?modul=inventory&act=sync_pos_fix',
+	CURLOPT_RETURNTRANSFER => true,
+	CURLOPT_ENCODING => '',
+	CURLOPT_MAXREDIRS => 10,
+	CURLOPT_TIMEOUT => 0,
+	CURLOPT_FOLLOWLOCATION => true,
+	CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+	CURLOPT_CUSTOMREQUEST => 'POST',
+	CURLOPT_POSTFIELDS => $postData,
+	));
+	
+	$response = curl_exec($curl);
+	
+	curl_close($curl);
+	return $response;
+					
+					
+}
+
 function get_data_barcode(){
 			
 			    
@@ -661,34 +690,7 @@ function get_data_doc($a,$b){
 
 
 
-function get_data_stock_all($a){
-			
-	$postData = array(
-		"org_id" => $a,
-	
-    );				    
-	// $fields_string = http_build_query($postData);
-	$curl = curl_init();
 
-	curl_setopt_array($curl, array(
-	CURLOPT_URL => 'https://pi.idolmartidolaku.com/api/action.php?modul=inventory&act=sync_pos_fix',
-	CURLOPT_RETURNTRANSFER => true,
-	CURLOPT_ENCODING => '',
-	CURLOPT_MAXREDIRS => 10,
-	CURLOPT_TIMEOUT => 0,
-	CURLOPT_FOLLOWLOCATION => true,
-	CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-	CURLOPT_CUSTOMREQUEST => 'POST',
-	CURLOPT_POSTFIELDS => $postData,
-	));
-	
-	$response = curl_exec($curl);
-	
-	curl_close($curl);
-	return $response;
-					
-					
-}
 
 function get_data_erp($a,$b,$c,$d){
 			
