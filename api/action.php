@@ -2930,6 +2930,7 @@ locator_name) VALUES (
 		$json_string = json_encode($data);	
 		echo $json_string;
 		// echo $sql;
+		var_dump($j_hasil);
 		
 	}else if($_GET['act'] == 'sync_sku'){
 		
