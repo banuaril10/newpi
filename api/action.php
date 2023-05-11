@@ -2902,7 +2902,7 @@ locator_name) VALUES (
 		
 		$hasil = get_data_barcode();
 		$j_hasil = json_decode($hasil, true);
-		var_dump($j_hasil);
+		// var_dump($j_hasil);
 		// $jum = count($hasil);
 		
 		// if($jum > 0){
@@ -2910,7 +2910,10 @@ locator_name) VALUES (
 		foreach($j_hasil as $r) {
 			
 		if($r['value'] != ''){
-			$upcount = $connec->query("update pos_mproduct set barcode='".$r['value']."', shortcut = '".$r['value']."', name = '".$r['name']."' where sku='".$r['sku']."'");
+			
+			$sql = "update pos_mproduct set barcode='".$r['value']."', shortcut = '".$r['value']."', name = '".$r['name']."' where sku='".$r['sku']."'";
+			echo $sql;
+			$upcount = $connec->query($sql);
 	
 			if($upcount){
 				$no = $no + 1;
