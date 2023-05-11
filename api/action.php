@@ -2908,13 +2908,18 @@ locator_name) VALUES (
 		// if($jum > 0){
 		$no = 0;	
 		foreach($j_hasil as $r) {
-
-				$upcount = $connec->query("update pos_mproduct set barcode='".$r['value']."', shortcut = '".$r['value']."', name = '".$r['name']."' where sku='".$r['sku']."'");
+			
+		if($r['value'] != ''){
+			$upcount = $connec->query("update pos_mproduct set barcode='".$r['value']."', shortcut = '".$r['value']."', name = '".$r['name']."' where sku='".$r['sku']."'");
 	
 			if($upcount){
 				$no = $no + 1;
 				
 			}
+			
+		}
+
+		
 			
 		
 
