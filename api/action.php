@@ -2912,7 +2912,7 @@ locator_name) VALUES (
 		if($r['value'] != ''){
 			
 			$sql = "update pos_mproduct set barcode='".$r['value']."', shortcut = '".$r['value']."', name = '".$r['name']."' where sku='".$r['sku']."'";
-			echo $sql;
+			// echo $sql;
 			$upcount = $connec->query($sql);
 	
 			if($upcount){
