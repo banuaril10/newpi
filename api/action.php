@@ -2902,7 +2902,7 @@ locator_name) VALUES (
 		
 		$hasil = get_data_barcode();
 		$j_hasil = json_decode($hasil, true);
-		
+		var_dump($j_hasil);
 		// $jum = count($hasil);
 		
 		// if($jum > 0){
@@ -2930,7 +2930,7 @@ locator_name) VALUES (
 		$json_string = json_encode($data);	
 		echo $json_string;
 		// echo $sql;
-		var_dump($j_hasil);
+		
 		
 	}else if($_GET['act'] == 'sync_sku'){
 		
