@@ -1486,15 +1486,25 @@ if($_GET['modul'] == 'inventory'){
 		}else{
 			
 			
-			$ceksku = "select m_product_id, sku, name, coalesce(price, 0) from pos_mproduct where sku ='".$sku."'";
-			$cs = $connec->query($ceksku);
-			$count1 = $cs->rowCount();
-			
-			
+			$count1 = 0;
+			if($sku != ""){
+				
+				$ceksku = "select m_product_id, sku, name, coalesce(price, 0) from pos_mproduct where (sku ='".$sku."' or barcode = '".$sku."')";
+				$cs = $connec->query($ceksku);
+				$count1 = $cs->rowCount();
+				
+			}
 			
 			
 			if($count1 > 0){
-
+			
+			foreach($cs as $mpii){
+				$m_pro_id = $mpii['m_product_id'];
+				$name = $mpii['name'];
+				$sku = $mpii['sku'];
+				// $price = $mpii['price'];
+				
+			}
 			
 
 			if($insertfrom == 'M'){
@@ -1519,18 +1529,6 @@ if($_GET['modul'] == 'inventory'){
 						
 							$qtysales = $rsa1['qtysales'];
 						}
-
-					
-					
-					
-			
-			
-			foreach($cs as $mpii){
-				$m_pro_id = $mpii['m_product_id'];
-				$name = $mpii['name'];
-				// $price = $mpii['price'];
-				
-			}
 			
 			
 			foreach($gm as $rr){
