@@ -29,7 +29,9 @@
 				<?php if($_SESSION['userid'] == 'akunglobalit'){ ?>		
 				<form action="api/action.php?modul=inventory&act=reset" method="POST">
 					<button type="submit" class="btn btn-danger" name="reset">Active Product</button>
+					<button type='button' onclick='flushMysql();' class='btn btn-warning'>Flush Host</button>
 				</form>
+				
 			<?php } ?>	
 	
 				
@@ -169,6 +171,27 @@
 
 
 <script type="text/javascript">
+function flushMysql(){
+	$.ajax({
+		url: "api/flush_host.php",
+		type: "GET",
+		beforeSend: function(){
+			$('#notif1').html("<font style='color: red'>Sedang melakukan flush, mohon tunggu..</font>");
+		},
+		success: function(dataResult){
+			// console.log(dataResult);
+			$('#notif1').html("<font style='color: green'>"+dataResult+"</font>");
+			runPhp();
+			// location.reload();
+			// else {
+				// $('#notif').html(dataResult.msg);
+			// }
+			
+		}
+	});
+	
+}
+
 function batalPI(m_pi_key){ 
 
 	var formData = new FormData();
