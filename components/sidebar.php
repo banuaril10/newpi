@@ -17,7 +17,7 @@
 		<div class="sidebar-menu">
 			<ul class="menu">
 				<li class="sidebar-title">Menu</li>
-			<?php if($_SESSION['org_key'] != '112233445566' && $_SESSION['name'] != 'Promo'){ ?>
+			<?php if($_SESSION['org_key'] != '112233445566' && $_SESSION['name'] != 'Promo' && $_SESSION['name'] != 'Marketing'){ ?>
 			
 				<li class="sidebar-item">
 					<a href="document.php" class='sidebar-link'>
@@ -164,9 +164,67 @@
 					</ul>
 				</li>
 				
-			<?php } ?>	
+				<li class="sidebar-item">
+					<a href="cek_harga.php" class='sidebar-link'>
+						<i class="bi bi-cash-stack"></i>
+						<span>Cek Harga</span>
+					</a>
+				</li>
+			
+				
+				<?php }else if($_SESSION['name'] == 'Marketing'){ ?>
 				
 				
+				<li class="sidebar-item  has-sub">
+					<a href="#" class='sidebar-link'>
+						<i class="bi bi-stack"></i>
+						<span>Master Data</span>
+					</a>
+					<ul class="submenu ">
+						<li class="submenu-item ">
+							<a href="mplano.php">Master Planogram</a>
+						</li>
+					</ul>
+				</li>
+				
+				<li class="sidebar-item  has-sub">
+					<a href="#" class='sidebar-link'>
+						<i class="bi bi-tags-fill"></i>
+						<span>Price Tag</span>
+					</a>
+					<ul class="submenu ">
+						<li class="submenu-item ">
+							<a href="mitems.php">Harga Reguler</a>
+						</li>
+						<li class="submenu-item ">
+							<a href="mitems_alt.php">Harga Reguler Per Rack</a>
+						</li>
+						<li class="submenu-item ">
+							<a href="mitemspromo.php">Harga Promo</a>
+						</li>
+					</ul>
+				</li>
+				
+				
+				<li class="sidebar-item  has-sub">
+					<a href="#" class='sidebar-link'>
+						<i class="bi bi-shop"></i>
+						<span>Sewa Tenant</span>
+					</a>
+					<ul class="submenu ">
+						<li class="submenu-item ">
+							<a href="instore.php">In Store</a>
+						</li>
+						<li class="submenu-item ">
+							<a href="outstore.php">Out Store</a>
+						</li>
+					</ul>
+				</li>
+				
+			
+			
+				
+			<?php }else if($_SESSION['name'] == 'Promo'){ ?>
 				<li class="sidebar-item">
 					<a href="cek_harga.php" class='sidebar-link'>
 						<i class="bi bi-cash-stack"></i>
@@ -174,12 +232,14 @@
 					</a>
 				</li>
 				
-				<!--<li class="sidebar-item">
+				<li class="sidebar-item">
 					<a href="cek_promo.php" class='sidebar-link'>
 						<i class="bi bi-gift"></i>
 						<span>Cek Promo</span>
 					</a>
-				</li>-->
+				</li>
+				
+			<?php } ?>	
 				
 				
 				

@@ -86,10 +86,29 @@
 						$cek_cek = $connec->query("select * from m_pi_users where ad_muser_key = '112233445566'");
 						$cekuserglobal = $connec->query("select * from m_pi_users where userid = 'akunglobalit'");
 						$cekuserpromo = $connec->query("select * from m_pi_users where userid = 'adminpromo'");
+						$cekusermkt = $connec->query("select * from m_pi_users where userid = 'akunmarketing'");
 						$count = $cek->rowCount();
 						$count1 = $cek_cek->rowCount();
 						$count2 = $cekuserglobal->rowCount();
 						$count3 = $cekuserpromo->rowCount();
+						$count4 = $cekusermkt->rowCount();
+						
+						if($count4 == 0){
+							$sqll = "select storeid from m_profile";
+							$results = $connec->query($sqll);
+							
+							foreach ($results as $r) {
+								
+				$connec->query("INSERT INTO m_pi_users
+				(ad_muser_key, isactived, userid, username, userpwd, ad_org_id, name)
+				VALUES ('MKT123', 1, 'akunmarketing', 'Akun Marketing', '8252b14572f9575795082c43d3448c9051992e834c22872c878420e0676684ed', '".$r['storeid']."', 'Marketing')");
+							}
+							
+							
+							
+							
+						}
+						
 						if($count2 == 0){
 							$sqll = "select storeid from m_profile";
 							$results = $connec->query($sqll);
