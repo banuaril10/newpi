@@ -252,7 +252,8 @@ $cmd2 = ['CREATE TABLE m_piline (
     price numeric DEFAULT 0,
     status1 numeric DEFAULT 0,
     qtysalesout numeric DEFAULT 0,
-	barcode varchar(30)
+	barcode varchar(30),
+	upc varchar(30)
 );','CREATE INDEX IF NOT EXISTS m_piline_insertdate_idx ON m_piline  (insertdate);',
 'CREATE INDEX IF NOT EXISTS m_piline_m_pi_key_idx ON m_piline  (m_pi_key);',
 'CREATE INDEX IF NOT EXISTS m_piline_sku_idx ON m_piline (sku);'
@@ -261,6 +262,7 @@ $cmd2 = ['CREATE TABLE m_piline (
 
 $cmd2_alter_piline = ['ALTER TABLE m_piline ADD COLUMN IF NOT EXISTS barcode varchar(30);'];
 $cmd2_alter_piline1 = ['ALTER TABLE m_piline ADD COLUMN IF NOT EXISTS hargabeli numeric;'];
+$cmd2_alter_piline2 = ['ALTER TABLE m_piline ADD COLUMN IF NOT EXISTS upc varchar(30);'];
 
 $cmd3 = ['CREATE TABLE m_pi_sales (
     tanggal datetime ,
@@ -391,6 +393,11 @@ if($result1->rowCount() == 1) {
 	}
 	
 	foreach ($cmd2_alter_piline1 as $r1){
+
+			$connec->exec($r1);
+	}
+	
+	foreach ($cmd2_alter_piline2 as $r1){
 
 			$connec->exec($r1);
 	}
