@@ -1021,15 +1021,16 @@ if($_GET['modul'] == 'inventory'){
 					$mpi= $r['mpi'];
 					$sku= $r['sku'];
 					$barcode= $r['barcode'];
+					$upc= $r['upc'];
 					// $qtycount= $r['qtycount'];
 					// $qtysales= $r['qtysales'];
 					$ketemu= $r['ketemu'];
 					$pricebuy= $r['pricebuy'];
 					
 					if($ketemu == 1){
-						$statement1 = $connec->query("insert into m_piline (m_piline_key, m_pi_key, ad_org_id, isactived, insertdate, insertby, postdate, m_storage_id, m_product_id, sku, qtyerp, qtycount, qtysales, price, status, qtysalesout, status1, barcode, hargabeli) 
+						$statement1 = $connec->query("insert into m_piline (m_piline_key, m_pi_key, ad_org_id, isactived, insertdate, insertby, postdate, m_storage_id, m_product_id, sku, qtyerp, qtycount, qtysales, price, status, qtysalesout, status1, barcode, hargabeli, upc) 
 					VALUES ('".guid()."', '".$lastid."','".$org_key."','1','".date('Y-m-d H:i:s')."','".$username."', '".date('Y-m-d H:i:s')."', '".$sl."','".$mpi."', 
-					'".$sku."', '".$qtyon."', '".$qtycount."', '".$qtysales."','".$price."', '".$statuss."', '".$qtyout."','".$statusss."', '".$barcode."', '".$pricebuy."')");
+					'".$sku."', '".$qtyon."', '".$qtycount."', '".$qtysales."','".$price."', '".$statuss."', '".$qtyout."','".$statusss."', '".$barcode."', '".$pricebuy."', '".$upc."')");
 				
 					
 					if($statement1){
@@ -1186,6 +1187,7 @@ if($_GET['modul'] == 'inventory'){
 					$sku= $r['sku'];
 					$namaitem= $r['namaitem'];
 					$barcode= $r['barcode'];
+					$upc= $r['upc'];
 						$sql_sales = "select case when sum(qty) is null THEN '0' ELSE sum(qty) END as qtysales from pos_dsales 
 						where date(insertdate)=date(now()) and sku='".$r['sku']."'";
 					
@@ -1214,9 +1216,9 @@ if($_GET['modul'] == 'inventory'){
 							
 						}
 
-						$statement1 = $connec->query("insert into m_piline (m_piline_key, m_pi_key, ad_org_id, isactived, insertdate, insertby, postdate, m_storage_id, m_product_id, sku, qtyerp, qtycount, qtysales, price, status, qtysalesout, status1, barcode, hargabeli) 
+						$statement1 = $connec->query("insert into m_piline (m_piline_key, m_pi_key, ad_org_id, isactived, insertdate, insertby, postdate, m_storage_id, m_product_id, sku, qtyerp, qtycount, qtysales, price, status, qtysalesout, status1, barcode, hargabeli, upc) 
 					VALUES ('".guid()."', '".$lastid."','".$org_key."','1','".date('Y-m-d H:i:s')."','".$username."', '".date('Y-m-d H:i:s')."', '".$sl."','".$mpi."', 
-					'".$sku."', '".$qtyon."', '".$qtycount."', '".$qtysales."','".$price."', '1', '".$qtyout."','1', '".$barcode."', '".$pricebuy."')");
+					'".$sku."', '".$qtyon."', '".$qtycount."', '".$qtysales."','".$price."', '1', '".$qtyout."','1', '".$barcode."', '".$pricebuy."', '".$upc."')");
 				
 					
 					if($statement1){
@@ -1372,7 +1374,7 @@ if($_GET['modul'] == 'inventory'){
 			
 		
 		
-		$sql = "select m_piline.sku, m_piline.qtycount from m_piline where (m_piline.sku ='".$sku."' or m_piline.barcode ='".$sku."')
+		$sql = "select m_piline.sku, m_piline.qtycount from m_piline where (m_piline.sku ='".$sku."' or m_piline.barcode ='".$sku."' or m_piline.upc = '".$sku."')
 		and date(m_piline.insertdate) = date(now())";
 		$result = $connec->query($sql);
 		$count = $result->rowCount();
@@ -1449,7 +1451,8 @@ if($_GET['modul'] == 'inventory'){
 		// $kat = $_POST['kat'];
 
 		
-		$sql = "select m_piline.qtycount, pos_mproduct.name from m_piline left join pos_mproduct on m_piline.sku = pos_mproduct.sku where (m_piline.sku ='".$sku."' or m_piline.barcode ='".$sku."')
+		$sql = "select m_piline.qtycount, pos_mproduct.name from m_piline left join pos_mproduct on m_piline.sku = pos_mproduct.sku where 
+		(m_piline.sku ='".$sku."' or m_piline.barcode ='".$sku."' or m_piline.upc ='".$sku."')
 		and m_piline.m_pi_key = '".$mpi."' and date(m_piline.insertdate) = '".date('Y-m-d')."'";
 		$result = $connec->query($sql);
 		$count = $result->rowCount();
@@ -1473,7 +1476,7 @@ if($_GET['modul'] == 'inventory'){
 		
 		
 		
-			$statement1 = $connec->query("update m_piline set qtycount = '".$lastqty."' where (sku = '".$sku."' or barcode ='".$sku."') and date(m_piline.insertdate) = '".date('Y-m-d')."'"); //klo udah ada update
+			$statement1 = $connec->query("update m_piline set qtycount = '".$lastqty."' where (sku = '".$sku."' or barcode ='".$sku."' or upc ='".$sku."') and date(m_piline.insertdate) = '".date('Y-m-d')."'"); //klo udah ada update
 			
 			if($statement1){	
 				$json = array('result'=>'1', 'msg'=>$sku .' ('.$pn.'), QUANTITYS = <font style="color: red">'.$lastqty.'</font>');	
@@ -1553,6 +1556,7 @@ if($_GET['modul'] == 'inventory'){
 				$qtyout= $j_hasil['qtyout'];			
 				$statusss= $j_hasil['statusss'];			
 				$barcode= $j_hasil['barcode'];						
+				$upc= $j_hasil['upc'];						
 							
 				
 				
@@ -1573,8 +1577,8 @@ if($_GET['modul'] == 'inventory'){
 						
 				
 				
-				$statement1 = $connec->query("insert into m_piline (m_piline_key, m_pi_key, ad_org_id, isactived, insertdate, insertby, postdate,m_storage_id, m_product_id, sku, qtyerp, qtycount, qtysales, price, status, qtysalesout, status1, barcode, hargabeli) 
-				VALUES ('".guid()."', '".$rr['m_pi_key']."','".$org_key."','1','".date('Y-m-d H:i:s')."','".$username."', '".date('Y-m-d H:i:s')."','".$rr['m_locator_id']."','".$m_pro_id."', '".$sku."', '".$qtyon."', '".$qtycount."', '".$qtysales."', '".$price."', '".$statuss."', '".$qtyout."', '".$statusss."', '".$barcode."', '".$pricebuy."')"); 
+				$statement1 = $connec->query("insert into m_piline (m_piline_key, m_pi_key, ad_org_id, isactived, insertdate, insertby, postdate,m_storage_id, m_product_id, sku, qtyerp, qtycount, qtysales, price, status, qtysalesout, status1, barcode, hargabeli, upc) 
+				VALUES ('".guid()."', '".$rr['m_pi_key']."','".$org_key."','1','".date('Y-m-d H:i:s')."','".$username."', '".date('Y-m-d H:i:s')."','".$rr['m_locator_id']."','".$m_pro_id."', '".$sku."', '".$qtyon."', '".$qtycount."', '".$qtysales."', '".$price."', '".$statuss."', '".$qtyout."', '".$statusss."', '".$barcode."', '".$pricebuy."','".$upc."')"); 
 				
 				// $cekeke = "insert into m_piline (m_pi_key, ad_org_id, isactived, insertdate, insertby, m_storage_id, m_product_id, sku, qtyerp, qtysales, qtycount, price, 
 				// status, qtysalesout, status1) 
@@ -2609,7 +2613,7 @@ VALUES('".$item['ad_client_id']."', '".$item['ad_org_id']."', '1', '".date('Y-m-
 		
 		foreach ($connec->query($getinv) as $gi) {
 			
-			$cekqty = "select qtycount from m_piline where (sku = '".$gi['sku']."' or barcode = '".$gi['sku']."') and date(insertdate) = date(now())";
+			$cekqty = "select qtycount from m_piline where (sku = '".$gi['sku']."' or barcode = '".$gi['sku']."' or upc = '".$gi['sku']."') and date(insertdate) = date(now())";
 			$result = $connec->query($cekqty);
 			$count = $result->rowCount();
 			
@@ -2620,7 +2624,7 @@ VALUES('".$item['ad_client_id']."', '".$item['ad_org_id']."', '1', '".date('Y-m-
 					$jumqty = (int)$qtycount + (int)$gi['jumqty'];
 	
 							
-							$upcount = $connec->query("update m_piline set qtycount='".$jumqty."' where (sku = '".$gi['sku']."' or barcode = '".$gi['sku']."') and date(insertdate)=date(now()) ");
+							$upcount = $connec->query("update m_piline set qtycount='".$jumqty."' where (sku = '".$gi['sku']."' or barcode = '".$gi['sku']."' or upc = '".$gi['sku']."') and date(insertdate)=date(now()) ");
 							if($upcount){
 								
 								$connec->query("update inv_temp set status = 1 where sku = '".$gi['sku']."' and date(tanggal) = date(now()) and filename = '".$filename."'");
