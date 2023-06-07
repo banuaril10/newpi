@@ -314,6 +314,11 @@ input.addEventListener("keypress", function(event) {
 			var dataResult = JSON.parse(dataResult);
 			console.log(dataResult);
 			if(dataResult.result=='2'){
+				
+				
+				var audio = new Audio('sound/sound_pi.m4a');
+				audio.play();
+				
 				input.value = '';
 				$('#notif').html(dataResult.msg+' <button onclick="lanjutInput('+sku+', \''+ m_pi_key + '\', '+kategori+');">Yes</button>');
 				$('#example1').load(' #example1', function() {
@@ -335,6 +340,8 @@ input.addEventListener("keypress", function(event) {
 				
 				
 			}else if(dataResult.result=='0'){
+				var audio = new Audio('sound/sound_pi.m4a');
+				audio.play();
 				input.value = '';
 				$('#notif').html("<font style='color: red'>"+dataResult.msg+"</font>");
 			}

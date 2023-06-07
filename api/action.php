@@ -398,14 +398,15 @@ function get_data_erp_borongan($a,$b,$c,$d,$e,$f){
 					
 }
 
-function get_data_erp_borongan_direct_webpos($a,$c,$d,$e,$f){
+function get_data_erp_borongan_direct_webpos($a,$c,$d,$e,$f,$g){
 			
 	$postData = array(
 		"m_locator_id" => $a,
 		"org_key" => $c,
 		"ss" => $d,
 		"kode_toko" => $e,
-		"rack" => $f
+		"rack" => $f,
+		"name_pi" => $g
 	
     );				    
 	$fields_string = http_build_query($postData);
@@ -912,11 +913,12 @@ if($_GET['modul'] == 'inventory'){
 				
 			
 				$lastid = guid();
+				$name_pi = $kode_toko."-".date('YmdHis');
 				
 				$statement = $connec->query("insert into m_pi (m_pi_key,
 			ad_client_id, ad_org_id, isactived, insertdate, insertby, m_locator_id, inventorytype, name, description, 
 			movementdate, approvedby, status, rack_name, postby, postdate, category
-			) VALUES ('".$lastid."','','".$org_key."','1','".date('Y-m-d H:i:s')."','".$username."', '".$sl."', '".$it."','".$kode_toko."-".date('YmdHis')."','PI-".$rack."', 
+			) VALUES ('".$lastid."','','".$org_key."','1','".date('Y-m-d H:i:s')."','".$username."', '".$sl."', '".$it."','".$name_pi."','PI-".$rack."', 
 			'".date('Y-m-d H:i:s')."','user spv','1','".$rack."','".$username."','".date('Y-m-d H:i:s')."', '1')");
 			
 			
@@ -960,7 +962,7 @@ if($_GET['modul'] == 'inventory'){
 				$items_json = json_encode($items);
 				
 
-				$hasil = get_data_erp_borongan_direct_webpos($sl, $org_key, $ss, $kode_toko, $rack); //php curl
+				$hasil = get_data_erp_borongan_direct_webpos($sl, $org_key, $ss, $kode_toko, $rack, $name_pi); //php curl
 				
 				// print_r ($hasil);
 				
@@ -1424,7 +1426,10 @@ if($_GET['modul'] == 'inventory'){
 						$json = array('result'=>'2', 'msg'=>'ITEMS '.$sku.' TIDAK PUNYA RACK, LANJUTKAN?');	
 						
 					}else{
-						$json = array('result'=>'2', 'msg'=>'ITEMS '.$sku.' TIDAK ADA DI PI LINE, LANJUTKAN?');	
+						
+					
+						
+						$json = array('result'=>'2', 'msg'=>'ITEMS '.$sku.' TIDAK ADA DI LINE, LANJUTKAN?');	
 						
 					}
 					
@@ -1847,7 +1852,7 @@ if($_GET['modul'] == 'inventory'){
 							
 								$items_json = json_encode($allarray);
 								$hasil = piline_semua($items_json);
-								// var_dump($hasil);
+					
 								$j_hasil = json_decode($hasil, true);
 								
 								if(!empty($j_hasil)){
@@ -1855,13 +1860,13 @@ if($_GET['modul'] == 'inventory'){
 									$connec->query("update m_pi set status = '3' where m_pi_key ='".$pi_key."'");
 									
 								}
-								// var_dump($allarray);
+
 
 						
 				
 				
 				
-						foreach($j_hasil as $r) {
+							foreach($j_hasil as $r) {
 									$statement1 = $connec->query("update m_piline set issync = '".$r['status']."' where m_piline_key = '".$r['m_piline_key']."' 
 									and m_pi_key ='".$r['m_pi_key']."'");
 									if($statement1){
