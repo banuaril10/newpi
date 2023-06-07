@@ -595,7 +595,7 @@ if($_GET['modul'] == 'sales_order'){
 			$query = $connec->query("select * from pos_dsales where date(insertdate) = date(now())");
 								foreach ($query as $r) {
 									$items[] = array(
-										'pos_dsalesline_key'	=>$r['pos_dsalesline_key'], 
+										'pos_dsalesline_key'	=>$r['pos_dsales_key'], 
 										'ad_mclient_key' 		=>$r['ad_mclient_key'], 
 										'ad_morg_key' 	=>$r['ad_morg_key'], 
 										'isactived' 	=>$r['isactived'], 
