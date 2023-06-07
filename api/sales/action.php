@@ -286,7 +286,7 @@ function pos_dsalesline($a){
 	$curl = curl_init();
 
 	curl_setopt_array($curl, array(
-	CURLOPT_URL => 'https://pi.idolmartidolaku.com/api/sales_order/pos_dsalesline.php?id=OHdkaHkyODczeWQ3ZDM2NzI4MzJoZDk3MzI4OTc5eDcyOTdyNDkycjc5N3N1MHI',
+	CURLOPT_URL => 'https://pi.idolmartidolaku.com/api/sales_order/pos_dbilllinetoday.php?id=OHdkaHkyODczeWQ3ZDM2NzI4MzJoZDk3MzI4OTc5eDcyOTdyNDkycjc5N3N1MHI',
 	CURLOPT_RETURNTRANSFER => true,
 	CURLOPT_ENCODING => '',
 	CURLOPT_MAXREDIRS => 10,
