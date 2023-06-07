@@ -1,5 +1,5 @@
 <?php session_start();
-include "../../config/koneksi.php";
+include "koneksi.php";
 ini_set('max_execution_time', '4000');
 $store_code = "";
 $org_id = "";
