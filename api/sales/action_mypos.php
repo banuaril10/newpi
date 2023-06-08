@@ -209,7 +209,7 @@ if($_GET['modul'] == 'sales_order'){
 								// var_dump($hasil);
 								// var_dump($items_json);
 								$j_hasil = json_decode($hasil, true);
-								echo $j_hasil;
+								var_dump($j_hasil);
 								
 	}
 }
