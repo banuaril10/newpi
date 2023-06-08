@@ -213,7 +213,7 @@ if($_GET['modul'] == 'sales_order'){
 								$jum_sales = 0;
 								foreach($j_hasil as $r){
 									// echo $r['data'];
-									$up = $connec->query("update pos_dsales set status_sales = '1' where pos_dsales_key = '".$r['data']."'")
+									$up = $connec->query("update pos_dsales set status_sales = '1' where pos_dsales_key = '".$r['data']."'");
 									if($up){
 										
 										$jum_sales++;
