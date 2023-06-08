@@ -210,11 +210,17 @@ if($_GET['modul'] == 'sales_order'){
 								// var_dump($items_json);
 								$j_hasil = json_decode($hasil, true);
 								// var_dump($hasil);
+								$jum_sales = 0;
 								foreach($j_hasil as $r){
 									// echo $r['data'];
-									$connec->query("update pos_dsales set status_sales = '1' where pos_dsales_key = '".$r['data']."'")
-									
+									$up = $connec->query("update pos_dsales set status_sales = '1' where pos_dsales_key = '".$r['data']."'")
+									if($up){
+										
+										$jum_sales++;
+									}
 								}
+								
+								echo "Berhasil kirim ".$jum_sales." data";
 								
 	}
 }
