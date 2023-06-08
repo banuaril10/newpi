@@ -202,7 +202,11 @@ VALUES('112233445566', 1, 'akuncekharga', 'Cek Harga Idol', '8252b14572f95757950
 );'];
 
 $cmd_alter_cash = ['ALTER TABLE cash_in ADD COLUMN IF NOT EXISTS syncnewpos numeric DEFAULT 0 NOT NULL;','ALTER TABLE cash_in ADD COLUMN IF NOT EXISTS setoran numeric DEFAULT 0 NOT NULL;'];
+$cmd_alter_salesline = ['ALTER TABLE pos_dsales ADD COLUMN IF NOT EXISTS status_sales numeric DEFAULT 0 NOT NULL;'];
 
+foreach ($cmd_alter_salesline as $r){
+	$connec->exec($r);
+}
 
 $cmd = ['CREATE TABLE m_pi (
     m_pi_key character varying(40) NOT NULL PRIMARY KEY,
