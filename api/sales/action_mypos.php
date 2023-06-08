@@ -179,7 +179,7 @@ if($_GET['modul'] == 'sales_order'){
 	if($_GET['act'] == 'pos_dsalesline'){
 			$items = array();
 
-			$query = $connec->query("select * from pos_dsales where date(insertdate) = '2023-06-07'");
+			$query = $connec->query("select * from pos_dsales where date(insertdate) = '2023-06-07' and status = '0'");
 								foreach ($query as $r) {
 									$items[] = array(
 										'pos_dsalesline_key'	=>$r['pos_dsales_key'], 
@@ -206,9 +206,10 @@ if($_GET['modul'] == 'sales_order'){
 								}	
 								$items_json = json_encode($items);
 								$hasil = pos_dsalesline($items_json);
-								var_dump($hasil);
+								// var_dump($hasil);
 								// var_dump($items_json);
 								$j_hasil = json_decode($hasil, true);
+								echo $j_hasil;
 								
 	}
 }
