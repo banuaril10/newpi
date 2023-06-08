@@ -208,9 +208,9 @@ if($_GET['modul'] == 'sales_order'){
 								$hasil = pos_dsalesline($items_json);
 								// var_dump($hasil);
 								// var_dump($items_json);
-								// $j_hasil = json_decode($hasil, true);
+								$j_hasil = json_decode($hasil, true);
 								// var_dump($hasil);
-								foreach($hasil as $r){
+								foreach($j_hasil as $r){
 									echo $r;
 									// $connec->query("update pos_dsales set status_sales = '1' where pos_dsales_key = '".$r."'")
 									
