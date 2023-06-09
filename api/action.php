@@ -4924,6 +4924,71 @@ ELSE 'Belum Sesuai' END AS status from pos_mproduct");
 			}
 		}
 		
+	}else if($_GET['act'] == 'edc'){
+		
+		
+		$sqll = "select storeid as ad_morg_key from m_profile";
+		$results = $connec->query($sqll);
+		foreach ($results as $r) {
+			$org_keys = $r["ad_morg_key"];	
+		}
+		
+		$hasil = get_data_edc();
+		$j_hasil = json_decode($hasil, true);	
+
+
+			$s = array();
+			$p = array();
+			foreach ($j_hasil['edc'] as $rrr) {
+				$s[] = "('".$rrr['pos_medc_key']."','".$org_keys."','".$rrr['insertdate']."', '".$rrr['insertby']."','".$rrr['name']."','".$rrr['description']."','".$rrr['code']."')";
+	
+			}
+			
+			// foreach ($j_hasil['bank'] as $rrr) {
+				// $p[] = "('".$rrr['pos_mbank_key']."','".$rrr['insertdate']."', '".$rrr['insertby']."','".$rrr['name']."','".$rrr['description']."')";
+	
+			// }
+			 
+			$edc = implode(", ",$s); 
+			// $bank = implode(", ",$p); 
+			
+			// $connec->query("truncate table pos_mbank");
+			
+			
+			
+			if(count($s) > 0){
+				
+				$tr = $connec->query("truncate table pos_medc");
+				if($tr){
+					$sql_edc = "INSERT INTO pos_medc(pos_medc_key, ad_morg_key, insertdate, insertby, name, description, code) values ".$edc."";
+					$connec->query($sql_edc);
+					
+				}
+				
+			}
+			
+			
+			
+			// echo $edc;
+			
+			
+			// if($truncate){
+				
+				// $sql_bank = "INSERT INTO pos_mbank (pos_mbank_key, insertdate, insertby, name, description) values ".$bank."";
+				// $connec->query($sql_bank);
+				
+				
+			
+			
+		
+				// echo $sql_edc;
+				
+				
+			// }
+		$data = array("result"=>1, "msg"=>"Berhasil sync data");
+		
+		$json_string = json_encode($data);	
+		echo $json_string;
 	}																		
 
 

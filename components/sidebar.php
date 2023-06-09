@@ -129,7 +129,6 @@
 						<li class="submenu-item ">
 							<a href="sync_sales.php">Sync Sales Line</a>
 						</li>
-						
 					</ul>
 				</li>
 				
