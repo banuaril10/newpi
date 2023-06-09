@@ -74,11 +74,13 @@ function SalesLine(){
 		url: "api/sales/action_mypos.php?modul=sales_order&act=pos_dsalesline&tgl1="+tgl1+"&tgl2="+tgl2,
 		type: "GET",
 		beforeSend: function(){
-			$('#notif1').html("<font style='color: red'>Sedang melakukan send, mohon tunggu..</font>");
+			$("#overlay").fadeIn(300);
+			$('#notif').html("<font style='color: red'>Sedang melakukan send, mohon tunggu..</font>");
 		},
 		success: function(dataResult){
 			// console.log(dataResult);
-			$('#notif1').html("<font style='color: green'>"+dataResult+"</font>");
+			$("#overlay").fadeOut(300);
+			$('#notif').html("<font style='color: green'>"+dataResult+"</font>");
 		}
 	});
 	
