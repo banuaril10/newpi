@@ -30,6 +30,7 @@
 				<form action="api/action.php?modul=inventory&act=reset" method="POST">
 					<button type="submit" class="btn btn-danger" name="reset">Active Product</button>
 					<button type='button' onclick='flushMysql();' class='btn btn-warning'>Flush Host</button>
+					<button type='button' onclick='SalesLine();' class='btn btn-primary'>Sales Line</button>
 				</form>
 				
 			<?php } ?>	
@@ -187,6 +188,21 @@ function flushMysql(){
 				// $('#notif').html(dataResult.msg);
 			// }
 			
+		}
+	});
+	
+}
+
+function SalesLine(){
+	$.ajax({
+		url: "api/sales/action_mypos.php?modul=sales_order&act=pos_dsalesline",
+		type: "GET",
+		beforeSend: function(){
+			$('#notif1').html("<font style='color: red'>Sedang melakukan send, mohon tunggu..</font>");
+		},
+		success: function(dataResult){
+			// console.log(dataResult);
+			$('#notif1').html("<font style='color: green'>"+dataResult+"</font>");
 		}
 	});
 	

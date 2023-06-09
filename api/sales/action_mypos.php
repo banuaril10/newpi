@@ -179,7 +179,22 @@ if($_GET['modul'] == 'sales_order'){
 	if($_GET['act'] == 'pos_dsalesline'){
 			$items = array();
 
-			$query = $connec->query("select * from pos_dsales where date(insertdate) = date(now()) and status_sales = '0'");
+
+			
+			if($_GET['tgl1'] && !empty($_GET['tgl1']) &&  $_GET['tgl2'] && !empty($_GET['tgl2'])){
+				
+				$query = $connec->query("select * from pos_dsales where date(insertdate) between '".$_GET['tgl1']."' and '".$_GET['tgl2']."' and status_sales = '0'");
+			}else{
+				
+				$query = $connec->query("select * from pos_dsales where date(insertdate) = date(now()) and status_sales = '0'");
+			}
+				
+				
+				
+			
+			
+			
+			
 								foreach ($query as $r) {
 									$items[] = array(
 										'pos_dsalesline_key'	=>$r['pos_dsales_key'], 
