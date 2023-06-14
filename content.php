@@ -285,7 +285,15 @@ function guid() {
 			
 			<select name="sl" id="sl" class="selectize">
 				<?php 
-				$sql2 = "select m_locator_id ,locator_name from pos_mproduct WHERE locator_name like '%GR AREA BOS%' group by m_locator_id ,locator_name";
+				
+				$sqll = "select storecode as ad_morg_key from m_profile";
+				$results = $connec->query($sqll);
+				foreach ($results as $r) {
+					$storecode = $r["storecode"];	
+				}
+				
+				
+				$sql2 = "select m_locator_id ,locator_name from pos_mproduct WHERE locator_name like '%GR AREA BOS%' and locator_name like '%".$storecode."%' group by m_locator_id ,locator_name";
 	
 				foreach ($connec->query($sql2) as $row) {
 					echo '<option value="'.$row['m_locator_id'].'">'.$row['locator_name'].'</option>';	    
