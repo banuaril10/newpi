@@ -286,7 +286,7 @@ function guid() {
 			<select name="sl" id="sl" class="selectize">
 				<?php 
 				
-				$sqll = "select storecode as ad_morg_key from m_profile";
+				$sqll = "select storecode from m_profile";
 				$results = $connec->query($sqll);
 				foreach ($results as $r) {
 					$storecode = $r["storecode"];	
