@@ -2618,7 +2618,7 @@ VALUES('".$item['ad_client_id']."', '".$item['ad_org_id']."', '1', '".date('Y-m-
 		
 		foreach ($connec->query($getinv) as $gi) {
 			
-			$cekqty = "select qtycount from m_piline where (sku = '".$gi['sku']."' or barcode = '".$gi['sku']."' or upc = '".$gi['sku']."') and date(insertdate) = date(now())";
+			$cekqty = "select qtycount from m_piline where (sku = '".$gi['sku']."' or barcode = '".$gi['sku']."') and date(insertdate) = date(now())";
 			$result = $connec->query($cekqty);
 			$count = $result->rowCount();
 			
@@ -2629,7 +2629,7 @@ VALUES('".$item['ad_client_id']."', '".$item['ad_org_id']."', '1', '".date('Y-m-
 					$jumqty = (int)$qtycount + (int)$gi['jumqty'];
 	
 							
-							$upcount = $connec->query("update m_piline set qtycount='".$jumqty."' where (sku = '".$gi['sku']."' or barcode = '".$gi['sku']."' or upc = '".$gi['sku']."') and date(insertdate)=date(now()) ");
+							$upcount = $connec->query("update m_piline set qtycount='".$jumqty."' where (sku = '".$gi['sku']."' or barcode = '".$gi['sku']."') and date(insertdate)=date(now()) ");
 							if($upcount){
 								
 								$connec->query("update inv_temp set status = 1 where sku = '".$gi['sku']."' and date(tanggal) = date(now()) and filename = '".$filename."'");
