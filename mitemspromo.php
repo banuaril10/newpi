@@ -72,7 +72,28 @@
 				</table>
 				
 			
-		
+			<?php 
+			if($_GET['stock'] && !empty($_GET['stock'])){
+			$stock = $_GET['stock'];
+			if($stock == "all"){
+				
+				$value = "Semua Stock";
+				
+			}else{
+				
+				
+				$value = "Stock > 0";
+			}
+				
+				
+
+			}else{
+
+				$stock = "all";
+				$value = "Semua Stock";
+			}
+			
+			?>
 				
 			
 				
@@ -93,7 +114,17 @@
 						
 						<?php } ?>
 					
-				</select></td><td>
+				</select></td>
+				
+				<td><select id="rak" name="stock" class="form-control text-search">
+				
+							
+							<option value="<?php echo $stock; ?>"><?php echo $value; ?></option>
+							<option value="ada">Stock > 0</option>
+							<option value="all">Semua Stock</option>
+				</select></td>
+				
+				<td>
 					<button class="btn btn-success" type="submit" >Cari</button>
 					<a class="btn btn-primary" href="mitemspromo.php">Reset Filter</a>
 				</td>
@@ -121,8 +152,31 @@
 						
 						<?php 
 						
+						$table = 'pos_mproduct';
 						
-						$sql_list = "select date(now()) as tgl_sekarang, a.sku, a.name ,b.rack_name, a.price from pos_mproduct a left join inv_mproduct b on a.sku = b.sku 
+						if($_GET['stock'] && !empty($_GET['stock'])){
+						$stock = $_GET['stock'];
+						if($stock == "all"){
+							
+							$value = "Semua Stock";
+							
+						}else{
+							$table = "(select * from pos_mproduct where stockqty > 0)";
+							
+							$value = "Stock > 0";
+						}
+							
+							
+			
+						}else{
+							
+							$value = "Semua Stock";
+						}
+						
+						
+						
+						
+						$sql_list = "select date(now()) as tgl_sekarang, a.sku, a.name ,b.rack_name, a.price from ".$table." a left join inv_mproduct b on a.sku = b.sku 
 						";
 						
 						if($_GET['rak'] && !empty($_GET['rak'])){
