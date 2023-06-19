@@ -1316,7 +1316,7 @@ if($_GET['modul'] == 'inventory'){
 	}else if($_GET['act'] == 'sync_erp'){
 		
 				
-			$mpi = $_GET['m_pi'];
+			$mpi = $_POST['m_pi'];
 			// $mpi = 'BE7DA436E891492EB27235BF5DAC588C';
 			
 			$sql1 = "select m_piline_key, m_pi_key, m_storage_id, m_product_id from m_piline where m_pi_key ='".$mpi."' and status = 0";
@@ -1341,7 +1341,7 @@ if($_GET['modul'] == 'inventory'){
 		
 				$j_hasil = json_decode($hasil, true);
 				
-				var_dump($j_hasil);					
+				// var_dump($j_hasil);					
 				$qtyon= $j_hasil['qtyon'];			
 				$price= $j_hasil['price'];			
 				$statuss= $j_hasil['statuss'];			
@@ -1356,11 +1356,11 @@ if($_GET['modul'] == 'inventory'){
 					
 					
 					
-					$json = array('result'=>'1', 'msg'=>'Telah sync '.$no.' dari '.$count.' items');	
+					
 					
 				}
 					
-					
+		$json = array('result'=>'1', 'msg'=>'Telah sync '.$no.' dari '.$count.' items');				
 		$json_string = json_encode($json);
 		echo $json_string;
 	}else if($_GET['act'] == 'counter'){
