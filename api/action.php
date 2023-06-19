@@ -1323,7 +1323,11 @@ if($_GET['modul'] == 'inventory'){
 				$result = $connec->query($sql1);
 				$count = $result->rowCount();
 				
-				
+				$sqll = "select storeid as ad_morg_key from m_profile";
+				$results = $connec->query($sqll);
+				foreach ($results as $r) {
+					$org_keys = $r["ad_morg_key"];	
+				}
 				
 				
 				$no = 0;
@@ -1332,7 +1336,7 @@ if($_GET['modul'] == 'inventory'){
 					
 					
 					
-				$hasil = get_data_erp($row['m_storage_id'], $row['m_product_id'], $org_key, $ss); //php curl
+				$hasil = get_data_erp($row['m_storage_id'], $row['m_product_id'], $org_keys, '1'); //php curl
 				
 		
 				$j_hasil = json_decode($hasil, true);
