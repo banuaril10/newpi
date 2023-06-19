@@ -1341,7 +1341,7 @@ if($_GET['modul'] == 'inventory'){
 		
 				$j_hasil = json_decode($hasil, true);
 				
-									
+				var_dump($j_hasil);					
 				$qtyon= $j_hasil['qtyon'];			
 				$price= $j_hasil['price'];			
 				$statuss= $j_hasil['statuss'];			
@@ -1350,7 +1350,7 @@ if($_GET['modul'] == 'inventory'){
 					
 					
 					
-					$connec->query("update m_piline set qtysalesout = '".$qtyout."', qtyerp = '".$qtyon."', price = '".$price."', status = '".$statuss."', status1 = '".$statusss."' where m_piline_key ='".$row['m_piline_key']."'");
+			$connec->query("update m_piline set qtysalesout = '".$qtyout."', qtyerp = '".$qtyon."', price = '".$price."', status = '".$statuss."', status1 = '".$statusss."' where m_piline_key ='".$row['m_piline_key']."'");
 					
 						
 					
