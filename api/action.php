@@ -1381,7 +1381,7 @@ if($_GET['modul'] == 'inventory'){
 		
 		
 		$sql = "select m_piline.sku, m_piline.qtycount from m_piline where (m_piline.sku ='".$sku."' or m_piline.barcode ='".$sku."' or m_piline.upc = '".$sku."')
-		and date(m_piline.insertdate) = date(now())";
+		and date(m_piline.insertdate) = date(now()) and m_pi_key = '".$mpi."'";
 		$result = $connec->query($sql);
 		$count = $result->rowCount();
 		
@@ -1405,7 +1405,7 @@ if($_GET['modul'] == 'inventory'){
 
 			$lastqty = $qtyon + 1;
 		
-			$statement1 = $connec->query("update m_piline set qtycount = '".$lastqty."' where (sku = '".$sku."' or barcode = '".$sku."') and date(insertdate) = '".date('Y-m-d')."'");
+			$statement1 = $connec->query("update m_piline set qtycount = '".$lastqty."' where (sku = '".$sku."' or barcode = '".$sku."') and date(insertdate) = '".date('Y-m-d')."' and m_pi_key = '".$mpi."'");
 			
 			if($statement1){	
 				$json = array('result'=>'1', 'msg'=>$sku .' ('.$pn.'), QUANTITY = <font style="color: red">'.$lastqty.'</font>');	
