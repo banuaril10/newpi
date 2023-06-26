@@ -185,7 +185,7 @@
 							
 						}
 						
-						$sql_list .= " order by a.name limit 100";
+						$sql_list .= " order by a.name ";
 						
 
 						$no = 1;
