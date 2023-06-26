@@ -11,7 +11,7 @@ try {
 	
 	$dbuser = 'adminpos';
     $dbpass = 'pwdposadmin';
-    $dbhost = 'localhost';
+    $dbhost = '10.0.7.2';
     $dbname='poserp';
     $dbport='3306';
 	
