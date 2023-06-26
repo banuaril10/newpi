@@ -523,15 +523,17 @@ function formatRupiah(angka, prefix){
 						
 						var br = "<br>";
 						
-						if(panjangharga > 9999){
-							br = "";
-							
-						}
+						
 						
 						var sizeprice = "45px";
 						if(lengthh > 33){
 							
 							 sizeprice = "45px";
+						}
+						
+						if(panjangharga > 999999){
+							sizeprice = "40px";
+							
 						}
 						
 						if(res[4] != ""){
