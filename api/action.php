@@ -2170,8 +2170,11 @@ if($_GET['modul'] == 'inventory'){
 				$json_string = json_encode($json);	
 		
 	}
+	
+	$json = array('result'=>'1', 'msg'=>'Berhasil sync');
+	$json_string = json_encode($json);	
 		
-	echo $values;
+	// echo $values;
 	echo $json_string;	
 				
 
