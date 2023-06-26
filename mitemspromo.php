@@ -540,7 +540,7 @@ function formatRupiah(angka, prefix){
 							
 						}else{
 							
-							var rack = res[0]+"/RACK";
+							var rack = res[0]+"/NO_RACK";
 						}
 						
 						
