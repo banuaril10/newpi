@@ -185,7 +185,7 @@
 							
 						}
 						
-						$sql_list .= " order by a.name";
+						$sql_list .= " order by a.name ";
 						
 
 						$no = 1;
@@ -490,7 +490,7 @@ function formatRupiah(angka, prefix){
 			});
 			
 			
-			document.getElementById("btn-cetak-tinta").addEventListener("click", function() { //cetak besar
+			document.getElementById("btn-cetak-tinta").addEventListener("click", function() { //ini yg dipake
 				var array = [];
 				var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
 				
@@ -528,10 +528,10 @@ function formatRupiah(angka, prefix){
 							
 						}
 						
-						var sizeprice = "35px";
+						var sizeprice = "45px";
 						if(lengthh > 33){
 							
-							 sizeprice = "27px";
+							 sizeprice = "45px";
 						}
 						
 						if(res[4] != ""){
@@ -554,7 +554,7 @@ function formatRupiah(angka, prefix){
 						// "<tr><td><label style='text-align: left; font-size: 14px'>"+res[3]+"</label> / <label style='text-align: left; font-size: 14px'>"+res[4].toUpperCase()+"</label></td></tr>"+
 						// "<tr><td><hr><label>HARGA KEJUTAN</label></td></tr></table></div></td>";
 						
-						text += "<td style='border: 0.5px solid #000'><div style='margin:5px 5px 0 10px; color: black; width: 171px; height: 121px; font-family: Calibri; '><label style='text-align: right; font-size: 10px'><b>"+res[1].toUpperCase()+"</b></label><br><label style='text-align: left; font-size: 10px'><b>Rp </b></label><label style='text-align: left; font-size: 15px; text-decoration: line-through;'><b>"+formatRupiah(res[2], '')+"</b></label><label style='float: right !important; font-size: 10px;'> s.d. "+res[7]+"</label><label style='float: right; font-size: "+sizeprice+"'><label style='font-size: 10px'><b>Rp </b></label><b>"+formatRupiah(res[6], '')+"</b></label> &nbsp &nbsp &nbsp &nbsp &nbsp <br><br><label style='text-align: left; font-size: 10px; width: 100%'>"+newStr+"</label><br><center><hr><label style='text-align: center; font-size: 10px; margin-top: -5px'>HARGA KEJUTAN</label></center></div></td>";
+						text += "<td style='border: 0.5px solid #000'><div style='margin:5px 5px 0 10px; color: black; width: 171px; height: 121px; font-family: Calibri; '><div style='height:25px; text-align: left; font-size: 10px'><b>"+res[1].toUpperCase()+"</b></div><label style='text-align: left; font-size: 10px'><b>Rp </b></label><label style='text-align: left; font-size: 18px; text-decoration: line-through;'><b>"+formatRupiah(res[2], '')+"</b></label><label style='float: right !important; font-size: 10px;'> s.d. "+res[7]+"</label><label style='margin: -10px 0 0 0; float: right; font-size: "+sizeprice+"'><label style='font-size: 10px'><b>Rp </b></label><b>"+formatRupiah(res[6], '')+"</b></label> &nbsp &nbsp &nbsp &nbsp &nbsp <br><br><label style='text-align: left; font-size: 10px; width: 100%'>"+newStr+"</label><center><hr style='margin: 0'><label style='text-align: center; font-size: 10px; margin-top: -10px'>HARGA KEJUTAN</label></center></div></td>";
 						
 						if((i+1)%4==0 && i!==0){
 							

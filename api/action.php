@@ -914,12 +914,13 @@ if($_GET['modul'] == 'inventory'){
 			
 				$lastid = guid();
 				$name_pi = $kode_toko."-".date('YmdHis');
+				$q_ins = "insert into m_pi (m_pi_key,
+				ad_client_id, ad_org_id, isactived, insertdate, insertby, m_locator_id, inventorytype, name, description, 
+				movementdate, approvedby, status, rack_name, postby, postdate, category
+				) VALUES ('".$lastid."','','".$org_key."','1','".date('Y-m-d H:i:s')."','".$username."', '".$sl."', '".$it."','".$name_pi."','PI-".$rack."', 
+				'".date('Y-m-d H:i:s')."','user spv','1','".$rack."','".$username."','".date('Y-m-d H:i:s')."', '1')";
 				
-				$statement = $connec->query("insert into m_pi (m_pi_key,
-			ad_client_id, ad_org_id, isactived, insertdate, insertby, m_locator_id, inventorytype, name, description, 
-			movementdate, approvedby, status, rack_name, postby, postdate, category
-			) VALUES ('".$lastid."','','".$org_key."','1','".date('Y-m-d H:i:s')."','".$username."', '".$sl."', '".$it."','".$name_pi."','PI-".$rack."', 
-			'".date('Y-m-d H:i:s')."','user spv','1','".$rack."','".$username."','".date('Y-m-d H:i:s')."', '1')");
+				$statement = $connec->query($q_ins);
 			
 			
 
