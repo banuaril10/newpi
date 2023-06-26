@@ -554,7 +554,7 @@ function formatRupiah(angka, prefix){
 						// "<tr><td><label style='text-align: left; font-size: 14px'>"+res[3]+"</label> / <label style='text-align: left; font-size: 14px'>"+res[4].toUpperCase()+"</label></td></tr>"+
 						// "<tr><td><hr><label>HARGA KEJUTAN</label></td></tr></table></div></td>";
 						
-						text += "<td style='border: 0.5px solid #000'><div style='margin:5px 5px 0 10px; color: black; width: 171px; height: 121px; font-family: Calibri; '><div style='height:25px; text-align: left; font-size: 10px'><b>"+res[1].toUpperCase()+"</b></div><label style='text-align: left; font-size: 10px'><b>Rp </b></label><label style='text-align: left; font-size: 18px; text-decoration: line-through;'><b>"+formatRupiah(res[2], '')+"</b></label><label style='float: right !important; font-size: 10px;'> s.d. "+res[7]+"</label><label style='margin: -10px 0 0 0; float: right; font-size: "+sizeprice+"'><label style='font-size: 10px'><b>Rp </b></label><b>"+formatRupiah(res[6], '')+"</b></label> &nbsp &nbsp &nbsp &nbsp &nbsp <br><br><label style='text-align: left; font-size: 10px; width: 100%'>"+newStr+"</label><center><hr><label style='text-align: center; font-size: 10px; margin-top: -10px'>HARGA KEJUTAN</label></center></div></td>";
+						text += "<td style='border: 0.5px solid #000'><div style='margin:5px 5px 0 10px; color: black; width: 171px; height: 121px; font-family: Calibri; '><div style='height:25px; text-align: left; font-size: 10px'><b>"+res[1].toUpperCase()+"</b></div><label style='text-align: left; font-size: 10px'><b>Rp </b></label><label style='text-align: left; font-size: 18px; text-decoration: line-through;'><b>"+formatRupiah(res[2], '')+"</b></label><label style='float: right !important; font-size: 10px;'> s.d. "+res[7]+"</label><label style='margin: -10px 0 0 0; float: right; font-size: "+sizeprice+"'><label style='font-size: 10px'><b>Rp </b></label><b>"+formatRupiah(res[6], '')+"</b></label> &nbsp &nbsp &nbsp &nbsp &nbsp <br><br><label style='text-align: left; font-size: 10px; width: 100%'>"+newStr+"</label><center><hr style='margin: 0;border: 0.5px solid #000;'><label style='text-align: center; font-size: 10px; margin-top: -10px'>HARGA KEJUTAN</label></center></div></td>";
 						
 						if((i+1)%4==0 && i!==0){
 							
@@ -569,7 +569,7 @@ function formatRupiah(angka, prefix){
 
 				  var mywindow = window.open('', 'my div', 'height=600,width=800');
 							/*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
-							mywindow.document.write('<style>hr {margin: 0; color: #000;background-color: #000;height: 1px;border: none;max-width: 100%;}@media print{@page {size: potrait; width: 216mm;height: 280mm;margin-top: 15;margin-right: 2;margin-left: 2; padding: 0;} margin: 0; padding: 0;} table { page-break-inside:auto }tr{ page-break-inside:avoid; page-break-after:auto }</style>');
+							mywindow.document.write('<style>@media print{@page {size: potrait; width: 216mm;height: 280mm;margin-top: 15;margin-right: 2;margin-left: 2; padding: 0;} margin: 0; padding: 0;} table { page-break-inside:auto }tr{ page-break-inside:avoid; page-break-after:auto }</style>');
 							mywindow.document.write(text);
 
 					
