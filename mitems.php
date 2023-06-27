@@ -208,6 +208,9 @@ $(document).ready( function () {
               "serverSide": true,
 			  "lengthMenu": [30000, 15000, 5000, 500, 200, 1000],
 			  "searching": false,
+			  'checkboxes': {
+				'selectRow': true
+			  },
               "ajax":{
                        "url": "api/action.php?modul=inventory&act=api_pricetag",
                        "dataType": "json",
