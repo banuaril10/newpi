@@ -667,27 +667,27 @@ function formatRupiah(angka, prefix){
 							return true;
 			});
 
-document.getElementById("checkall").addEventListener("click", function() {	
+// document.getElementById("checkall").addEventListener("click", function() {	
 
-				var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+				// var checkboxes = document.querySelectorAll('input[type="checkbox"]');
 				
 		
-				for (var i = 0; i < checkboxes.length; i++) {
-				if (checkboxes[i].type == 'checkbox'){
-					if(checkboxes[i].checked == true){
+				// for (var i = 0; i < checkboxes.length; i++) {
+				// if (checkboxes[i].type == 'checkbox'){
+					// if(checkboxes[i].checked == true){
 						
-						checkboxes[i].checked = false;
-					}else if(checkboxes[i].checked == false){
-						checkboxes[i].checked = true;
+						// checkboxes[i].checked = false;
+					// }else if(checkboxes[i].checked == false){
+						// checkboxes[i].checked = true;
 						
-					}
+					// }
 					
 					
-					}	
-				}
+					// }	
+				// }
 				
 
-			});
+			// });
 
 
 			document.getElementById("btn-cetak").addEventListener("click", function() { //cetak besar
