@@ -210,7 +210,7 @@
 						
 						
 						
-						$sql_list .= " order by a.name limit 200";
+						$sql_list .= " order by a.name ";
 						
 						
 						
