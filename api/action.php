@@ -3875,7 +3875,7 @@ locator_name) VALUES (
 		
 			
 			
-        
+         $totalFiltered = $query->rowCount();
         }
         else {
 			
