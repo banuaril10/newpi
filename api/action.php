@@ -3805,6 +3805,180 @@ locator_name) VALUES (
 		
 		
 	
+	}else if($_GET['act'] == 'api_pricetag'){
+		
+
+		 $columns = array( 
+                               0 =>'check', 
+                               1 =>'no',
+                               2=> 'sku',
+                               3=> 'barcode',
+                               4=> 'name',
+                               5=> 'price',
+                               6=> 'rack_name',
+                           );
+ 
+		if($_POST['rak'] != "all"){
+			 $querycount =  $connec->query("select count(*) as jumlah from pos_mproduct a left join inv_mproduct b on a.sku = b.sku where b.rack_name = '".$_POST['rak']."'");
+			
+		}else{
+			
+			
+			 $querycount =  $connec->query("select count(*) as jumlah from pos_mproduct a left join inv_mproduct b on a.sku = b.sku ");
+		}
+ 
+    
+		foreach($querycount as $r){
+			$datacount = $r['jumlah'];
+			
+		}
+   
+        $totalData = $datacount;
+             
+        $totalFiltered = $totalData; 
+ 
+        $limit = $_POST['length'];
+        $start = $_POST['start'];
+        $order = $columns[$_POST['order']['0']['column']];
+        $dir = $_POST['order']['0']['dir'];
+             
+        if(empty($_POST['search']['value']))
+        {
+			
+			
+		if($_POST['stock'] != "all"){
+			
+			$querystock = " and a.stockqty > 0 ";
+			
+		}else{
+			
+			$querystock = "";
+			
+		}	
+			
+		if($_POST['rak'] != "all"){
+			
+			 $query = $connec->query("select date(now()) as tgl_sekarang, a.sku, a.name ,b.rack_name, a.price, a.barcode from pos_mproduct a left join inv_mproduct b on a.sku = b.sku where b.rack_name = '".$_POST['rak']."' 
+			 ".$querystock."
+			 order by a.name asc
+                                                      LIMIT $limit
+                                                      OFFSET $start");
+			
+		}else{
+			
+			
+			 $query = $connec->query("select date(now()) as tgl_sekarang, a.sku, a.name ,b.rack_name, a.price, a.barcode from pos_mproduct a left join inv_mproduct b on a.sku = b.sku where a.sku !='' ".$querystock." order by a.name asc
+                                                      LIMIT $limit
+                                                      OFFSET $start");
+		}	
+		
+		
+			
+			
+        
+        }
+        else {
+			
+            $search = $_POST['search']['value']; 
+			
+			
+		if($_POST['stock'] != "all"){
+			
+			$querystocks = " and a.stockqty > 0";
+			
+		}else{
+			
+			$querystocks = "";
+			
+		}	
+			
+		if($_POST['rak'] != "all"){
+			 $query = $connec->query("select date(now()) as tgl_sekarang, a.sku, a.name ,b.rack_name, a.price, a.barcode from pos_mproduct a left join inv_mproduct b on a.sku = b.sku where b.rack_name = '".$_POST['rak']."' ".$querystock." 
+															and a.sku LIKE  '%$search%'
+                                                         or b.rack_name LIKE  '%$search%'
+                                                         or a.barcode LIKE  '%$search%'
+                                                         or a.name LIKE  '%$search%'
+                                                         order by a.name asc
+                                                         LIMIT $limit
+                                                         OFFSET $start");
+ 
+ 
+         $querycount = $connec->query("select count(*) as jumlah from pos_mproduct a left join inv_mproduct b on a.sku = b.sku where b.rack_name = '".$_POST['rak']."' ".$querystock."  and a.sku LIKE  '%$search%'
+                                                         or b.rack_name LIKE  '%$search%'
+                                                         or a.barcode LIKE  '%$search%'
+                                                         or a.name LIKE  '%$search%'");
+			
+		}else{
+			
+			
+			  $query = $connec->query("select date(now()) as tgl_sekarang, a.sku, a.name ,b.rack_name, a.price, a.barcode from pos_mproduct a left join inv_mproduct b on a.sku = b.sku WHERE a.sku ILIKE  '%$search%'
+                                                         or b.rack_name LIKE  '%$search%'
+                                                         or a.barcode LIKE  '%$search%'
+                                                         or a.name LIKE  '%$search%' ".$querystock." 
+                                                         order by a.name asc
+                                                         LIMIT $limit
+                                                         OFFSET $start");
+ 
+ 
+         $querycount = $connec->query("select count(*) as jumlah from pos_mproduct a left join inv_mproduct b on a.sku = b.sku WHERE a.sku LIKE  '%$search%'
+                                                         or b.rack_name LIKE  '%$search%'
+                                                         or a.barcode LIKE  '%$search%'
+                                                         or a.name LIKE  '%$search%' ".$querystock." ");
+		}	
+			
+			
+			
+           
+        foreach($querycount as $rr){
+			$datacount = $rr['jumlah'];
+			
+		}
+           $totalFiltered = $datacount;
+        }
+ 
+        $data = array();
+        if(!empty($query))
+        {
+            $no = $start + 1;
+			foreach($query as $r){
+				
+
+				$harga_last = $r['price'];			
+				$cek_disc = "select afterdiscount from pos_discount where (fromdate <= '".date('Y-m-d')."' and todate >= '".date('Y-m-d')."')  and sku = '".$r['sku']."'";
+				foreach ($connec->query($cek_disc) as $row_dis) {
+					
+					$harga_last = $row_dis['afterdiscount'];
+				}
+				
+				
+				$nestedData['no'] = $no;
+				$nestedData['check'] = '<input type="checkbox" id="checkbox'.$r['sku'].'" name="checkbox[]" value="'.$r['sku'].'|'.$r['name'].'|'.$r['price'].'|'.$r['tgl_sekarang'].'|'.$r['rack_name'].'|'.$r['shortcut'].'|'.$harga_last.'">';
+				$nestedData['sku'] = '<label for="checkbox'.$r['sku'].'">'.$r['sku'].'</label>';
+				$nestedData['barcode'] = $r['barcode'];
+                $nestedData['name'] = '<label for="checkbox'.$r['sku'].'">'.$r['name'].'</label>';
+                $nestedData['price'] = $r['price'];
+                $nestedData['rack_name'] = $r['rack_name'];
+
+                $data[] = $nestedData;
+                $no++;
+				
+			}
+			
+
+        }
+           
+        $json_data = array(
+                    "draw"            => intval($_POST['draw']),  
+                    "recordsTotal"    => intval($totalData),  
+                    "recordsFiltered" => intval($totalFiltered), 
+                    "data"            => $data  
+                    );
+             
+        echo json_encode($json_data); 
+		
+		
+		
+	
 	}else if($_GET['act'] == 'get_items'){
 		
 		

@@ -148,7 +148,7 @@
 			</form>	
 				
 
-				<p style="color: red; font-weight: bold">Satu kertas terdiri dari 32 tag</p>
+				<p style="color: red; font-weight: bold">Satu kertas terdiri dari 32 tag, untuk mencari items ketik CTRL + F</p>
 				Pilih Brand : <select id="brand">
 					<option value="IDOLMART">IDOLMART</option>
 					<option value="IDOLAKU">IDOLAKU</option>
@@ -156,95 +156,26 @@
 				</select>
 				<button class="btn btn-danger" type="button" id="btn-cetak-tinta"><div class="item1"><b>CETAK HARGA REGULER</b></div></button>
 					<button class="btn btn-success" type="button" id="btn-cetak-tinta-pdf"><div class="item1"><b>CETAK PLANOGRAM</b></div></button>
+				<br>
+				 <input class="btn btn-primary" type="button" id="checkall" value="Check All"/>
+				 <input class="btn btn-danger" type="button" id="uncheckall" value="Uncheck All"/>
+				 <br>
+				 <br>
 				
-				
-					<table class="table table-bordered" id="example">
+					<table class="table table-bordered table-hover" id="example">
 						<thead>
 							<tr>
-								<th><input type="button" id="checkall" value="✔"/></th>
+								<th></th>
 								<th>No</th>
 								<th>SKU</th>
+								<th>Barcode</th>
 								<th>Name</th>
 								<th>Price</th>
-								<!--<th>Price Discount</th>-->
 								<th>Rack Name</th>
 							</tr>
 						</thead>
 						<tbody>
-						
-						<?php 
-						
-						$table = 'pos_mproduct';
-						
-												
-						if($_GET['stock'] && !empty($_GET['stock'])){
-						$stock = $_GET['stock'];
-						if($stock == "all"){
-							
-							$value = "Semua Stock";
-							
-						}else{
-							$table = "(select * from pos_mproduct where stockqty > 0)";
-							
-							$value = "Stock > 0";
-						}
-							
-							
-			
-						}else{
-							
-							$value = "Semua Stock";
-						}
-						
-						
-						
-						$sql_list = "select date(now()) as tgl_sekarang, a.sku, a.name ,b.rack_name, a.price from ".$table." a left join inv_mproduct b on a.sku = b.sku where a.sku != '' and a.price != '1'";
-						
-						if($_GET['rak'] && !empty($_GET['rak'])){
-							
-							$sql_list .= " and b.rack_name = '".$_GET['rak']."'";
-							
-						}
-						
 
-						
-						
-						
-						$sql_list .= " order by a.name ";
-						
-						
-						
-						$no = 1;
-						foreach ($connec->query($sql_list) as $row) {
-							$harga_last = 0;
-							$cek_disc = "select afterdiscount from pos_discount where (fromdate <= '".date('Y-m-d')."' and todate >= '".date('Y-m-d')."')  and sku = '".$row['sku']."'";
-							foreach ($connec->query($cek_disc) as $row_dis) {
-								
-								$harga_last = $row_dis['afterdiscount'];
-							}
-							// $harga_last = $row['price'] - $disk;
-							
-						?>
-						
-						
-							<tr>
-								<td><input type="checkbox" id="checkbox" name="checkbox[]" value="<?php echo $row['sku']; ?>|<?php echo $row['name']; ?>|<?php echo $row['price']; ?>|<?php echo $row['tgl_sekarang']; ?>|<?php echo $row['rack_name']; ?>|<?php echo $row['shortcut']; ?>|<?php echo $harga_last; ?>"></td>
-								<td scope="row"><?php echo $no; ?></td>
-								<td><?php echo $row['sku']; ?></td>
-								<td><?php echo $row['name']; ?></td>
-								<td><?php echo $row['price']; ?></td>
-								<!--<td><?php echo $harga_last; ?></td>-->
-								
-								<td><?php echo $row['rack_name']; ?></td>
-								
-							</tr>
-							
-							
-							
-							
-						<?php $no++;} ?>
-   
-   
 						</tbody>
 					</table>
 					
@@ -260,14 +191,85 @@
 
 
 <script type="text/javascript">
+// $(document).ready( function () {
+    // $('#example').DataTable({
+        // lengthMenu: [
+            // [10, 25, 50, -1],
+            // [10, 25, 50, 'All'],
+        // ],
+    // });
+// } );
+
 $(document).ready( function () {
-    $('#example').DataTable({
-        lengthMenu: [
-            [10, 25, 50, -1],
-            [10, 25, 50, 'All'],
-        ],
-    });
+
+
+	 $('.table').DataTable({
+              "processing": true,
+              "serverSide": true,
+			  "lengthMenu": [30000, 15000, 5000, 500, 200, 1000],
+			  "searching": false,
+              "ajax":{
+                       "url": "api/action.php?modul=inventory&act=api_pricetag",
+                       "dataType": "json",
+                       "type": "POST",
+					   "data": {
+						   "rak":"<?php echo $rak; ?>",
+						   "stock":"<?php echo $stock; ?>",
+					   }
+                     },
+              "columns": [
+                  { "data": "check" },
+                  { "data": "no" },
+                  { "data": "sku" },
+                  { "data": "barcode" },
+                  { "data": "name" },
+                  { "data": "price" },
+                  { "data": "rack_name" },
+              ]  
+ 
+          });
 } );
+
+			document.getElementById("checkall").addEventListener("click", function() {	
+
+				var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+				
+		
+				for (var i = 0; i < checkboxes.length; i++) {
+				if (checkboxes[i].type == 'checkbox'){
+					if(checkboxes[i].checked == true){
+						
+						checkboxes[i].checked = false;
+					}else if(checkboxes[i].checked == false){
+						checkboxes[i].checked = true;
+						
+					}
+					
+					
+					}	
+				}
+				
+
+			});
+			
+			
+			document.getElementById("uncheckall").addEventListener("click", function() {	
+
+				var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+				
+		
+				for (var i = 0; i < checkboxes.length; i++) {
+				if (checkboxes[i].type == 'checkbox'){
+			
+						
+						checkboxes[i].checked = false;
+	
+				}
+				}
+				
+
+			});
+
 function formatRupiah(angka, prefix){
 			var number_string = angka.replace(/[^,\d]/g, '').toString(),
 			split   		= number_string.split(','),
@@ -837,6 +839,7 @@ function syncMaster(){
 	});
 	
 }
+
 
 function getType(){
 	
