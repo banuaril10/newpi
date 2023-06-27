@@ -442,7 +442,8 @@ function push_stock_grab($a){
 	$curl = curl_init();
 
 	curl_setopt_array($curl, array(
-	CURLOPT_URL => 'https://pi.idolmartidolaku.com/api/action.php?modul=inventory&act=push_stock_grab',
+	// CURLOPT_URL => 'https://pi.idolmartidolaku.com/api/action.php?modul=inventory&act=push_stock_grab',
+	CURLOPT_URL => 'https://grabmart.idolmart.co.id/push_stock_grab.php',
 	CURLOPT_RETURNTRANSFER => true,
 	CURLOPT_ENCODING => '',
 	CURLOPT_MAXREDIRS => 10,
