@@ -198,7 +198,7 @@
 						
 						
 						
-						$sql_list = "select date(now()) as tgl_sekarang, a.sku, a.name ,b.rack_name, a.price from ".$table." a left join inv_mproduct b on a.sku = b.sku where a.sku != '' ";
+						$sql_list = "select date(now()) as tgl_sekarang, a.sku, a.name ,b.rack_name, a.price from ".$table." a left join inv_mproduct b on a.sku = b.sku where a.sku != '' and a.price != '1'";
 						
 						if($_GET['rak'] && !empty($_GET['rak'])){
 							
@@ -210,7 +210,7 @@
 						
 						
 						
-						$sql_list .= " order by a.name";
+						$sql_list .= " order by a.name limit 200";
 						
 						
 						
@@ -512,39 +512,60 @@ function formatRupiah(angka, prefix){
 							var sc = ' / '+res[5];
 						}
 						
-						// if(i == 0){
-							// text += "";
-						// }
 						if(x==5){
 							var x = 1;
 						}
-						
-						
+
 						var lengthh = res[1].length;
-						// var panjangharga = parseInt(res[2]);
+						var panjangharga = parseInt(res[2]);
+	
 						
-						// var br = "<br>";
-						
-						// if(panjangharga > 9999){
-							// br = "";
+						var sizeprice = "47px";
+						if(lengthh > 33){
 							
-						// }
-						
-						var sizeprice = "45px";
-						if(lengthh > 34){
-							
-							 sizeprice = "37px";
+							 sizeprice = "47px";
 						}
+						
+						if(panjangharga > 999999){
+							sizeprice = "43px";
+							
+						}
+						
+						if(res[4] != ""){
+							var rack = res[0]+"/"+res[4];
+							
+							
+						}else{
+							
+							var rack = res[0]+"/NO_RACK";
+						}
+						
+						// <br style='line-height: 70%;'>
+						
+						var newStr = rack.replace('-', '_');
+						
+						
+							text += "<td style='border: 0.5px solid #000'><div style='margin:5px 5px 0 5px; color: black; width: 177px; height: 121px; font-family: Calibri; '><div style='height:30px; text-align: left; font-size: 12px'><b>"+res[1].toUpperCase()+"</b></div><label style='margin: -10px 0 0 0; float: right; font-size: "+sizeprice+"'><label style='font-size: 10px'><b>Rp </b></label><b>"+formatRupiah(res[2], '')+"</b></label><br><label style='text-align: left; font-size: 10px; width: 100%'>"+newStr+"</label><center><hr style='border-top: solid 1px #000 !important; background-color:black; border:none; height:1px; margin:5px 0 5px 0;'><label style='text-align: center; font-size: 10px; margin-top: 10px'>"+brand+" MURAH DAN LENGKAP</label></center></div></td>";
+							
+						
+						
+							if((i+1)%4==0 && i!==0){
+							
+								text += "</tr><tr>";
+							}
+							x++;
+						
+						
+						
+						
+						
+						
 						
 						
 
-							text += "<td style='border: 0.5px solid #000;'><div style='margin:5px 5px 0 10px; color: black; width: 171px; height: 121px; font-family: Calibri'><label style='text-align: right; font-size: 10px'><b>"+res[1].toUpperCase()+"</b></label><br><label style='float: right; font-size: "+sizeprice+"'><label style='font-size: 10px'><b>Rp </b></label><b>"+formatRupiah(res[2], '')+"</b></label><br><label style='text-align: left; font-size: 10px'>"+res[0]+"/"+res[4].toUpperCase()+"</label><br><center ><hr><label style='text-align: center; font-size: 10px'>"+brand+" MURAH DAN LENGKAP</label></center></div></td>";
+							// text += "<td style='border: 0.5px solid #000;'><div style='margin:5px 5px 0 10px; color: black; width: 171px; height: 121px; font-family: Calibri'><label style='text-align: right; font-size: 10px'><b>"+res[1].toUpperCase()+"</b></label><br><label style='float: right; font-size: "+sizeprice+"'><label style='font-size: 10px'><b>Rp </b></label><b>"+formatRupiah(res[2], '')+"</b></label><br><label style='text-align: left; font-size: 10px'>"+res[0]+"/"+res[4].toUpperCase()+"</label><br><center ><hr><label style='text-align: center; font-size: 10px'>"+brand+" MURAH DAN LENGKAP</label></center></div></td>";
 						
-						if((i+1)%4==0 && i!==0){
-							
-							text += "</tr><tr>";
-						}
-						x++;
+						
 
 					}
 			
