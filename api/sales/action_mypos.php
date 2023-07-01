@@ -183,10 +183,10 @@ if($_GET['modul'] == 'sales_order'){
 			
 			if($_GET['tgl1'] && !empty($_GET['tgl1']) &&  $_GET['tgl2'] && !empty($_GET['tgl2'])){
 				
-				$query = $connec->query("select * from pos_dsales where date(insertdate) between '".$_GET['tgl1']."' and '".$_GET['tgl2']."' and status_sales = '0'");
+				$query = $connec->query("select * from pos_dsales where date(insertdate) between '".$_GET['tgl1']."' and '".$_GET['tgl2']."' and (status_sales = '0' or status_sales is null)");
 			}else{
 				
-				$query = $connec->query("select * from pos_dsales where date(insertdate) = date(now()) and status_sales = '0'");
+				$query = $connec->query("select * from pos_dsales where date(insertdate) = date(now()) and (status_sales = '0' or status_sales is null) ");
 			}
 				
 				
