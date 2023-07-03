@@ -200,7 +200,7 @@
 						
 						
 						
-						$sql_list = "select date(now()) as tgl_sekarang, a.sku, a.name ,b.rack_name, a.price from ".$table." a left join inv_mproduct b on a.sku = b.sku where a.sku != '' ";
+						$sql_list = "select date(now()) as tgl_sekarang, a.sku, a.name ,b.rack_name,a.barcode, a.price from ".$table." a left join inv_mproduct b on a.sku = b.sku where a.sku != '' ";
 						
 						if($_GET['rak'] && !empty($_GET['rak'])){
 							
@@ -230,8 +230,10 @@
 								<td><input type="checkbox" id="checkbox" name="checkbox[]" value="<?php echo $row['sku']; ?>|<?php echo $row['name']; ?>|<?php echo $row['price']; ?>|<?php echo $row['tgl_sekarang']; ?>|<?php echo $row['rack_name']; ?>|<?php echo $row['shortcut']; ?>|<?php echo $harga_last; ?>"></td>
 								<td scope="row"><?php echo $no; ?></td>
 								<td><?php echo $row['sku']; ?></td>
+								<td><?php echo $row['barcode']; ?></td>
 								<td><?php echo $row['name']; ?></td>
 								<td><?php echo $row['price']; ?></td>
+								
 								<!--<td><?php echo $harga_last; ?></td>-->
 								
 								<td><?php echo $row['rack_name']; ?></td>
