@@ -2878,6 +2878,96 @@ locator_name) VALUES (
 		echo $json_string;
 		
 		
+	}else if($_GET['act'] == 'sync_pos_awal'){
+		
+		
+		$sqll = "select storeid as ad_morg_key from m_profile";
+		$results = $connec->query($sqll);
+		foreach ($results as $r) {
+			$org_keys = $r["ad_morg_key"];	
+		}
+		
+		$hasil = get_data_stock_all($org_keys);
+		$j_hasil = json_decode($hasil, true);
+		
+		// $jum = count($hasil);
+		
+		// if($jum > 0){
+		$no = 0;	
+		$s = array();
+		foreach($j_hasil as $r) {
+			
+			
+			$stock_sales = 0;
+			$haha = 0;
+			$ceksales = $connec->query("select sku, sum(qty) as jj from pos_dsales where sku = '".$r['sku']."' and date(insertdate) = date(now()) group by sku");
+			foreach ($ceksales as $rs) {
+				
+					$stock_sales = $rs['jj'];
+			}
+			
+			
+			$totqty = $r['stockqty'] - $stock_sales;
+				
+				$s[] = "('".$r['ad_client_id']."',
+				'".$r['ad_mor_key']."',
+				'".$r['isactive']."',
+				'".$r['insertdate']."',
+				'".$r['insertby']."',
+				'".$r['m_product_id']."',
+				'".$r['m_product_category_id']."',
+				'".$r['c_uom_id']."',
+				'".$r['sku']."',
+				'".$r['barcode']."',
+				'".substr($r['namaitem'], 0, 49)."',
+				'".$r['price']."',
+				'".$r['stockqty']."',
+				'".$r['m_locator_id']."',
+				'".$r['locator_name']."')";
+
+		}
+		
+		$jum_arr = count($s);
+		
+		if($jum_arr > 0){
+			
+			$connec->query("truncate table pos_mproduct");
+			
+			$values = implode(", ",$s);
+		
+			$insert = "insert into pos_mproduct (
+			ad_mclient_key,
+			ad_morg_key,
+			isactived,
+			insertdate,
+			insertby,
+			m_product_id,
+			m_product_category_id,
+			c_uom_id,
+			sku,
+			barcode,
+			name,
+			price,
+			stockqty,
+			m_locator_id,
+			locator_name) VALUES ".$values."";
+			
+			$insert_bulk = $connec->query($insert);
+			if($insert_bulk){
+				
+				$data = array("result"=>1, "msg"=>"Berhasil sync data");
+			}else{
+				
+				$data = array("result"=>0, "msg"=>"Gagal sync data");
+				
+			}
+			
+		}
+		
+		$json_string = json_encode($data);	
+		echo $json_string;
+		// echo $sql;
+		
 	}else if($_GET['act'] == 'input_shortcut'){
 				$sku =	$_POST['sku'];
 				$shortcut =	$_POST['shortcut'];
