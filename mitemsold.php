@@ -170,6 +170,7 @@
 								<th>Barcode</th>
 								<th>Name</th>
 								<th>Price</th>
+								<th>Price Discount</th>
 								<th>Rack Name</th>
 							</tr>
 						</thead>
@@ -215,7 +216,7 @@
 						
 						$no = 1;
 						foreach ($connec->query($sql_list) as $row) {
-							$harga_last = 0;
+							$harga_last = $row['price'];
 							$cek_disc = "select afterdiscount from pos_discount where (fromdate <= '".date('Y-m-d')."' and todate >= '".date('Y-m-d')."')  and sku = '".$row['sku']."'";
 							foreach ($connec->query($cek_disc) as $row_dis) {
 								
@@ -234,7 +235,7 @@
 								<td><?php echo $row['name']; ?></td>
 								<td><?php echo $row['price']; ?></td>
 								
-								<!--<td><?php echo $harga_last; ?></td>-->
+								<td><?php echo $harga_last; ?></td>
 								
 								<td><?php echo $row['rack_name']; ?></td>
 								
@@ -501,7 +502,7 @@ function formatRupiah(angka, prefix){
 			    text += "TYPE TOKO : "+dataResult.type+"<br>";
 				text += "RACK : <?php echo $_GET['rak']; ?>";
 				text += "<table border='1'>";
-				text += "<tr><td>No</td><td>SKU</td><td>Name</td><td>Price</td><td>Rack Name</td></tr>";
+				text += "<tr><td>No</td><td>SKU</td><td>Name</td><td>Price</td><td>Price Discount</td><td>Rack Name</td></tr>";
 				// let text = "<div style='position: relative; width: 920px; height: 135px; padding-top: 25px; border: 1px solid #000;'>";
 				
 				var x = 1;
@@ -516,7 +517,7 @@ function formatRupiah(angka, prefix){
 						}
 					
 					
-						text += "<tr><td>"+x+"</td><td>"+res[0]+"</td><td>"+res[1]+"</td><td>Rp. "+formatRupiah(res[2], '')+"</td><td>"+res[4].toUpperCase()+"</td></tr>";
+						text += "<tr><td>"+x+"</td><td>"+res[0]+"</td><td>"+res[1]+"</td><td>Rp. "+formatRupiah(res[2], '')+"</td><td>Rp. "+formatRupiah(res[6], '')+"</td><td>"+res[4].toUpperCase()+"</td></tr>";
 					
 						
 
