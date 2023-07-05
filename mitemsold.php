@@ -216,7 +216,7 @@
 						
 						$no = 1;
 						foreach ($connec->query($sql_list) as $row) {
-							$harga_last = $row['price'];
+							$harga_last = '-';
 							$cek_disc = "select afterdiscount from pos_discount where (fromdate <= '".date('Y-m-d')."' and todate >= '".date('Y-m-d')."')  and sku = '".$row['sku']."'";
 							foreach ($connec->query($cek_disc) as $row_dis) {
 								
