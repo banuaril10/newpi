@@ -5079,7 +5079,7 @@ ELSE 'Belum Sesuai' END AS status from pos_mproduct");
 		}
 		
 	}else if($_GET['act'] == 'get_type'){
-		$sqll = "select ad_morg_key from ad_morg where postby = 'SYSTEM'";
+		$sqll = "select storeid as ad_morg_key from m_profile";
 		$results = $connec->query($sqll);
 		foreach ($results as $r) {
 			$org_keys = $r["ad_morg_key"];	
