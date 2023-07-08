@@ -187,7 +187,8 @@ if($_GET['modul'] == 'sales_order'){
 				$query = $connec->query("select * from pos_dsales where date(insertdate) between '".$_GET['tgl1']."' and '".$_GET['tgl2']."' and (status_sales = '0' or status_sales is null)");
 			}else{
 				
-				$query = $connec->query("select * from pos_dsales where date(insertdate) between '".$date_yd."' and '".$date_now."' and (status_sales = '0' or status_sales is null) ");
+				// $query = $connec->query("select * from pos_dsales where date(insertdate) between '".$date_yd."' and '".$date_now."' and (status_sales = '0' or status_sales is null) ");
+				$query = $connec->query("select * from pos_dsales where date(insertdate) between '".$date_now."' and '".$date_now."' and (status_sales = '0' or status_sales is null) ");
 			}
 				
 				
