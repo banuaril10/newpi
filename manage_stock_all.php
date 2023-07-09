@@ -159,36 +159,36 @@ input.addEventListener("keypress", function(event) {
   }
 });
 
-function manage_stock(org_id){
-	$("#overlay").fadeIn(300);
-	if(org_id == ''){
+// function manage_stock(org_id){
+	// $("#overlay").fadeIn(300);
+	// if(org_id == ''){
 		
-		$('#notif').html("<font style='color: red'>Session telah habis, reload dulu</font>");
-	}else{
-		$.ajax({
-		url: "api/action.php?modul=inventory&act=sync_pos_awal",
-		type: "POST",
-		data : {org_id: org_id},
-		beforeSend: function(){
-			$('#notif').html("Proses sync items..");
-		},
-		success: function(dataResult){
-			console.log(dataResult);
+		// $('#notif').html("<font style='color: red'>Session telah habis, reload dulu</font>");
+	// }else{
+		// $.ajax({
+		// url: "api/action.php?modul=inventory&act=sync_pos_awal",
+		// type: "POST",
+		// data : {org_id: org_id},
+		// beforeSend: function(){
+			// $('#notif').html("Proses sync items..");
+		// },
+		// success: function(dataResult){
+			// console.log(dataResult);
 			
 			
-			var dataResult = JSON.parse(dataResult);
+			// var dataResult = JSON.parse(dataResult);
 
-			$('#notif').html("<font style='color: green'>"+dataResult.msg+"</font>");
-			$("#overlay").fadeOut(300);
+			// $('#notif').html("<font style='color: green'>"+dataResult.msg+"</font>");
+			// $("#overlay").fadeOut(300);
 			
-		}
-		});
+		// }
+		// });
 		
-	}
+	// }
 	
 	
 	
-}
+// }
 
 
 function load_product(){
