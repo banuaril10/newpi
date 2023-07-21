@@ -30,6 +30,7 @@
 				<form action="api/action.php?modul=inventory&act=reset" method="POST">
 					<button type="submit" class="btn btn-danger" name="reset">Active Product</button>
 					<button type='button' onclick='flushMysql();' class='btn btn-warning'>Flush Host</button>
+					<button type='button' onclick='posClose();' class='btn btn-danger'>Pos Close</button>
 					<button type='button' onclick='SalesLine();' class='btn btn-primary'>Sales Line</button>
 				</form>
 				
@@ -178,6 +179,27 @@ function flushMysql(){
 		type: "GET",
 		beforeSend: function(){
 			$('#notif1').html("<font style='color: red'>Sedang melakukan flush, mohon tunggu..</font>");
+		},
+		success: function(dataResult){
+			// console.log(dataResult);
+			$('#notif1').html("<font style='color: green'>"+dataResult+"</font>");
+			runPhp();
+			// location.reload();
+			// else {
+				// $('#notif').html(dataResult.msg);
+			// }
+			
+		}
+	});
+	
+}
+
+function posClose(){
+	$.ajax({
+		url: "api/pos_close.php",
+		type: "GET",
+		beforeSend: function(){
+			$('#notif1').html("<font style='color: red'>Sedang melakukan pos close, mohon tunggu..</font>");
 		},
 		success: function(dataResult){
 			// console.log(dataResult);
