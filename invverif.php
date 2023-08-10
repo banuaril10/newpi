@@ -90,6 +90,7 @@
 					
 					<td>Warna : </td>
 					<td><select id="warna">
+						<option value="black">Hitam</option>
 						<option value="blue">Biru</option>
 						<option value="red">Merah</option>
 						<option value="green">Hijau</option>
