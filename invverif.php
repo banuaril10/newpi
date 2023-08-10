@@ -659,11 +659,11 @@ function cetakPdf(mpi, rn, dn){
 			
 				
 				
-var html = 'No Document  : '+dn+' <br>';
-   html += 'Rack         : '+rn+' <br>';
+var html = '<font style="color: blue">No Document  : '+dn+'</font> <br>';
+   html += '<font style="color: blue">Rack         : '+rn+'</font> <br>';
    
    
-html += '<table><tr><td>No</td><td>SKU</td><td>Nama</td><td>'+textbyline('Count',6,'right')+'</td><td>'+textbyline('Varian',6,'right')+'</td></tr>';
+html += '<table ><tr><td style="color: blue; border-color: blue;">No</td><td style="color: blue; border-color: blue">SKU</td><td style="color: blue; border-color: blue">Nama</td><td style="color: blue; border-color: blue">'+textbyline('Count',6,'right')+'</td><td style="color: blue; border-color: blue">'+textbyline('Varian',6,'right')+'</td></tr>';
 			
 				
 				var dataResult = JSON.parse(dataResult);
@@ -681,8 +681,8 @@ html += '<table><tr><td>No</td><td>SKU</td><td>Nama</td><td>'+textbyline('Count'
 						var barcode = data.barcode;
 							
 							html += '<tr>';
-							html += '<td>'+no+'</td><td>'+sku+'</td>';
-							html +='<td>'+textbyline(name,1,'left')+'</td><td style="text-align: center"> '+textbyline(''+qtycount+'',19-sku.length,'right')+'</td><td style="text-align: center"> '+textbyline(''+qtyvariant+'',10,'right')+'</td>';
+							html += '<td style="color: blue; border-color: blue">'+no+'</td><td style="color: blue; border-color: blue">'+sku+'</td>';
+							html +='<td style="color: blue; border-color: blue">'+textbyline(name,1,'left')+'</td><td style="text-align: center; color: blue; border-color: blue"> '+textbyline(''+qtycount+'',19-sku.length,'right')+'</td><td style="text-align: center; color: blue; border-color: blue"> '+textbyline(''+qtyvariant+'',10,'right')+'</td>';
 							// html += "\n\r";
 							// html += barcode;
 	
@@ -703,7 +703,7 @@ html += '<table><tr><td>No</td><td>SKU</td><td>Nama</td><td>'+textbyline('Count'
 
 								var mywindow = window.open('', 'my div', 'height=600,width=800');
 							/*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
-							mywindow.document.write('<style>*{font-size:20px} table, th, td {border: 1px solid black;border-collapse: collapse;}@media print{@page {size: potrait; width: 216mm;height: 280mm;}}table { page-break-inside:auto }tr{ page-break-inside:avoid; page-break-after:auto }</style>');
+							mywindow.document.write('<style>table, th, td {border: 1px solid black;border-collapse: collapse;}@media print{@page {size: potrait; width: 216mm;height: 280mm;}}table { page-break-inside:auto }tr{ page-break-inside:avoid; page-break-after:auto }</style>');
 							mywindow.document.write(html);
 
 					
