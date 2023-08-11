@@ -3629,7 +3629,7 @@ locator_name) VALUES (
              
         if(empty($_POST['search']['value']))
         {
-         $query = $connec->query("SELECT a.sku,a.name,a.price,a.shortcut, afterdiscount as price_discount, b.headername FROM 
+         $query = $connec->query("SELECT a.sku,a.name,a.price,a.barcode, afterdiscount as price_discount, b.headername FROM 
 		 pos_mproduct a left join (select * from pos_discount where todate >= '".date('Y-m-d')."') b on a.sku = b.sku
 		 
 		 order by $order $dir
@@ -3638,10 +3638,10 @@ locator_name) VALUES (
         }
         else {
             $search = $_POST['search']['value']; 
-            $query = $connec->query("SELECT a.sku,a.name,a.price,a.shortcut, afterdiscount as price_discount, b.headername FROM 
+            $query = $connec->query("SELECT a.sku,a.name,a.price,a.barcode, afterdiscount as price_discount, b.headername FROM 
 		 pos_mproduct a left join (select * from pos_discount where todate >= '".date('Y-m-d')."') b on a.sku = b.sku WHERE a.sku LIKE  '%$search%'
                                                          or a.name LIKE  '%$search%'
-                                                         or a.shortcut LIKE  '%$search%'
+                                                         or a.barcode LIKE  '%$search%'
                                                          or b.headername LIKE  '%$search%'
                                                          order by $order $dir
                                                          LIMIT $limit
@@ -3651,7 +3651,7 @@ locator_name) VALUES (
          $querycount = $connec->query("SELECT count(*) as jumlah FROM 
 		 pos_mproduct a left join (select * from pos_discount where todate >= '".date('Y-m-d')."') b on a.sku = b.sku WHERE a.sku LIKE  '%$search%'
                                                          or a.name LIKE '%$search%'
-                                                         or a.shortcut LIKE  '%$search%'
+                                                         or a.barcode LIKE  '%$search%'
 														 or b.headername LIKE  '%$search%'
 														 ");
         foreach($querycount as $rr){
@@ -3683,8 +3683,8 @@ locator_name) VALUES (
 					$fontdiskon = '';
 				}
 				
-				if($r['shortcut'] != ''){
-					$sc = '<input type="number" id="sc'.$r['sku'].'" value="'.$r['shortcut'].'">
+				if($r['barcode'] != ''){
+					$sc = '<input type="number" id="sc'.$r['sku'].'" value="'.$r['barcode'].'">
 					<script>
 					$("#sc'.$r['sku'].'").keyup(function(event) {
 						if (event.keyCode === 13) {
