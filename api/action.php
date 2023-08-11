@@ -3027,7 +3027,7 @@ locator_name) VALUES (
 		$no = 0;	
 		foreach($j_hasil as $r) {
 			
-		if($r['value'] != ''){
+		// if($r['value'] != ''){
 			
 			$sql = "update pos_mproduct set barcode='".$r['value']."', shortcut = '".$r['upc']."', name = '".$r['name']."', tag = '".$r['tag']."' where sku='".$r['sku']."'";
 			// echo $sql;
@@ -3038,7 +3038,7 @@ locator_name) VALUES (
 				
 			}
 			
-		}
+		// }
 
 		
 			
