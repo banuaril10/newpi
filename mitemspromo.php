@@ -539,12 +539,12 @@ function formatRupiah(angka, prefix){
 						}
 						
 						if(res[4] != ""){
-							var rack = res[0]+"/"+res[4]+"/"+res[7];
+							var rack = res[0]+"/"+res[4]+"/"+res[8];
 							
 							
 						}else{
 							
-							var rack = res[0]+"/NO_RACK/"+res[7];
+							var rack = res[0]+"/NO_RACK/"+res[8];
 						}
 						
 						var gope = "";
