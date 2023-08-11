@@ -225,6 +225,7 @@ $(document).ready( function () {
                   { "data": "name" },
                   { "data": "price" },
                   { "data": "rack_name" },
+                  { "data": "tag" },
               ]  
  
           });
