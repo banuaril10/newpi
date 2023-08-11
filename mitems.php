@@ -171,6 +171,7 @@
 								<th>Name</th>
 								<th>Price</th>
 								<th>Rack Name</th>
+								<th>Tag</th>
 							</tr>
 						</thead>
 						<tbody>

@@ -172,6 +172,7 @@
 								<th>Price</th>
 								<th>Price Discount</th>
 								<th>Rack Name</th>
+								<th>Tag</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -201,7 +202,7 @@
 						
 						
 						
-						$sql_list = "select date(now()) as tgl_sekarang, a.sku, a.name ,b.rack_name,a.barcode, a.price from ".$table." a left join inv_mproduct b on a.sku = b.sku where a.sku != '' ";
+						$sql_list = "select date(now()) as tgl_sekarang, a.sku, a.name ,b.rack_name,a.barcode, a.price, a.tag from ".$table." a left join inv_mproduct b on a.sku = b.sku where a.sku != '' ";
 						
 						if($_GET['rak'] && !empty($_GET['rak'])){
 							
@@ -238,6 +239,7 @@
 								<td><?php echo $harga_last; ?></td>
 								
 								<td><?php echo $row['rack_name']; ?></td>
+								<td><?php echo $row['tag']; ?></td>
 								
 							</tr>
 							
