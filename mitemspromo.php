@@ -208,7 +208,7 @@
 						
 						
 							<tr>
-								<td><input type="checkbox" id="checkbox" name="checkbox[]" value="<?php echo $row['sku']; ?>|<?php echo $row['name']; ?>|<?php echo $row['price']; ?>|<?php echo $row['tgl_sekarang']; ?>|<?php echo $row['rack_name']; ?>|<?php echo $row['shortcut']; ?>|<?php echo $harga_last; ?>|<?php echo $tgl_todate; ?>"></td>
+								<td><input type="checkbox" id="checkbox" name="checkbox[]" value="<?php echo $row['sku']; ?>|<?php echo $row['name']; ?>|<?php echo $row['price']; ?>|<?php echo $row['tgl_sekarang']; ?>|<?php echo $row['rack_name']; ?>|<?php echo $row['shortcut']; ?>|<?php echo $harga_last; ?>|<?php echo $tgl_todate; ?>|<?php echo $row['tag']; ?>"></td>
 								<td scope="row"><?php echo $no; ?></td>
 								<td><?php echo $row['sku']; ?></td>
 								<td><?php echo $row['name']; ?></td>
@@ -539,12 +539,12 @@ function formatRupiah(angka, prefix){
 						}
 						
 						if(res[4] != ""){
-							var rack = res[0]+"/"+res[4];
+							var rack = res[0]+"/"+res[4]+"/"+res[7];
 							
 							
 						}else{
 							
-							var rack = res[0]+"/NO_RACK";
+							var rack = res[0]+"/NO_RACK/"+res[7];
 						}
 						
 						var gope = "";
