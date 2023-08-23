@@ -261,7 +261,7 @@
 
 
 
-	
+	$('#butsave').on('click', function() {
 	
 		var no_hp = $('#no_hp').val();
 		var password = $('#password').val();
