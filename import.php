@@ -114,8 +114,8 @@
 					{
 						
 					
-						$sku = $getData[0];
-						
+						$sku = str_replace("'","",$getData[0]);
+
 						
 					if($sku != ""){	
 						$qty = $getData[1];
