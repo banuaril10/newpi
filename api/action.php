@@ -3518,7 +3518,7 @@ locator_name) VALUES (
 				}
 		
 		if (!$jj) {
-			$data = array("result"=>0, "msg"=>"Belum ada cash in yg di approved");
+			$data = array("result"=>0, "msg"=>"Gagal kirim ke newpos");
 			
 		}else{
 				$allarray = array("cashin"=>$jj);
