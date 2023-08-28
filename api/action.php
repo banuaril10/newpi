@@ -2157,7 +2157,7 @@ if($_GET['modul'] == 'inventory'){
 				$mpi = $item['m_product_id']; //etc
 				$mpci = $item['m_product_category_id']; //etc
 				$sku = $item['sku']; //etc
-				$n = str_replace("'", "\'", $item['name']); //etc
+				$n = str_replace("'", "", $item['name']); //etc
 				$rn = $item['rack_name']; //etc
 				// print_r($aoi);
 				
@@ -3544,6 +3544,58 @@ locator_name) VALUES (
 	}else if($_GET['act'] == 'send_newposall'){
 		$jj = array();
 		$list_line = "select * from cash_in where status = '1' and syncnewpos = '0'";
+		$no = 1;
+		foreach ($connec->query($list_line) as $row1) {	
+			$jj[] = array(
+				"cashinid"=> $row1['cashinid'],
+				"org_key"=> $row1['org_key'],
+				"userid"=> $row1['userid'],
+				"nama_insert"=> $row1['nama_insert'],
+				"cash"=> $row1['cash'],
+				"insertdate"=> $row1['insertdate'],
+				"status"=> $row1['status'],
+				"approvedby"=> $row1['approvedby'],
+				"syncnewpos"=> $row1['syncnewpos']
+			);
+		}
+		
+		if (!$jj) {
+			$data = array("result"=>0, "msg"=>"Belum ada cash in yg di approved");
+			
+		}else{
+								$allarray = array("cashin"=>$jj);
+								$items_json = json_encode($allarray);
+								$hasil = push_to_newpos($items_json);
+								// var_dump($hasil);
+								$j_hasil = json_decode($hasil, true);
+								
+								if(!empty($j_hasil)){
+									
+									foreach($j_hasil as $r) {
+											$statement1 = $connec->query("update cash_in set syncnewpos = '".$r['status']."' where cashinid = '".$r['cashinid']."'");
+											if($statement1){
+													$no = $no +1;
+											}
+									}
+									
+									$data = array("result"=>1, "msg"=>"Berhasil kirim ke newpos");
+									
+								}else{
+									
+									$data = array("result"=>0, "msg"=>"Gagal kirim ke newpos, coba lagi beberapa saat");
+									
+								}
+			
+			
+		}
+								
+		
+		
+		$json_string = json_encode($data);	
+		echo $json_string;
+	}else if($_GET['act'] == 'send_newposallall'){
+		$jj = array();
+		$list_line = "select * from cash_in where status = '1'";
 		$no = 1;
 		foreach ($connec->query($list_line) as $row1) {	
 			$jj[] = array(

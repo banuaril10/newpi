@@ -53,6 +53,7 @@
 						<a id="test" onclick="showGenerate();" class="btn btn-warning" style="display: none" href="">Download</a>
 						<button type="button" class="btn btn-primary" id="syncnewpos" onclick="syncNewpos()">Send to Newpos</button>
 						<button type="button" class="btn btn-danger" id="syncnewpos" onclick="syncNewposAll()">Send All to Newpos</button>
+						<button type="button" class="btn btn-danger" id="syncnewpos" onclick="syncNewposAllAll()">Send All Data to Newpos</button>
 						
 					<?php }else{ ?>
 						<input type="date" name="tanggal" id="tanggal" value="<?php echo date("Y-m-d"); ?>">
@@ -487,6 +488,43 @@ function syncNewpos(){
 function syncNewposAll(){
 			$.ajax({
 			url: "api/action.php?modul=inventory&act=send_newposall",
+			type: "GET",
+			beforeSend: function(){
+					$('#notif1').html("Proses input cashin..");
+					$("#overlay").fadeIn(300);　
+				},
+			success: function(dataResult){
+
+				console.log(dataResult);
+				var dataResult = JSON.parse(dataResult);
+				if(dataResult.result=='1'){
+						$('#notif1').html('<font style="color: green">'+dataResult.msg+'</font>');
+						$("#overlay").fadeOut(300);　
+						loadTable();
+						cekTotal();
+						
+					}
+					else {
+						$("#overlay").fadeOut(300);　
+						$('#notif1').html(dataResult.msg);
+						loadTable();
+						cekTotal();
+					}
+				
+				
+				
+				// console.log(dataResult);
+				
+			}
+		});
+	
+	
+	
+}
+
+function syncNewposAllAll(){
+			$.ajax({
+			url: "api/action.php?modul=inventory&act=send_newposallall",
 			type: "GET",
 			beforeSend: function(){
 					$('#notif1').html("Proses input cashin..");
