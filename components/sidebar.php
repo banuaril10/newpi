@@ -21,7 +21,7 @@
 			
 				<li class="sidebar-item">
 					<a href="cekperubahanharga.php" class='sidebar-link'>
-						<i class="bi bi-cash-stack"></i>
+						<i class="bi bi-tags-fill"></i>
 						<span>Perubahan Harga</span>
 					</a>
 				</li>
