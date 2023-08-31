@@ -239,12 +239,10 @@
 						
 						
 						
-						$cek_brand = "select * from ad_morg where postby = 'SYSTEM'";
-				
-						foreach ($connec->query($cek_brand) as $row) {
-					
-							$ad_org_id = $row['ad_morg_key'];
-					
+						$sqll = "select storeid as ad_morg_key from m_profile";
+						$results = $connec->query($sqll);
+						foreach ($results as $r) {
+							$ad_org_id = $r["ad_morg_key"];	
 						}
 						$hn = $_GET['headerpromo'];
 						
