@@ -99,39 +99,6 @@
 	
 	
 		}
-		
-		
-		if($_GET['rak'] && !empty($_GET['rak'])){
-
-				$rak = $_GET['rak'];
-				
-
-        }else{
-
-				$rak = "all";
-				
-			} 
-			
-			
-			if($_GET['stock'] && !empty($_GET['stock'])){
-			$stock = $_GET['stock'];
-			if($stock == "all"){
-				
-				$value = "Semua Stock";
-				
-			}else{
-				
-				
-				$value = "Stock > 0";
-			}
-				
-				
-
-			}else{
-
-				$stock = "all";
-				$value = "Semua Stock";
-			}
 			
 			
 			?>
@@ -143,25 +110,6 @@
  
  
 				<tr>
-					<td><select id="rak" name="rak" class="form-control text-search">
-				<option value="">Pilih Rack</option>
-					<?php 
-						$rack = "select rack_name from inv_mproduct group by rack_name order by rack_name";
-						$no = 1;
-						foreach ($connec->query($rack) as $sr) { ?>
-							<option value="<?php echo $sr['rack_name']; ?>"><?php echo $sr['rack_name']; ?></option>
-							
-						
-						<?php } ?>
-					
-				</select></td>
-				<td><select id="rak" name="stock" class="form-control text-search">
-				
-							
-							<option value="<?php echo $stock; ?>"><?php echo $value; ?></option>
-							<option value="ada">Stock > 0</option>
-							<option value="all">Semua Stock</option>
-				</select></td>
 				
 				
 				<td>
