@@ -161,6 +161,9 @@
 						<li class="submenu-item ">
 							<a href="mitemspromo.php">Harga Promo</a>
 						</li>
+						<li class="submenu-item ">
+							<a href="mitemspromo_live.php">Harga Promo Live</a>
+						</li>
 					</ul>
 				</li>
 				
@@ -229,6 +232,9 @@
 
 						<li class="submenu-item ">
 							<a href="mitemspromo.php">Harga Promo</a>
+						</li>
+						<li class="submenu-item ">
+							<a href="mitemspromo_live.php">Harga Promo Live</a>
 						</li>
 					</ul>
 				</li>
