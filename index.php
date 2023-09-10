@@ -558,7 +558,7 @@ function cekVersion(){
 			}else{
 				
 				if(dataResults.version === null){
-					var msg = "<font style='color: red'>Periksa koneksi internet</font>";
+					var msg = "<font style='color: red'>Periksa koneksi internet, jika konek periksa erp</font>";
 					
 				}else{
 					
