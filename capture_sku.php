@@ -146,7 +146,7 @@
 								
 								<form id="file-info<?php echo $row1['id']; ?>">
 								
-								<center><?php echo $img; ?></center>
+								<center><div id="file-load<?php echo $row1['id']; ?>"><?php echo $img; ?></div></center>
 								<br>
 								<br>
 								
@@ -246,7 +246,7 @@ function uploadImage(id){
 	                // alert(msg);
 					// $("#gambar<?php echo $row3['id'];?>").load(" #gambar<?php echo $row3['id'];?>");
 					$("#file-load"+id).load(" #file-load"+id);
-					$("#form-update"+id).load(" #form-update"+id);
+					// $("#form-update"+id).load(" #form-update"+id);
 	                // document.getElementById("file-info<?php echo $row3['id']; ?>").reset();
 	            },
 	            error: function () {
