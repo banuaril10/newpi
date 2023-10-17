@@ -40,6 +40,7 @@
 			<br>- jika muncul pesan "Data Barcode sudah ada ...." silahkan <button type="button" onclick="manage_stock();" class="btn btn-primary">Sync Barcode</button> terlebih dahulu
 			
 			</font>
+			<br>
 			<button type="button" onclick="sync_price_khusus();" class="btn btn-success">Sync Harga Khusus</button>
 			
 			<p id="notif" style="color: green; font-weight: bold"></p>
