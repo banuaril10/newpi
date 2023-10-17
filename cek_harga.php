@@ -40,6 +40,8 @@
 			<br>- jika muncul pesan "Data Barcode sudah ada ...." silahkan <button type="button" onclick="manage_stock();" class="btn btn-primary">Sync Barcode</button> terlebih dahulu
 			
 			</font>
+			<button type="button" onclick="sync_price_khusus();" class="btn btn-success">Sync Harga Khusus</button>
+			
 			<p id="notif" style="color: green; font-weight: bold"></p>
 			<!--<button onclick="turnOn();" class="switch">On</button>
 			<button onclick="turnOff();" class="switch1">Off</button>
@@ -83,6 +85,33 @@
 <script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
 
 <script type="text/javascript">
+function sync_price_khusus(){
+	$("#overlay").fadeIn(300);
+
+		$.ajax({
+		url: "api/action.php?modul=inventory&act=sync_price_khusus",
+		type: "POST",
+		beforeSend: function(){
+			$('#notif').html("Proses sync Barcode..");
+			
+		},
+		success: function(dataResult){
+			console.log(dataResult);
+			var dataResult = JSON.parse(dataResult);
+			location.reload();
+			$('#notif').html("<font style='color: green'>"+dataResult.msg+"</font>");
+			$("#overlay").fadeOut(300);
+			
+		}
+		});
+		
+	
+	
+	
+	
+}
+
+
 function manage_stock(){
 	$("#overlay").fadeIn(300);
 
