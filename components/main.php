@@ -6,6 +6,14 @@ if(isset($_SESSION['username']) && !empty($_SESSION['username'])) {
 	
 	header("Location: index.php");
 }
+
+$get_nama_toko = "select storeid as ad_morg_key, storename, storecode from m_profile";
+$resultss = $connec->query($get_nama_toko);
+foreach ($resultss as $r) {	
+	$storecode = $r["storecode"];	
+}
+
+
 ?>
 
 <!DOCTYPE html>

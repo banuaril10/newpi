@@ -36,10 +36,11 @@ $kode_toko = $_SESSION['kode_toko'];
 
 
 
-$get_nama_toko = "select storeid as ad_morg_key, storename from m_profile";
+$get_nama_toko = "select storeid as ad_morg_key, storename, storecode from m_profile";
 $resultss = $connec->query($get_nama_toko);
 foreach ($resultss as $r) {
 	$storename = $r["storename"];	
+	$storecode = $r["storecode"];	
 	$ad_morg_key = $r["ad_morg_key"];	
 }
 
@@ -4254,7 +4255,7 @@ locator_name) VALUES (
 					$harga_last = $row_dis['afterdiscount'];
 				}
 				
-				$date = date('dmy');
+				$date = $storecode.'/'.date('dmy');
 				$nestedData['no'] = $no;
 				$nestedData['check'] = '<input type="checkbox" id="checkbox'.$r['sku'].'" name="checkbox[]" value="'.$r['sku'].'|'.$r['name'].'|'.$r['price'].'|'.$r['tgl_sekarang'].'|'.$r['rack_name'].'|'.$r['shortcut'].'|'.$harga_last.'|'.$r['tag'].'|'.$date.'">';
 				$nestedData['sku'] = '<label for="checkbox'.$r['sku'].'">'.$r['sku'].'</label>';
