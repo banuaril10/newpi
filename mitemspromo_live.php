@@ -74,6 +74,26 @@
 				</table>
 					
 		<?php 
+		if($_GET['stock'] && !empty($_GET['stock'])){
+		$stock = $_GET['stock'];
+		if($stock == "all"){
+			
+			$value = "Semua Stock";
+			
+		}else{
+			
+			
+			$value = "Stock > 0";
+		}
+			
+			
+		
+		}else{
+		
+			$stock = "all";
+			$value = "Semua Stock";
+		}
+		
 		function get_data_pricetag($hn, $ad_org_id){
 			$postData = array(
 				"header_name" => $hn,
@@ -149,7 +169,13 @@
 						}?>
 				</select>
 				</td>
+				<td><select id="rak" name="stock" class="form-control text-search">
 				
+							
+							<option value="<?php echo $stock; ?>"><?php echo $value; ?></option>
+							<option value="ada">Stock > 0</option>
+							<option value="all">Semua Stock</option>
+				</select></td>
 				<td>
 					<button class="btn btn-success" type="submit" >Cari</button>
 					<a class="btn btn-primary" href="mitemspromo.php">Reset Filter</a>
@@ -212,9 +238,39 @@
 						$no = 1;
 						foreach ($arrs as $row) { 
 						
+							if($_GET['stock'] && !empty($_GET['stock'])){ 
+							$q_stock = 0;
+							$stock = $_GET['stock'];
+							if($stock != "all"){
+								$q_cek = "select stockqty from pos_mproduct where sku = '".$row['sku']."' ";
+								
+								foreach ($connec->query($q_cek) as $rows) {
+									$q_stock = $rows['stockqty'];
+								}
+							}
 						
 						
 						?>
+							
+							<?php if($q_stock > 0){ ?>
+							<tr>
+								<td><input type="checkbox" id="checkbox" name="checkbox[]" value="<?php echo $row['sku']; ?>|<?php echo $row['name']; ?>|<?php echo $row['normal']; ?>|<?php echo date('Y-m-d'); ?>|<?php echo $row['rack']; ?>||<?php echo $row['afterdiscount']; ?>|<?php echo $row['todate']; ?>|"></td>
+								<td scope="row"><?php echo $no; ?></td>
+								<td><?php echo $row['sku']; ?></td>
+								<td><?php echo $row['name']; ?></td>
+								<td><?php echo $row['normal']; ?></td>
+								<td><?php echo $row['afterdiscount']; ?></td>
+								<td><?php echo $row['rack']; ?></td>
+								
+							</tr>
+							
+							
+						<?php } ?>
+							
+							
+							
+							
+						<?php }else{ ?>
 							
 							<tr>
 								<td><input type="checkbox" id="checkbox" name="checkbox[]" value="<?php echo $row['sku']; ?>|<?php echo $row['name']; ?>|<?php echo $row['normal']; ?>|<?php echo date('Y-m-d'); ?>|<?php echo $row['rack']; ?>||<?php echo $row['afterdiscount']; ?>|<?php echo $row['todate']; ?>|"></td>
@@ -226,6 +282,8 @@
 								<td><?php echo $row['rack']; ?></td>
 								
 							</tr>
+							
+						<?php } ?>
 							
 							
 						<?php $no++;}
