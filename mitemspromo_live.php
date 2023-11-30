@@ -239,7 +239,7 @@
 						foreach ($arrs as $row) { 
 						
 							if($_GET['stock'] && !empty($_GET['stock'])){ 
-							$q_stock = 0;
+							$q_stock = 1;
 							$stock = $_GET['stock'];
 							if($stock != "all"){
 								$q_cek = "select stockqty from pos_mproduct where sku = '".$row['sku']."' ";
