@@ -451,9 +451,9 @@ if($_GET['modul'] == 'sales_order'){
 								
 								}	
 								$items_json = json_encode($items);
-								// $hasil = pos_dsalesheader($items_json);
+								$hasil = pos_dsalesheader($items_json);
 							
-								var_dump($items_json);
+								// var_dump($items_json);
 								$j_hasil = json_decode($hasil, true);
 							
 								$jum_sales = 0;
