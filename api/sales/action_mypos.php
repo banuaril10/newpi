@@ -448,6 +448,14 @@ if($_GET['modul'] == 'sales_order'){
 										'billcode' 	=>$r['billcode'], 
 										'point' 	=>$r['point']
 									);
+									
+									
+									
+									
+									$lastquery = "INSERT INTO pos_dbilltoday_old (pos_dbilltoday_key, isactived, insertdate, insertby, postby, postdate, ad_org_id, billno, billamount, paymentmethodname, membercard, cardno, approvecode, edcno, serialno, billstatus, paycashgiven, pos_mbank_key, pos_dcashierbalance_key, paygiven, printcount, bankname, pos_medc_key, billcode, point) VALUES ('".$r['pos_dbilltoday_key']."','".$r['isactived']."','".$r['insertdate']."','".$r['insertby']."','".$r['postby']."','".$r['postdate']."','".$r['ad_org_id']."','".$r['billno']."','".$r['billamount']."','".$r['paymentmethodname']."','".$r['membercard']."','".$r['cardno']."','".$r['approvecode']."','".$r['edcno']."','".$r['serialno']."','".$r['billstatus']."','".$r['paycashgiven']."','".$r['pos_mbank_key']."','".$r['pos_dcashierbalance_key']."','".$r['paygiven']."','".$r['printcount']."','".$r['bankname']."','".$r['pos_medc_key']."','".$r['billcode']."','".$r['point']."')";
+									
+									
+									
 								
 								}	
 								$items_json = json_encode($items);
@@ -466,7 +474,7 @@ if($_GET['modul'] == 'sales_order'){
 									}
 								}
 								
-								echo "Berhasil kirim ".$jum_sales." data";
+								echo "Berhasil kirim ".$jum_sales." data ".$lastquery;
 								
 	}else if($_GET['act'] == 'pos_dsalesline_old'){
 			$items = array();
