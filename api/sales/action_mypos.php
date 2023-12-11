@@ -451,14 +451,14 @@ if($_GET['modul'] == 'sales_order'){
 								
 								}	
 								$items_json = json_encode($items);
-								$hasil = pos_dsalesheader($items_json);
-								// var_dump($hasil);
-								// var_dump($items_json);
+								// $hasil = pos_dsalesheader($items_json);
+							
+								var_dump($items_json);
 								$j_hasil = json_decode($hasil, true);
-								// var_dump($hasil);
+							
 								$jum_sales = 0;
 								foreach($j_hasil as $r){
-									// echo $r['data'];
+								
 									$up = $connec->query("update pos_dsales set status_sales_header = '1' where billno = '".$r['data']."'");
 									if($up){
 										
