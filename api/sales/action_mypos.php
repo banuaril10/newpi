@@ -135,6 +135,31 @@ function pos_dsalesline($a){
 					
 }
 
+function pos_dsalesline_old($a){
+			
+	// $fields_string = http_build_query($a);
+	$curl = curl_init();
+
+	curl_setopt_array($curl, array(
+	CURLOPT_URL => 'https://pi.idolmartidolaku.com/api/sales_order/pos_dbilllinetoday_old.php?id=OHdkaHkyODczeWQ3ZDM2NzI4MzJoZDk3MzI4OTc5eDcyOTdyNDkycjc5N3N1MHI',
+	CURLOPT_RETURNTRANSFER => true,
+	CURLOPT_ENCODING => '',
+	CURLOPT_MAXREDIRS => 10,
+	CURLOPT_TIMEOUT => 0,
+	CURLOPT_FOLLOWLOCATION => true,
+	CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+	CURLOPT_CUSTOMREQUEST => 'POST',
+	CURLOPT_POSTFIELDS => $a,
+	));
+	
+	$response = curl_exec($curl);
+	
+	curl_close($curl);
+	return $response;
+					
+					
+}
+
 function pos_dshopsales($a){
 			
 	// $fields_string = http_build_query($a);
@@ -217,7 +242,23 @@ if($_GET['modul'] == 'sales_order'){
 			}
 				
 				
-			
+			// select 
+// upper(replace(uuid(),'-','')) as pos_dbilllinetoday_key, 
+// isactived, 
+// insertdate, 
+// insertby, 
+// 'Admin' postby, 
+// postdate, 
+// billno, 
+// seqno, 
+// sku, 
+// qty, 
+// price, 
+// discount, 
+// amount, 
+// ad_morg_key  as ad_org_id, 
+// discountname
+// from pos_dsales pd where DATE(insertdate)='2023-12-11'
 			
 			
 								foreach ($query as $r) {
@@ -419,6 +460,99 @@ if($_GET['modul'] == 'sales_order'){
 								foreach($j_hasil as $r){
 									// echo $r['data'];
 									$up = $connec->query("update pos_dsales set status_sales_header = '1' where billno = '".$r['data']."'");
+									if($up){
+										
+										$jum_sales++;
+									}
+								}
+								
+								echo "Berhasil kirim ".$jum_sales." data";
+								
+	}else if($_GET['act'] == 'pos_dsalesline_old'){
+			$items = array();
+
+			$date_now = date('Y-m-d');
+			// $date_yd = date('Y-m-d',strtotime(date('Y-m-d') . "-2 days"));
+			
+			if($_GET['tgl1'] && !empty($_GET['tgl1']) &&  $_GET['tgl2'] && !empty($_GET['tgl2'])){
+				
+				$query = $connec->query("select 
+				upper(replace(uuid(),'-','')) as pos_dbilllinetoday_key, 
+				isactived, 
+				insertdate, 
+				insertby, 
+				'Admin' postby, 
+				postdate, 
+				billno, 
+				seqno, 
+				sku, 
+				qty, 
+				price, 
+				discount, 
+				amount, 
+				ad_morg_key, 
+				discountname
+				from pos_dsales where date(insertdate) between '".$_GET['tgl1']."' and '".$_GET['tgl2']."' ");
+			}else{
+				
+				// $query = $connec->query("select * from pos_dsales where date(insertdate) between '".$date_yd."' and '".$date_now."' and (status_sales = '0' or status_sales is null) ");
+				$query = $connec->query("select 
+				upper(replace(uuid(),'-','')) as pos_dbilllinetoday_key, 
+				isactived, 
+				insertdate, 
+				insertby, 
+				'Admin' postby, 
+				postdate, 
+				billno, 
+				seqno, 
+				sku, 
+				qty, 
+				price, 
+				discount, 
+				amount, 
+				ad_morg_key, 
+				discountname
+				from pos_dsales where date(insertdate) between '".$date_now."' and '".$date_now."' and (status_sales_line = '0' or status_sales_line is null) ");
+			}
+				
+				
+
+			
+			
+								foreach ($query as $r) {
+									$items[] = array(
+										'pos_dsalesline_key'	=>$r['pos_dbilllinetoday_key'], 
+										'ad_mclient_key' 		=>$r['ad_mclient_key'], 
+										'ad_morg_key' 	=>$r['ad_morg_key'], 
+										'isactived' 	=>$r['isactived'], 
+										'insertdate' 	=>$r['insertdate'], 
+										'insertby' 		=>$r['insertby'], 
+										'postby' 		=>$r['postby'], 
+										'postdate' 		=>$r['postdate'], 
+										'pos_dsales_key' 	=>"", 
+										'billno' 	=>$r['billno'], 
+										'seqno' 	=>$r['seqno'], 
+										'sku' 	=>$r['sku'], 
+										'qty' 	=>$r['qty'], 
+										'price' 	=>$r['price'], 
+										'discount' 	=>$r['discount'], 
+										'amount' 	=>$r['amount'], 
+										'issync' 	=>"", 
+										'discountname' 	=>$r['discountname'], 
+										'buy' 	=>'0', 
+									);
+								
+								}	
+								$items_json = json_encode($items);
+								$hasil = pos_dsalesline_old($items_json);
+								// var_dump($hasil);
+								// var_dump($items_json);
+								$j_hasil = json_decode($hasil, true);
+								// var_dump($hasil);
+								$jum_sales = 0;
+								foreach($j_hasil as $r){
+									// echo $r['data'];
+									$up = $connec->query("update pos_dsales set status_sales_line = '1' where billno = '".$r['billno']."' and seqno = '".$r['seqno']."' and insertby = '".$r['insertby']."' ");
 									if($up){
 										
 										$jum_sales++;
