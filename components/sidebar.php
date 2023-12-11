@@ -150,6 +150,9 @@
 						<li class="submenu-item ">
 							<a href="sync_sales.php">Sync Sales Line</a>
 						</li>
+						<li class="submenu-item ">
+							<a href="sync_sales_today.php">Sync Sales Today</a>
+						</li>
 					</ul>
 				</li>
 				
