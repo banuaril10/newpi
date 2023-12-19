@@ -289,7 +289,8 @@
 </div>
 </div>
 
-<script src="styles/js/price-promo-tingkat.js"></script>
+<!--<script src="styles/js/price-promo-tingkat.js"></script>-->
+<script src="https://pi.idolmartidolaku.com/api/js/price-promo-tingkat.js"></script>
 <script type="text/javascript">
 $(document).ready( function () {
     $('#example').DataTable({
