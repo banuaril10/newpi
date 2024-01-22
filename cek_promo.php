@@ -23,7 +23,7 @@
 	<div class="col-12">
 		<div class="card">
 			<div class="card-header">
-				<h4>CEK PROMO</h4>
+				<h4>CEK PROMO REGULER</h4>
 			</div>
 			
 			
@@ -45,7 +45,7 @@
 				
 				<!--<input type="text" id="search" class="form-control" id="exampleInputName2" placeholder="Search">-->
 				
-			<table class="table table-striped table-bordered table-sm" style="width:100%">
+			<table class="table table-striped table-bordered table-sm server" style="width:100%">
             <thead>
               <tr>
                <!-- <th scope="col">No</th>-->
@@ -76,12 +76,79 @@
 	</div>
 </div>
 </div>
+
+
+
+
+
+<div class="row">
+	<div class="col-12">
+		<div class="card">
+			<div class="card-header">
+				<h4>CEK PROMO CODE</h4>
+			</div>
+			
+			 
+			
+			<div class="card-body">
+		
+			
+			<div class="tables">	
+			<p id="notif" style="color: red; font-weight: bold"></p>
+			<!--<button onclick="turnOn();" class="switch">On</button>
+			<button onclick="turnOff();" class="switch1">Off</button>
+			
+			
+			<div id="qr-reader" style="width: 100%"></div>-->
+			
+				<div class="table-responsive bs-example widget-shadow">	
+				
+				
+				<!--<input type="text" id="search" class="form-control" id="exampleInputName2" placeholder="Search">-->
+				
+			<table class="table table-striped table-bordered table-sm server1" style="width:100%">
+            <thead>
+              <tr>
+               <!-- <th scope="col">No</th>-->
+                <th scope="col">Postdate</th>
+                
+                <th scope="col">SKU</th>
+                <th scope="col">Harga Reguler</th>
+                <th scope="col">Diskon</th>
+                <th scope="col">Harga Akhir</th>
+                <th scope="col">Nama Items</th>
+				<th scope="col">Nama Promo</th>
+                <th scope="col">Tgl Mulai</th>
+                <th scope="col">Tgl Berakhir</th>
+                <!--<th scope="col">Harga</th>
+                <th scope="col">Harga Diskon</th>-->
+              </tr>
+            </thead>
+            <tbody>
+              <!-- List Data Menggunakan DataTable -->             
+            </tbody>
+          </table>
+					
+					
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+
+
+
+
+
 </div>
 <script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
 <script type="text/javascript">
   $(function(){
  
-           $('.table').DataTable({
+           $('.server').DataTable({
               "processing": true,
               "serverSide": true,
               "ajax":{
@@ -105,8 +172,39 @@
               ]  
  
           });
+		  
+		  
+		$('.server1').DataTable({
+              "processing": true,
+              "serverSide": true,
+              "ajax":{
+                       "url": "api/action.php?modul=inventory&act=api_datatable_promo_code",
+                       "dataType": "json",
+                       "type": "POST"
+                     },
+              "columns": [
+                  // { "data": "no" },
+                  { "data": "postdate" },
+                  { "data": "sku" },
+				  { "data": "hargareguler" },
+                  { "data": "potongan" },
+				  { "data": "afterdiscount" },
+                  { "data": "name" },
+				  { "data": "discountname" },
+                  { "data": "fromdate" },
+                  { "data": "todate" },
+                  // { "data": "price" },
+                  // { "data": "price_discount" },
+              ]  
+ 
+          });  
+		  
+		  
+		  
         });
 		
+		
+
 		
 function syncPromo(){
 	$("#overlay").fadeIn(300);
@@ -121,17 +219,35 @@ function syncPromo(){
 		success: function(dataResult){
 			console.log(dataResult);
 			var dataResult = JSON.parse(dataResult);
-			location.reload();
+			// location.reload();
+			syncPromoCode();
+			
 			$('#notif').html("<font style='color: green'>"+dataResult.msg+"</font>");
 			$("#overlay").fadeOut(300);
 			
 		}
 		});
-		
-	
-	
-	
-	
+}
+
+
+function syncPromoCode(){
+	$("#overlay").fadeIn(300);
+
+		$.ajax({
+		url: "api/action.php?modul=inventory&act=sync_promo_code",
+		type: "POST",
+		beforeSend: function(){
+			$('#notif').html("Proses sync Promo code..");
+			
+		},
+		success: function(dataResult){
+			var dataResult = JSON.parse(dataResult);
+			// location.reload();
+			$('#notif').html("<font style='color: green'>"+dataResult.msg+"</font>");
+			$("#overlay").fadeOut(300);
+			
+		}
+		});
 }
 // function onScanSuccess(decodedText, decodedResult) {
     // console.log(`Code scanned = ${decodedText}`, decodedResult);

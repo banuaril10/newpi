@@ -142,6 +142,28 @@ function get_data_promo($org){
 	
 }
 
+function get_data_promo_code($org){
+	
+	$curl = curl_init();
+
+	curl_setopt_array($curl, array(
+	CURLOPT_URL => "https://pi.idolmartidolaku.com/api/action.php?modul=inventory&act=sync_promo_code&org_id=".$org,
+	CURLOPT_RETURNTRANSFER => true,
+	CURLOPT_ENCODING => '',
+	CURLOPT_MAXREDIRS => 10,
+	CURLOPT_TIMEOUT => 0,
+	CURLOPT_FOLLOWLOCATION => true,
+	CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+	CURLOPT_CUSTOMREQUEST => 'GET',
+	));
+	
+	$response = curl_exec($curl);
+	
+	curl_close($curl);
+	return $response;
+	
+	
+}
 
 function get_data_cat($ss, $pc, $org_key, $kode_toko){
 	
@@ -2341,6 +2363,89 @@ if($_GET['modul'] == 'inventory'){
 	echo $json_string;	
 				
 
+	}else if($_GET['act'] == 'sync_promo_code'){
+		
+		$sqll = "select storeid as ad_morg_key from m_profile";
+		$results = $connec->query($sqll);
+		foreach ($results as $r) {
+			$org_keys = $r["ad_morg_key"];	
+		}
+		
+		
+		$jsons = get_data_promo_code($org_keys);
+		$arr = json_decode($jsons, true);
+		$jum = count($arr);
+		$s = array();
+		if($jum > 0){
+		$truncate = $connec->query("TRUNCATE TABLE pos_discountcode");
+		if($truncate){
+			
+		
+			// echo $jum;
+			$no = 0;
+			
+			foreach($arr as $item) { //foreach element in $arr
+				$amk = $item['ad_morg_key']; //etc
+				$isactived = $item['isactived']; //etc
+				$insertdate = $item['insertdate']; //etc
+				$insertby = $item['insertby']; //etc
+				$discountname = str_replace("'", "\'", $item['discountname']); //etc
+				$discounttype = $item['discounttype']; //etc
+				$sku = $item['sku']; //etc
+				$discount = $item['discount']; //etc
+				$fromdate = $item['fromdate']; //etc
+				$todate = $item['todate']; //etc
+				$typepromo = $item['typepromo']; //etc
+				$maxqty = $item['maxqty']; //etc
+				$afterdiscount = $item['afterdiscount']; //etc
+				$ad_mclient_key = $item['ad_mclient_key']; //etc
+				$prioritas = $item['prioritas']; //etc
+				$berlaku = $item['berlaku']; //etc
+					
+					 
+				$s[] = "('".guid()."', '".$amk."', '".$discountname."', '".$insertdate."', '".$insertby."', '".$sku."', '".$afterdiscount."', 
+				'".$afterdiscount."', '".$maxqty."', '".$fromdate."', '".$todate."', '".$prioritas."', '".$typepromo."')";	 
+					 					
+			}
+			
+			$jum_s = count($s);
+			
+			if($jum_s > 0){
+				$values = implode(", ",$s);
+
+				$suc = $connec->query("insert into pos_discountcode (pos_discountcode_key, ad_org_id, headername, insertdate, insertby, sku, price, afterdiscount, maxqty, fromdate, todate, prioritas, berlaku) 
+						VALUES ".$values.";");
+				
+				
+				if($suc){
+					
+					$json = array('result'=>'1', 'msg'=>'Berhasil sync');
+					$json_string = json_encode($json);	
+					
+				}else{
+					
+					$json = array('result'=>'1', 'msg'=>'Gagal sync, coba lagi nanti');
+					$json_string = json_encode($json);	
+				}
+				
+			}else{
+				$json = array('result'=>'1', 'msg'=>'Gagal sync, data blm ditemukan');
+				$json_string = json_encode($json);	
+				
+			}
+		}	
+			
+	}else{
+		
+				$json = array('result'=>'1', 'msg'=>'Gagal sync, data blm ditemukan');
+				$json_string = json_encode($json);	
+		
+	}
+		
+
+	echo $json_string;	
+				
+
 	}else if($_GET['act'] == 'sync_cat'){
 		$truncate = $connec->query("TRUNCATE TABLE inv_mproductcategory");
 		if($truncate){
@@ -2767,7 +2872,7 @@ VALUES('".$item['ad_client_id']."', '".$item['ad_org_id']."', '1', '".date('Y-m-
 				
 			if($haha > 0){
 				
-				$upcount = $connec->query("update pos_mproduct set stockqty='".$totqty."' where sku='".$r['sku']."'");
+				$upcount = $connec->query("update pos_mproduct set stockqty='".$totqty."', price = '".$r['price']."' where sku='".$r['sku']."'");
 			}else{
 				
 				$sql = "insert into pos_mproduct (
@@ -4105,6 +4210,129 @@ locator_name) VALUES (
                     "data"            => $data  
                     );
          // var_dump($data);    
+        echo json_encode($json_data); 
+		
+		
+		
+	
+	}else if($_GET['act'] == 'api_datatable_promo_code'){
+		
+
+		 $columns = array( 
+                               0 =>'postdate', 
+                               1 =>'discountname',
+                               2=> 'discounttype',
+                               3=> 'sku',
+                               4=> 'nama',
+                               5=> 'price',
+                               6=> 'price_discount',
+                               7=> 'price_after_discount',
+                               8=> 'fromdate',
+                               9=> 'todate',
+                           );
+
+
+      $querycount =  $connec->query("SELECT count(*) as jumlah FROM pos_discountcode");
+    
+		foreach($querycount as $r){
+			$datacount = $r['jumlah'];
+			
+		}
+   
+        $totalData = $datacount;
+             
+        $totalFiltered = $totalData; 
+ 
+        $limit = $_POST['length'];
+        $start = $_POST['start'];
+        $order = $columns[$_POST['order']['0']['column']];
+        $dir = $_POST['order']['0']['dir'];
+             
+        if(empty($_POST['search']['value']))
+        {
+         $query = $connec->query("select a.*, b.name, b.price as normal from pos_discountcode a left join pos_mproduct b on a.sku = b.sku order by $order $dir
+                                                      LIMIT $limit
+                                                      OFFSET $start");
+        }
+        else {
+            $search = $_POST['search']['value']; 
+            $query = $connec->query("select a.*, b.name, b.price as normal from pos_discountcode a left join pos_mproduct b on a.sku = b.sku WHERE a.sku ILIKE  '%$search%'
+                                                         or a.headername ILIKE  '%$search%'
+                                                         or b.name ILIKE  '%$search%'
+                                                         order by $order $dir
+                                                         LIMIT $limit
+                                                         OFFSET $start");
+ 
+ 
+         $querycount = $connec->query("select count(*) as jumlah from pos_discountcode a left join pos_mproduct b on a.sku = b.sku WHERE a.sku ILIKE  '%$search%' or b.name ILIKE  '%$search%'
+                                                         or a.headername ILIKE  '%$search%'");
+        foreach($querycount as $rr){
+			$datacount = $rr['jumlah'];
+			
+		}
+           $totalFiltered = $datacount;
+        }
+ 
+        $data = array();
+        if(!empty($query))
+        {
+            $no = $start + 1;
+			foreach($query as $r){
+				
+				
+				 // SELECT pos_discountcode_key, ad_org_id, headername, insertdate, insertby, sku, price, afterdiscount, maxqty, fromdate, todate, prioritas, berlaku
+// FROM poserp.pos_discountcode;
+				
+				
+				if($r['headername'] != ''){
+					$discname = '<font style="color: blue; font-weight: bold">'.$r['headername'].'</font>';
+					
+				}else{
+					
+					$discname = '';
+				}
+				
+				// $pd = $r['price'] - $r['discount'];
+				$pd = $r['afterdiscount'];
+				$potongan = $r['normal'] - $r['afterdiscount'];
+				if($r['normal'] != $pd){
+					
+					$fontdiskon = '<br> <font style="color: red; font-weight: bold">Setelah Diskon : '.rupiah($pd).'</font>';
+				}else{
+					
+					$fontdiskon = '';
+				}
+				
+
+				
+				$nestedData['no'] = $no;
+				$nestedData['postdate'] = $r['postdate'];
+				// $nestedData['discounttype'] = $r['discounttype'];
+                $nestedData['sku'] = '<font style="font-weight: bold">'.$r['sku'].'</font>';
+                $nestedData['name'] = $r['name'];
+                $nestedData['hargareguler'] = '<font style="color: blue;font-weight: bold">Rp. '.rupiah($r['normal']).'</font>';
+                $nestedData['potongan'] = '<font style="color: red;font-weight: bold">Rp. '.rupiah($potongan).'</font>';
+                $nestedData['afterdiscount'] = '<font style="color: green;font-weight: bold">Rp. '.rupiah($pd).'</font>';
+                $nestedData['discountname'] = $discname;
+                $nestedData['fromdate'] = $r['fromdate'];
+                $nestedData['todate'] = $r['todate'];
+                $nestedData['price'] = rupiah($r['normal']);
+                $nestedData['price_discount'] = rupiah($pd);
+                $data[] = $nestedData;
+                $no++;
+				
+			}
+			
+
+        }
+           
+        $json_data = array(
+                    "draw"            => intval($_POST['draw']),  
+                    "recordsTotal"    => intval($totalData),  
+                    "recordsFiltered" => intval($totalFiltered), 
+                    "data"            => $data  
+                    );
+             
         echo json_encode($json_data); 
 		
 		

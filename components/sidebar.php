@@ -27,6 +27,13 @@
 				</li>
 			
 				<li class="sidebar-item">
+					<a href="capture_jsm.php" class='sidebar-link'>
+						<i class="bi bi-camera"></i>
+						<span>Capture Price Tag JSM</span>
+					</a>
+				</li>
+			
+				<li class="sidebar-item">
 					<a href="cekperubahanharga.php" class='sidebar-link'>
 						<i class="bi bi-tags-fill"></i>
 						<span>Perubahan Harga</span>
