@@ -2987,7 +2987,7 @@ locator_name) VALUES (
 				
 				
 				
-				$sql = "update pos_mproduct set stockqty='".$totqty."' where sku='".$r['sku']."'";
+				$sql = "update pos_mproduct set stockqty='".$totqty."', price='".$r['price']."' where sku='".$r['sku']."'";
 				
 				$upcount = $connec->query($sql);
 				
